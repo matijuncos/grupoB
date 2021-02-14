@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+// Schema base de usuarios, tanto modelo provider como consumer populan con este modelo
 
 const userBaseSchema = new mongoose.Schema({
     firstName: String,
