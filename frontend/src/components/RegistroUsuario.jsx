@@ -29,17 +29,12 @@ import GoogleLogin from 'react-google-login'
       
     }
 
-
 //Respuesta de Google
     const responseGoogle = async (response) => {
     console.log(response)
     
     }
 
-    
-    
-    
-    
     return (
        <form>
 

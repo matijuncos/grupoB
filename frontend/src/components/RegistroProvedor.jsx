@@ -25,6 +25,7 @@ import GoogleLogin from 'react-google-login'
        
         alert ('Me hiciste Click')
         e.preventDefault() 
+
         
         //Conexion a redux para enviar el objeto a endpoint y guardarlo con el {completo}
     }
@@ -34,9 +35,6 @@ import GoogleLogin from 'react-google-login'
     const responseGoogle = async (response) => {
         console.log(response)
     }
-    
-    
-    
     
     return (
        <form>
@@ -79,7 +77,6 @@ import GoogleLogin from 'react-google-login'
                 />
             </div>
 
-            
 
         </form>
     )
