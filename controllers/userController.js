@@ -1,6 +1,7 @@
 const UserBase = require('../models/UserBase')
 const UserProvider = require('../models/UserProvider')
 const UserConsumer = require('../models/UserConsumer')
+const userBase = require('../models/UserBase')
 
 const userController = {
    addUserProvider: async (req, res) =>{
@@ -57,6 +58,22 @@ const userController = {
             return res.json({success:false})
          }
          
+   },
+   login: async (req,res) => {
+      const {firstName, password} = req.body
+      const userRegister = await userBase.findOne({firstName:firstName}) // verifica que el usuario exista, 
+      if (!userRegister) {
+          return res.json ({success: false, message: "The username and / or password does not exist"})
+      }
+
+      const matcheoPass = bcryptjs.compareSync(password, userRegister.password) // verifica si el usuario registrado coincide con el password
+      //veo si la password conincide, aplico método compareSync a bcryptjs,  dos param para comparar (el pass legible que envía el user y el pass hasheado)
+      if(!matcheoPass){
+          return res.json({success:false, message: " Password does not match"})
+      }
+      var token = jwt.sign({...userRegistrado},process.env.KEY_SECRET,{})
+      return res.json({success: true, response:{token,firstName:userRegister.firstName, picture:userRegister.urlPic}})
+      // respondo al frontEnd con un objeto que tiene el token, nombre de usuario y foto
    }
 }
 
