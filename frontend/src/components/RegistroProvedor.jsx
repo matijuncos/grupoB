@@ -25,7 +25,7 @@ import axios from 'axios'
         e.preventDefault() 
         //Conexion a redux para enviar el objeto a endpoint y guardarlo con el {completo}
         const respuesta = await axios.post('http://localhost:4000/api/user/provider', nuevoProvedor)
-        
+        console.log(respuesta.data)
     }
 //Respuesta de Google
     const responseGoogle = async (response) => {
@@ -35,12 +35,13 @@ import axios from 'axios'
        <div className="registro">
            <h2>Registro Proveedor</h2>
             <div className="formulario">
-                <div ><input name = 'Nombre' type='text' placeholder= 'Nombre' onChange ={leerInput}/></div>
-                <div><input  name = 'Apellido' type='' placeholder= 'Apellido' onChange ={leerInput}/></div>
-                <div><input name = 'Email' type='text' placeholder= 'Email' onChange ={leerInput}/></div>
-                <div><input name = 'Telefono' type='text' placeholder= 'Telefono' onChange ={leerInput}/></div>
+                <div ><input name = 'firstName' type='text' placeholder= 'Nombre' onChange ={leerInput}/></div>
+                <div><input  name = 'lastName' type='' placeholder= 'Apellido' onChange ={leerInput}/></div>
+                <div><input name = 'email' type='text' placeholder= 'Email' onChange ={leerInput}/></div>
+                <div><input name = 'phone' type='text' placeholder= 'Telefono' onChange ={leerInput}/></div>
                 <div>
-                    <select name = 'Rubro'  onChange = {leerInput}>
+                    {/* idProfession TEMPORAL */}
+                    <select name = 'idProfession'  onChange = {leerInput}>
                         <option disabled>Seleccione su Rubro</option>
                         <option >ALBAÑIL</option>
                         <option >PINTOR</option>
@@ -48,7 +49,7 @@ import axios from 'axios'
                     </select>
                 </div>
                 <div>
-                    <input name = 'Password' type='password' placeholder= 'Contraseña' onChange ={leerInput}/>
+                    <input name = 'password' type='password' placeholder= 'Contraseña' onChange ={leerInput}/>
                 </div>
                 <div>
                     <button className="enviar" onClick = {validarUsuario}>Enviar Registro</button>
