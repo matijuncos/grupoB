@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+require('../config/passport')
+const passport = require('passport')
 
 const userController = require('../controllers/userController.js')
 const articleController = require('../controllers/articleController')
@@ -14,4 +16,6 @@ router.route('/article')
 .get(articleController.getArticles)
 .post(articleController.addArticle)
 
+router.route('/user/storage')
+.post(passport.authenticate('jwt', {session:false}), userController.preserveLog)
 module.exports = router
