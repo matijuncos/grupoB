@@ -21,6 +21,8 @@ import GoogleLogin from 'react-google-login'
         alert ('Me hiciste Click')
         e.preventDefault() 
        //Conexion a redux para enviar el objeto a endpoint y guardarlo con el {completo}
+       const respuesta = await axios.post('http://localhost:4000/api/user/customer', nuevoUsuario)
+       console.log(respuesta.data)
     }
 //Respuesta de Google
     const responseGoogle = async (response) => {

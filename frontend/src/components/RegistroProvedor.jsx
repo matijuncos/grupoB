@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from 'react'
 import GoogleLogin from 'react-google-login'
-
+import axios from 'axios'
 
  function RegistroProvedor() {
     const [nuevoProvedor , setNuevoProvedor]  = useState({})
@@ -14,13 +14,18 @@ import GoogleLogin from 'react-google-login'
             ...nuevoProvedor ,
             [campo] : valor
         })
+
+        
+
     }
 //Funcion para enviar formulario 
     console.log(nuevoProvedor)
-      const validarUsuario  = async e =>{
+    const validarUsuario  = async e =>{
         alert ('Me hiciste Click')
         e.preventDefault() 
         //Conexion a redux para enviar el objeto a endpoint y guardarlo con el {completo}
+        const respuesta = await axios.post('http://localhost:4000/api/user/provider', nuevoProvedor)
+        
     }
 //Respuesta de Google
     const responseGoogle = async (response) => {
@@ -41,7 +46,6 @@ import GoogleLogin from 'react-google-login'
                         <option >PINTOR</option>
                         <option >CARPINTERO</option>
                     </select>
-
                 </div>
                 <div>
                     <input name = 'Password' type='password' placeholder= 'Contraseña' onChange ={leerInput}/>
