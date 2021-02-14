@@ -14,7 +14,6 @@ const userController = {
       var newUserBase = await userBase.save()
       try{
          var idUserBase = newUserBase
-         console.log(idUserBase)
          var userProvider = new UserProvider({
             idUserBase, website, valoration, review, rol, idProfession
          })
