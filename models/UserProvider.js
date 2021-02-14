@@ -14,8 +14,6 @@ const userProviderSchema = new mongoose.Schema({
     review: [reviewSchema],
     rol: String,
     // idProfession: {type: mongoose.Schema.ObjectId, ref: "heading"}, // popula model rubro
-
-
 }) 
 
 // el schema userProvider popula con el modelo rubro para consumir las profesiones dentro del mismo. 
