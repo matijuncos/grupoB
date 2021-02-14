@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState} from 'react'
 import GoogleLogin from 'react-google-login'
+import axios from 'axios'
 
 
  function RegistroUsuario() {
@@ -21,6 +22,8 @@ import GoogleLogin from 'react-google-login'
         alert ('Me hiciste Click')
         e.preventDefault() 
        //Conexion a redux para enviar el objeto a endpoint y guardarlo con el {completo}
+       const respuesta = await axios.post('http://localhost:4000/api/user/customer', nuevoUsuario)
+       console.log(respuesta.data)
     }
 //Respuesta de Google
     const responseGoogle = async (response) => {
@@ -31,15 +34,15 @@ import GoogleLogin from 'react-google-login'
        <div className="registro">
            <h2>Registro Usuario</h2>
             <div className="formulario">
-                <div><input name = 'Nombre' type='text' placeholder= 'Nombre' onChange ={leerInput}/>
+                <div><input name = 'firstName' type='text' placeholder= 'Nombre' onChange ={leerInput}/>
                 </div>
-                <div><input  name = 'Apellido' type='' placeholder= 'Apellido' onChange ={leerInput}/>
+                <div><input  name = 'lastName' type='' placeholder= 'Apellido' onChange ={leerInput}/>
                 </div>
-                <div><input name = 'Email' type='text' placeholder= 'Email' onChange ={leerInput}/>
+                <div><input name = 'email' type='text' placeholder= 'Email' onChange ={leerInput}/>
                 </div>
-                <div><input name = 'Telefono' type='text' placeholder= 'Telefono' onChange ={leerInput}/>
+                <div><input name = 'phone' type='text' placeholder= 'Telefono' onChange ={leerInput}/>
                 </div>
-                <div><input name = 'Password' type='password' placeholder= 'Contraseña' onChange ={leerInput}/>
+                <div><input name = 'password' type='password' placeholder= 'Contraseña' onChange ={leerInput}/>
                 </div>
                 <div ><button className="enviar" onClick = {validarUsuario}>Enviar Registro</button>
                 </div>

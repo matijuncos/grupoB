@@ -8,7 +8,6 @@ const userBaseSchema = new mongoose.Schema({
     phone: String,
     password: String,
     country: String,
-
 }) 
 
 const userBase = mongoose.model("userBase", userBaseSchema) 

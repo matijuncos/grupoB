@@ -11,8 +11,6 @@ const userProviderSchema = new mongoose.Schema({
     review: [reviewSchema],
     rol: String,
     // idProfession: {type: mongoose.Schema.ObjectId, ref: "heading"}, // popula model rubro
-
-
 }) 
 
 const userProvider = mongoose.model("userProvider",userProviderSchema) 
