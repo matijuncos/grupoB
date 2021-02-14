@@ -6,7 +6,7 @@ import LandingPage from './components/LandingPage';
 import Footer from './components/Footer';
 import RegistroUsuario from './components/RegistroUsuario'
 import RegistroProvedor from './components/RegistroProvedor'
-import './style.css'
+
 
 
 const App = () => {
