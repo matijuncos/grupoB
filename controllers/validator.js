@@ -24,7 +24,7 @@ const validator = {
     }
 }
     
-
+// no está implementado aún, falta resolver renderizado de errores en front
 
 }
 module.exports = validator
