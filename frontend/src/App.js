@@ -6,7 +6,8 @@ import LandingPage from './components/LandingPage';
 import Footer from './components/Footer';
 import RegistroUsuario from './components/RegistroUsuario'
 import RegistroProvedor from './components/RegistroProvedor'
-import './style.css'
+import SignIn from './components/SignIn'
+import Profesional from './components/Profesional'
 
 
 const App = () => {
@@ -18,13 +19,13 @@ const App = () => {
         <Route exact path='/' component={LandingPage}/>
         <Route path='/registerService' component={RegistroProvedor}/>
         <Route path='/registerUSer' component={RegistroUsuario}/>
-        <Route path='/signIn'/>
+        <Route path='/signIn' component={SignIn}/>
+        <Route path='/profesional' component={Profesional} />
+        
       </Switch>
       </BrowserRouter>
       <Footer/>
     </>
-
- 
   )
 }
 

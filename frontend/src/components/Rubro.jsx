@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Rubro = ({ rubro }) => {
   return (
 
-    <Link className="rubro" to='/'>
+    <Link className="rubro" to='/profesional'>
       < BsTools className="toolIcon" />
       <small>{rubro.rubro}</small>
     </Link>

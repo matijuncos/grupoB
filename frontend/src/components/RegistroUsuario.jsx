@@ -39,6 +39,7 @@ import GoogleLogin from 'react-google-login'
                 </div>
                 <div><input name = 'Telefono' type='text' placeholder= 'Telefono' onChange ={leerInput}/>
                 </div>
+                <div><input name = 'urlPic' type='text' placeholder= 'Url de foto de perfil' onChange ={leerInput}/></div>
                 <div><input name = 'Password' type='password' placeholder= 'Contraseña' onChange ={leerInput}/>
                 </div>
                 <div ><button className="enviar" onClick = {validarUsuario}>Enviar Registro</button>
