@@ -60,17 +60,18 @@ body{
   width: 4vw;
   min-width: 4rem;
 }
-.registerBtn{
+.registerBtn, .enviar{
   font-size: 1.2rem;
   padding: 1vh 2vh;
   background-color: rgb(55, 185, 241);
   color: whitesmoke;
   border: none;
-  border-radius: 20px;
+  border-radius: 14px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.555);
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.301);
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  outline: none;
   transition: all ease 0.2s;
 }
 .registerBtn:hover{
@@ -86,13 +87,10 @@ body{
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width: 80%;
+  width: 100%;
   margin: 3vw auto 5vw auto;
   padding: 3vh;
-  border-radius: 12px;
   box-shadow: 6px 6px 36px rgba(0, 0, 0, 0.582);
-
-  
 }
 .container .img{
   background-image: url('./assets/blob.svg');
@@ -130,8 +128,6 @@ body{
   border-radius: 6px;
   transition: all ease .3s;
 }
-
-
 .step:hover{
   transform: scale(1.1);
 }
@@ -150,6 +146,7 @@ body{
   justify-content: center;
   flex-wrap: wrap;
   margin: 2vh auto;
+  width: 50%;
 }
 .rubro{
   display: flex;
@@ -159,7 +156,7 @@ body{
   padding: 1vh;
   transition: all ease .3s;
   box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.582);
-  background-color: rgb(79, 111, 124);
+  background-color: rgb(65, 28, 58);
   border-radius: 4px;
   text-decoration: none;
   color:rgb(255, 255, 255);
@@ -179,13 +176,12 @@ body{
 .howItWorks h3{
   margin-bottom: 4vh;
 }
-
 .card{
-  border: solid 1px black;
+  border-radius: 6px;
   width: 20vw;
   min-width: 280px;
   height: 40vh;
-  margin: 1vh;
+  margin: 2vh;
   box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.582);
   transition: all ease 0.3s;
 }
@@ -196,6 +192,7 @@ body{
   width: 100%;
   height: 55%;
   background-size: cover;
+  border-radius: 6px 6px;
 }
 .cardBottom{
   background-color: white;
@@ -205,6 +202,7 @@ body{
   justify-content: center;
   flex-direction: column;
   padding: 10px;
+  border-radius: 0 0 6px 6px;
 }
 .cardContainer{
   width: 80%;
@@ -222,47 +220,48 @@ body{
   background-color: #48acc6;
 }
 .registro h2{
-  color: white;
+  color: rgb(39, 25, 25);
 }
 .formulario {
   display: flex;
-  width: 70vw;
-  padding: 4vh 0;
+  width: 40%;
+  padding: 4vh ;
   align-items: center;
   flex-direction: column;
   background: rgba(255, 248, 248, 0.649);
-  box-shadow: 0 10px 16px rgba(0, 0, 0, 0.555);
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.555);
   border-radius: 10px;
   margin-bottom: 3vh;
 }
+
+.formulario h2{
+  margin-bottom: 1vw ;
+}
+.inputDiv{
+  width: 100%;
+  position: relative;
+}
 .formulario input,select{
-  display: flex;
   border: none;
   outline: none;
-  width: 50vw;
-  padding: 2vh;
-  border-radius: 50px;
+  width: 100%;
+  padding: 1.5vh 2vh ;
+  border-radius: 8px;
   margin-bottom: 3vh;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.356);
+
 }
 
 .enviar {
-  background-color: #36beee;
-  color: white;
-  width: 20vw;
-  padding:2vh;
-  border-radius: 50px;
+  width: 15vw;
   margin-bottom: 3vh;
-  outline: none;
-  border: none;
   transition: all 0.2s;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.555);
 }
 .enviar:hover{
-  background-color: #2d9ec7;
+  transform: scale(1.02);
 }
 .enviar:active{
   border: none;
   transform: translateY(7px);
   box-shadow: 0px 0px rgba(0, 0, 0, 0.555);
 }
-

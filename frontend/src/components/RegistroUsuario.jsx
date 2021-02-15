@@ -28,21 +28,21 @@ function RegistroUsuario({ signUp }) {
     }
     return (
         <div className="registro">
-            <h2>Registro Usuario</h2>
             <div className="formulario">
-                <div><input name='firstName' type='text' placeholder='Nombre' onChange={leerInput} />
+                <h2>¡Ingresá tus datos!</h2>
+                <div className="inputDiv"><input name='firstName' type='text' placeholder='Nombre' onChange={leerInput} />
                 </div>
-                <div><input name='lastName' type='' placeholder='Apellido' onChange={leerInput} />
+                <div className="inputDiv"><input name='lastName' type='' placeholder='Apellido' onChange={leerInput} />
                 </div>
-                <div><input name='email' type='text' placeholder='Email' onChange={leerInput} />
+                <div className="inputDiv"><input name='email' type='text' placeholder='Email' onChange={leerInput} />
                 </div>
-                <div><input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
+                <div className="inputDiv"><input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
                 </div>
-                <div><input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
+                <div className="inputDiv"><input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>
-                <div ><button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
+                <div className=""><button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
                 </div>
-                <div>
+                <div className="">
                     <GoogleLogin className="google"
                         clientId="56670268622-ujtfv11jtt2esb9qe4cgo4drut70tgu4.apps.googleusercontent.com"
                         buttonText="Crear cuenta con Google"
