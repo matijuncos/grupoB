@@ -10,8 +10,8 @@ const articleController = require('../controllers/articleController')
 router.route('/user/provider')
 .post(userController.addUserProvider)
 // Ruta para crear usuario que solicita servicios
-router.route("/user/login")
-.post(userController.login)
+router.route('/user/signIn')
+.post(userController.signIn)
 //Ruta user registrado
 router.route('/user/customer')
 .post(userController.addUserCustomer)

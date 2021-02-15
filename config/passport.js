@@ -1,7 +1,7 @@
 const passport = require('passport')
 const jwStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
-const User = require('../models/UserConsumer') //por algun motivo no me funciona con el modelo UserBase
+const User = require('../models/UserBase') //por algun motivo no me funciona con el modelo UserBase
 
 module.exports = passport.use(new jwStrategy({    //tengo que hacer una estrategia, la exporto. 
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),        //sacame el token de la caebcera de la peticion

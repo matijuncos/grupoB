@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 
 
-function RegistroUsuario({ signUp }) {
+function RegistroUsuario({ signUp,loggedUser }) {
     const [nuevoUsuario, setNuevoUsuario] = useState({})
     // Funcion para ler input
     const leerInput = e => {
@@ -26,6 +26,7 @@ function RegistroUsuario({ signUp }) {
         console.log(response)
 
     }
+    console.log(loggedUser)
     return (
         <div className="registro">
             <div className="formulario">

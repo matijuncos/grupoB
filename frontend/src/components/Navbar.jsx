@@ -13,7 +13,6 @@ const Navbar = ({ loggedUser, signOut }) => {
     signOut()
     localStorage.clear()
   }
-
   return (
     <nav>
       <div className="navBar">
@@ -35,14 +34,14 @@ const Navbar = ({ loggedUser, signOut }) => {
               <NavLink to="/signIn" className="navBarLinks">
                 Iniciar sesión
             </NavLink>
+            <div className="userPic" style={{ backgroundImage: `url(${userPic})` }}></div>
             </>
           ) : (
+            <>
               <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
-
+              <div className="userPic" style={{ backgroundImage: `url(${loggedUser.urlPic})` }}></div>
+            </>
             )}
-          <div className="userPic" style={{ backgroundImage: `url(${userPic})` }}>
-
-          </div>
         </div>
       </div>
     </nav>

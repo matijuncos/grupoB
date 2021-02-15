@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 const userActions = {
-
    signUp: (newUser) =>{
     return async (dispatch, getState) =>{
       console.log('llegue a la action')
       try{
         const response = await axios.post('http://localhost:4000/api/user/customer', newUser)
+        console.log(response)
         if(!response.data.success){
           return response.data
         }
@@ -55,7 +55,7 @@ const userActions = {
       try{
         const response = await axios.post('http://localhost:4000/api/user/storage', {token}, {
           headers:{
-            Authorization: 'Bearer ' + token
+            Authorization:`Bearer ${token}`
           }
         })
          dispatch({
@@ -65,16 +65,24 @@ const userActions = {
         
       }
       catch(error){
+        console.log("1")
         console.log(error)
     //     if(error.response.status === 401){
     //       localStorage.clear()
     //   return false
     // }
-}
+      }
     }
-  
+  },
+  signIn: (user) => {
+      return async (dispatch, getState) => {
+          const respuesta = await axios.post('http://localhost:4000/api/user/signIn', user)
+          if (!respuesta.data.success) {
+              return respuesta.data
+          }
+          dispatch({type:'USER_LOG', payload: respuesta.data})
+      }
   }
-
 }
 
 export default userActions
