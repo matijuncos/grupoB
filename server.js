@@ -4,7 +4,6 @@ const cors = require('cors')
 const router = require('./routes')
 const app = express()
 
-
 require('./config/database')
 
 app.use(cors())
