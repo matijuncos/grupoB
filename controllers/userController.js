@@ -31,10 +31,10 @@ const userController = {
                success:true, 
                response:
                {token,
-                firstName:  userBase.firstName,
+                firstName: userBase.firstName,
                 urlPic: userBase.urlPic,
                 email: userBase.email,
-                _id:userRegister._id
+                _id:idUserBase._id
                }})
          })
          .catch(error => {return res.json({success:false, error})})
@@ -44,8 +44,10 @@ const userController = {
       }      
    },
    addUserCustomer: async (req, res) =>{
-      console.log(req)
       const {firstName, lastName, urlPic, email, phone, password, country} = req.body
+      const emailExists = await UserBase.findOne({email: email})
+      if (emailExists){ res.json({success: false, message: "Este correo ya esta siendo usado."})}
+      else{
       const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
          firstName, lastName, urlPic, email, phone, password:hashedPassword, country
@@ -69,7 +71,7 @@ const userController = {
                   firstName: userBase.firstName,
                   urlPic: userBase.urlPic,
                   email: userBase.email,
-                  _id:userRegister._id
+                  _id: newUserBase._id
                }})
          })
          .catch(error => {
@@ -77,7 +79,7 @@ const userController = {
       }
       catch{
          return res.json({success:false})
-      }
+      }}
    },
    signIn: async (req,res) => {
       // desestructuro del front la req 
@@ -97,6 +99,7 @@ const userController = {
    },
    preserveLog:  (req, res) =>{
       const {firstName,urlPic,_id} = req.user
+      console.log(req.user)
       res.json({
          success: true, 
          response: {

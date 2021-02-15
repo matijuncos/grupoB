@@ -6,9 +6,11 @@ const userActions = {
       console.log('llegue a la action')
       try{
         const response = await axios.post('http://localhost:4000/api/user/customer', newUser)
-        if(!response.data.success){
-          var errors=[{}]
-          response.data.errores.details.map(error=>{
+        console.log(response)
+        if(response.data.success===false){
+          var errors=[]
+          console.log(response.data)
+          response.data.errores && response.data.errores.details.map(error=>{
             switch (error.path[0]) {
               case 'firtsName':
                 errors.push({label:error.context.label,message:"El nombre debe tener minimo 2 caracteres."})
@@ -23,7 +25,7 @@ const userActions = {
                 errors.push({label:error.context.label,message:"El correo tiene que contener un arroba y un dominio como minimo."})
                 break;
               case 'phone':
-                errors.push({label:error.context.label,message:"El telefono debe tener al menos 12 caracteres, sin 0 al principio y ningún caracter especial."})
+                errors.push({label:error.context.label,message:"El telefono debe tener al menos 10 caracteres, sin 0 al principio y ningún caracter especial."})
                 break;
               case 'password':
                 errors.push({label:error.context.label,message:"La contraseña debe tener al menos 6 a 8 caracteres y una mayuscula y una minuscula."})
@@ -33,7 +35,6 @@ const userActions = {
                 break;
             }
           })
-          return ({success:false,response:errors})
         }
         dispatch({
           type: "USER_LOG",
