@@ -9,10 +9,7 @@ import RegistroProvedor from './components/RegistroProvedor'
 import { connect } from 'react-redux';
 import userActions from './Redux/actions/userActions';
 
-
-
 const App = (props) => {
-  const[refresh, setRefresh] = useState(true)
 if(props.loggedUser){
   var links =
   <>
