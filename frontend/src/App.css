@@ -46,6 +46,7 @@ body{
 .userPic{
   width: 5vh;
   height: 5vh;
+  border-radius: 100%;
   display: inline-block;
   background-size: cover;
   background-position: center;
@@ -174,6 +175,7 @@ body{
 }
 .footerIcon{
   margin: 15px;
+  cursor: pointer;
 }
 
 .container{

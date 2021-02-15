@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import GoogleLogin from 'react-google-login'
 import userActions from '../Redux/actions/userActions'
 
-const SignIn = ({ history, signIn }) => {
+const SignIn = (props) => {
+    const { history, signIn, loggedUser } = props
     const [user, setUser] = useState({})
+    useEffect(() => {
+        if (loggedUser !== null)
+            setTimeout(() => {
+                history.push('/')
+            }, 3000)
+    }, [loggedUser])
+
     const readInput = e => {
         const value = e.target.value
         const property = e.target.name
@@ -22,14 +30,14 @@ const SignIn = ({ history, signIn }) => {
     }
     const Validate = async e => {
         e.preventDefault()
-        if (user.email === '' || user.password === '') {
+        if (!user.email || !user.password) {
             alert('todos los campos son requeridos')
         } else {
-            signIn(user)
-            alert('Bienvenido')
-            setTimeout(() => {
-                history.push('/')
-            }, 2000)
+            const response = await signIn(user)
+            if (loggedUser !== null)
+                setTimeout(() => {
+                    props.history.push('/')
+                }, 3000)
         }
     }
     const responseGoogle = async (response) => {
@@ -57,7 +65,12 @@ const SignIn = ({ history, signIn }) => {
         </div>
     )
 }
+const mapStateToProps = state => {
+    return {
+        loggedUser: state.userR.loggedUser
+    }
+}
 const mapDispatchToProps = {
     signIn: userActions.signIn
 }
-export default connect(null, mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

@@ -1,31 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import GoogleLogin from 'react-google-login'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 
-const data = {
-    rubros: ["Albañil", "Pintor", "Electricista", "Tecnico de Aire Acondicionado", "Plomero", "Gasista", "Herrero", "Techista", "Mudanzas", "Fumigador", "Tapicero", "Cerrajero"]
-}
 
 function RegistroProvedor(props) {
-    const [nuevoProvedor, setNuevoProvedor] = useState({})
+    const [newProfessional, setNewProfessional] = useState({})
+    const [professions, setProfessions] = useState([])
     // Funcion para ler input
-    const leerInput = e => {
-        const campo = e.target.name
-        const valor = e.target.value
 
-        setNuevoProvedor({
-            ...nuevoProvedor,
-            [campo]: valor
+    console.log(professions)
+    useEffect(() => {
+        fetch('http://localhost:4000/api/professions/')
+            .then(response => response.json())
+            .then(data => setProfessions(data.response))
+    }, [])
+
+    const readInput = e => {
+        const property = e.target.name
+        const value = e.target.value
+
+        setNewProfessional({
+            ...newProfessional,
+            [property]: value
         })
-
-
-
     }
     //Funcion para enviar formulario 
     const validarUsuario = async () => {
-        const res = await props.signProviderUp(nuevoProvedor)
+        const res = await props.signProviderUp(newProfessional)
     }
     //Respuesta de Google
     const responseGoogle = async (response) => {
@@ -36,28 +38,28 @@ function RegistroProvedor(props) {
             <div className="formulario">
                 <h2>Registro Proveedor</h2>
                 <div className="inputDiv">
-                    <input name='firstName' type='text' placeholder='Nombre' onChange={leerInput} />
+                    <input name='firstName' type='text' placeholder='Nombre' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='lastName' type='' placeholder='Apellido' onChange={leerInput} />
+                    <input name='lastName' type='' placeholder='Apellido' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='email' type='text' placeholder='Email' onChange={leerInput} />
+                    <input name='email' type='text' placeholder='Email' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
+                    <input name='phone' type='text' placeholder='Telefono' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} />
+                    <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <select name='Rubro' onChange={leerInput}>
-                        <option disabled>Seleccione su Rubro</option>
+                    <select name='idProfession' onChange={readInput}>
+                        <option value=''>Seleccione su Rubro</option>
 
-                        {data.rubros.map((profesion, index) => {
+                        {professions.map(profession => {
                             return (
                                 <>
-                                    <option key={index}>{profesion}</option>
+                                    <option key={profession._id} value={profession._id}>{profession.type}</option>
                                 </>
                             )
                         })}
@@ -65,7 +67,7 @@ function RegistroProvedor(props) {
 
                 </div>
                 <div className="inputDiv">
-                    <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
+                    <input name='password' type='password' placeholder='Contraseña' onChange={readInput} />
                 </div>
                 <div className="">
                     <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>

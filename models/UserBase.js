@@ -6,7 +6,7 @@ const userBaseSchema = new mongoose.Schema({
     lastName: {type:String,required:true},
     urlPic: {type:String,required:false,default:'../assets/user.svg'},
     email: {type:String,required:true},
-    phone: {type:String,required:true},
+    phone: {type:String,required:false},
     password: {type:String,required:true},
     country: {type:String,required:false}
 }) 

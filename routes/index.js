@@ -14,7 +14,12 @@ router.route('/user/signIn')
 .post(userController.signIn)
 //Ruta user registrado
 router.route('/user/customer')
+.get(userController.getCustomers)
 .post(validator.validNewUser, userController.addUserCustomer)
+
+router.route('/user/providers')
+.get(userController.getProviders)
+
 // Ruta para cargar y obtener artículos
 router.route('/article')
 .get(articleController.getArticles)

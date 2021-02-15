@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 
 const professionSchema = new mongoose.Schema({
     type: {type: String, required:true},
+    urlPic: {type: String, required:true},
     descriptions:[String]
   }) 
 
