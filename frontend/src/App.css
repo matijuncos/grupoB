@@ -16,6 +16,7 @@ body{
   background-size: cover;
   /* background-position-x: center; */
   background-attachment: fixed;
+  min-height: 100vh;
 }
 .navBar{
   display: flex;
@@ -213,6 +214,7 @@ body{
   justify-content: center;
   margin: 0 auto;
 }
+/* ###################################### REGISTRO Y LOGIN ########################### */
 .registro{
   display: flex;
   align-items: center;
@@ -264,4 +266,51 @@ body{
   border: none;
   transform: translateY(7px);
   box-shadow: 0px 0px rgba(0, 0, 0, 0.555);
+}
+
+/* ###################################### CARD DE PROFESIONALES ########################### */
+
+.profesional{
+  width: 70vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.prof{
+  margin-top: 5vh;
+  background: rgba(255, 248, 248, 0.649);
+  border-radius: 10px;
+  margin-bottom: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  transition: all ease 0.3s;
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.582);
+}
+.prof:hover{
+  transform: scale(1.05);
+}
+.user{
+  margin:5vh;
+  display: flex;
+  flex-direction: column;
+}
+.user h2{
+  margin-top: 3vh;
+}
+.fotoUser{
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+
+}
+.info{
+  width: 40vw;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }

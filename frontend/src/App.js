@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 import './App.css';
-import React, {useState} from 'react'
-import Navbar from './components/Navbar';
-=======
-import './App.css'
 import React from 'react'
-import Navbar from './components/Navbar'
->>>>>>> 1439189c65607831df2db6bb61a98fefa80f4857
+import Navbar from './components/Navbar';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import LandingPage from './components/LandingPage'
-import Footer from './components/Footer'
+import LandingPage from './components/LandingPage';
+import Footer from './components/Footer';
 import RegistroUsuario from './components/RegistroUsuario'
 import RegistroProvedor from './components/RegistroProvedor'
 import { connect } from 'react-redux';

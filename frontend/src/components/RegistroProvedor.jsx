@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 import { connect } from 'react-redux'
@@ -36,6 +35,21 @@ function RegistroProvedor(props) {
         <div className="registro">
             <h2>Registro Proveedor</h2>
             <div className="formulario">
+                <div >
+                    <input name='Nombre' type='text' placeholder='Nombre' onChange={leerInput} />
+                </div>
+                <div>
+                    <input name='Apellido' type='' placeholder='Apellido' onChange={leerInput} />
+                </div>
+                <div>
+                    <input name='Email' type='text' placeholder='Email' onChange={leerInput} />
+                </div>
+                <div>
+                    <input name='Telefono' type='text' placeholder='Telefono' onChange={leerInput} />
+                </div>
+                <div>
+                    <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} />
+                </div>
                 <div>
                     <input name='Nombre' type='text' placeholder='Nombre' onChange={leerInput} />
                 </div>
