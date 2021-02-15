@@ -33,36 +33,36 @@ function RegistroProvedor(props) {
     }
     return (
         <div className="registro">
-            <h2>Registro Proveedor</h2>
             <div className="formulario">
-                <div >
+                <h2>Registro Proveedor</h2>
+                <div className="inputDiv">
                     <input name='Nombre' type='text' placeholder='Nombre' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='Apellido' type='' placeholder='Apellido' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='Email' type='text' placeholder='Email' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='Telefono' type='text' placeholder='Telefono' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='Nombre' type='text' placeholder='Nombre' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='Apellido' type='' placeholder='Apellido' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='Email' type='text' placeholder='Email' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='Telefono' type='text' placeholder='Telefono' onChange={leerInput} />
                 </div>
-                <div>
+                <div className="inputDiv">
                     <select name='Rubro' onChange={leerInput}>
                         <option disabled>Seleccione su Rubro</option>
 
@@ -76,7 +76,7 @@ function RegistroProvedor(props) {
                     </select>
 
                 </div>
-                <div>
+                <div className="inputDiv">
                     <input name='Password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>
                 <div className="">

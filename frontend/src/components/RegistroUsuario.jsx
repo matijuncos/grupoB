@@ -30,18 +30,25 @@ function RegistroUsuario({ signUp }) {
         <div className="registro">
             <div className="formulario">
                 <h2>¡Ingresá tus datos!</h2>
-                <div className="inputDiv"><input name='firstName' type='text' placeholder='Nombre' onChange={leerInput} />
+                <div className="inputDiv">
+                    <input name='firstName' type='text' placeholder='Nombre' onChange={leerInput} />
                 </div>
-                <div className="inputDiv"><input name='lastName' type='' placeholder='Apellido' onChange={leerInput} />
+                <div className="inputDiv">
+                    <input name='lastName' type='' placeholder='Apellido' onChange={leerInput} />
                 </div>
-                <div className="inputDiv"><input name='email' type='text' placeholder='Email' onChange={leerInput} />
+                <div className="inputDiv">
+                    <input name='email' type='text' placeholder='Email' onChange={leerInput} />
                 </div>
-                <div className="inputDiv"><input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
+                <div className="inputDiv">
+                    <input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
                 </div>
-                <div><input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} /></div>
-                <div><input name='Password' type='password' placeholder='Contraseña' onChange={leerInput} />
+                <div className="inputDiv">
+                    <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} /></div>
+                <div className="inputDiv">
+                    <input name='Password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>
-                <div className=""><button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
+                <div className="">
+                    <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
                 </div>
                 <div>
                     <GoogleLogin className="google"

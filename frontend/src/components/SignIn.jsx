@@ -1,40 +1,44 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login'
 
-const SignIn =(props) =>{
+const SignIn = (props) => {
     const [loguear, setLoguear] = useState({
-        Email:'',Password:''
+        Email: '', Password: ''
     }
     )
-    const leerInput = e =>{
+    const leerInput = e => {
         const valor = e.target.value
         const campo = e.target.name
         setLoguear({
             ...loguear,
-            [campo]:valor
+            [campo]: valor
         })
     }
     console.log(loguear)
-    const validar = async e =>{
+    const validar = async e => {
         e.preventDefault()
-        if(loguear.Email ==='' || loguear.Password===''){
+        if (loguear.Email === '' || loguear.Password === '') {
             alert('todos los campos son requeridos')
-        }else{
+        } else {
             alert('Bienvenido')
-            setTimeout(()=>{    
+            setTimeout(() => {
                 props.history.push('/')
-            },2000)
+            }, 2000)
         }
     }
     const responseGoogle = async (response) => {
-        
-        }
-    return(
+
+    }
+    return (
         <div className="registro">
-            <h2>Iniciar Sesión</h2>
             <div className="formulario">
-                <input type="text" autoComplete="nope" name="Email" placeholder="Email" onChange={leerInput}/>
-                <input type="password" name="Password" placeholder="Contraseña" onChange={leerInput}/>
+                <h2>Iniciar Sesión</h2>
+                <div className="inputDiv">
+                    <input type="text" autoComplete="nope" name="Email" placeholder="Email" onChange={leerInput} />
+                </div>
+                <div className="inputDiv">
+                    <input type="password" name="Password" placeholder="Contraseña" onChange={leerInput} />
+                </div>
                 <button className="enviar" onClick={validar}>Ingresar</button>
                 <GoogleLogin
                     clientId="1033031988698-pivaiq2e71rsq2njp75tfdd952jgl950.apps.googleusercontent.com"
@@ -42,7 +46,7 @@ const SignIn =(props) =>{
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
-            />
+                />
             </div>
         </div>
     )
