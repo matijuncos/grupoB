@@ -12,9 +12,8 @@ const userController = {
          firstName, lastName, urlPic, email, phone, password, country
       })
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos      
+      const newUserBase = await userBase.save()
       try{
-         const newUserBase = await userBase.save()
-
          const idUserBase = newUserBase
          const userProvider = new UserProvider({
             idUserBase, website, valoration, review, rol, idProfession
