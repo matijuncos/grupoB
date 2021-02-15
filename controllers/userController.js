@@ -20,7 +20,7 @@ const userController = {
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase
          const userProvider = new UserProvider({
-            idUserBase, website, valoration, review, rol, idProfession
+            _id:idUserBase, website, valoration, review, rol, idProfession
          })
          userProvider.save()
          .then(async newUserProvider =>{
@@ -57,7 +57,7 @@ const userController = {
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase._id
          const userConsumer = new UserConsumer({
-            idUserBase
+            _id:idUserBase
          })
          userConsumer.save()
          .then(async newUserConsumer =>{
@@ -84,22 +84,21 @@ const userController = {
    signIn: async (req,res) => {
       // desestructuro del front la req 
       const {email, password} = req.body
-      const userRegister = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
-      if (!userRegister) {
+      const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
+      if (!userExist) {
           return res.json ({success: false, message: "El usuario y/o la contraseña no existe/n"})
       }
-      const matcheoPass = bcryptjs.compareSync(password, userRegister.password) // verifica si el usuario registrado coincide con el password
+      const matcheoPass = bcryptjs.compareSync(password, userExist.password) // verifica si el usuario registrado coincide con el password
       //veo si la password conincide, aplico método compareSync a bcryptjs,  dos param para comparar (el pass legible que envía el user y el pass hasheado)
       if(!matcheoPass){
           return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
       }
-      var token = jwtoken.sign({...userRegister},process.env.SECRET_KEY,{})
-      return res.json({success: true, response:{token,firstName:userRegister.firstName, urlPic:userRegister.urlPic, email:userRegister.email,_id:userRegister._id}})
+      var token = jwtoken.sign({...userExist},process.env.SECRET_KEY,{})
+      return res.json({success: true, response:{token,firstName:userExist.firstName, urlPic:userExist.urlPic, email:userExist.email,_id:userExist._id}})
       // respondo al frontEnd con un objeto que tiene el token, nombre de usuario y foto
    },
    preserveLog:  (req, res) =>{
       const {firstName,urlPic,_id} = req.user
-      console.log(req.user)
       res.json({
          success: true, 
          response: {
