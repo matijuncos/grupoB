@@ -51,7 +51,7 @@ function RegistroProvedor(props) {
                     <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} />
                 </div>
                 <div className="inputDiv">
-                    <select name='Rubro' onChange={leerInput}>
+                    <select name='rubro' onChange={leerInput}>
                         <option disabled>Seleccione su Rubro</option>
 
                         {data.rubros.map((profesion, index) => {
@@ -65,7 +65,7 @@ function RegistroProvedor(props) {
 
                 </div>
                 <div className="inputDiv">
-                    <input name='Password' type='password' placeholder='Contraseña' onChange={leerInput} />
+                    <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>
                 <div className="">
                     <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
