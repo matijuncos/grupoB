@@ -5,8 +5,6 @@ import Logo from '../assets/logo.png'
 import userPic from '../assets/user.svg'
 import userActions from '../Redux/actions/userActions'
 
-
-
 const Navbar = ({ loggedUser, signOut }) => {
 
   const logOut = () => {

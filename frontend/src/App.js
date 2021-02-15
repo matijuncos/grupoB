@@ -17,6 +17,7 @@ if(props.loggedUser){
   <>
     <Switch>
       <Route exact path='/' component={LandingPage}/>
+        <Route patch='/profesional' component = {Profesional}/>
       <Redirect to ="/"/>
     </Switch>
   </>
@@ -43,8 +44,6 @@ props.preserveLog(localStorage.getItem('token'))
       </BrowserRouter>
       <Footer/>
     </>
-
- 
   )
 }
 const mapStateToProps = state => {

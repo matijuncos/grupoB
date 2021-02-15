@@ -19,14 +19,14 @@ function RegistroUsuario({ signUp,loggedUser }) {
     //Funcion para enviar formulario 
     const validarUsuario = async () => {
         const res = await signUp(nuevoUsuario)
+        //mostrar al usuario sí el objeto con la propiedad success es true o false
+        //el objeto respuesta va a llegar como un array de strings
         console.log(res)
     }
     //Respuesta de Google
     const responseGoogle = async (response) => {
-        console.log(response)
 
     }
-    console.log(loggedUser)
     return (
         <div className="registro">
             <div className="formulario">
