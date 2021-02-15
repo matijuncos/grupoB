@@ -36,31 +36,19 @@ function RegistroProvedor(props) {
             <div className="formulario">
                 <h2>Registro Proveedor</h2>
                 <div className="inputDiv">
-                    <input name='Nombre' type='text' placeholder='Nombre' onChange={leerInput} />
+                    <input name='firstName' type='text' placeholder='Nombre' onChange={leerInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='Apellido' type='' placeholder='Apellido' onChange={leerInput} />
+                    <input name='lastName' type='' placeholder='Apellido' onChange={leerInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='Email' type='text' placeholder='Email' onChange={leerInput} />
+                    <input name='email' type='text' placeholder='Email' onChange={leerInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='Telefono' type='text' placeholder='Telefono' onChange={leerInput} />
+                    <input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
                 </div>
                 <div className="inputDiv">
                     <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} />
-                </div>
-                <div className="inputDiv">
-                    <input name='Nombre' type='text' placeholder='Nombre' onChange={leerInput} />
-                </div>
-                <div className="inputDiv">
-                    <input name='Apellido' type='' placeholder='Apellido' onChange={leerInput} />
-                </div>
-                <div className="inputDiv">
-                    <input name='Email' type='text' placeholder='Email' onChange={leerInput} />
-                </div>
-                <div className="inputDiv">
-                    <input name='Telefono' type='text' placeholder='Telefono' onChange={leerInput} />
                 </div>
                 <div className="inputDiv">
                     <select name='Rubro' onChange={leerInput}>

@@ -6,6 +6,7 @@ import LandingPage from './components/LandingPage';
 import Footer from './components/Footer';
 import RegistroUsuario from './components/RegistroUsuario'
 import RegistroProvedor from './components/RegistroProvedor'
+import Profesional from './components/Profesional'
 import signIn from './components/SignIn'
 import { connect } from 'react-redux';
 import userActions from './Redux/actions/userActions';
@@ -28,6 +29,7 @@ props.preserveLog(localStorage.getItem('token'))
         <Route path='/registerService' component={RegistroProvedor}/>
         <Route path='/registerUSer' component={RegistroUsuario}/>
         <Route path='/signIn'component={signIn}/>
+        <Route patch='/profesional' component = {Profesional}/>
       </Switch>
   </>
 }

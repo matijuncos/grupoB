@@ -10,6 +10,7 @@ const userActions = {
         if(!response.data.success){
           return response.data
         }
+        console.log(newUser)
         dispatch({
           type: "USER_LOG",
           payload: response.data
@@ -57,7 +58,6 @@ const userActions = {
             Authorization: 'Bearer ' + token
           }
         })
-        console.log(response)
          dispatch({
            type: "USER_LOG",
            payload: {response: {...response.data.response}}
