@@ -3,7 +3,7 @@ import plumber from '../assets/tools.png'
 import Articles from './Articles'
 import Rubro from './Rubro'
 
-const rubros = [{ rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }]
+const rubros = [{ rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }]
 const LandingPage = () => {
   return (
     <div className="landingPage">
@@ -32,7 +32,7 @@ const LandingPage = () => {
       <div className="howItWorks">
         <h2>Tenemos muchos prestadores de diversos rubros registrados</h2>
         <h3>Lo podés contratar al alcance de un click!</h3>
-        <div className="rubros container">
+        <div className="rubros">
           {rubros.map(rubro => <Rubro rubro={rubro} />)}
         </div>
       </div>

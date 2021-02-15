@@ -1,9 +1,19 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { NavLink, Link } from 'react-router-dom'
 import Logo from '../assets/logo.png'
 import userPic from '../assets/user.svg'
+import userActions from '../Redux/actions/userActions'
 
-const Navbar = () => {
+
+
+const Navbar = ({ loggedUser, signOut }) => {
+
+  const logOut = () => {
+    signOut()
+    localStorage.clear()
+  }
+
   return (
     <nav>
       <div className="navBar">
@@ -17,12 +27,19 @@ const Navbar = () => {
           <NavLink exact to="/" className="navBarLinks">
             Inicio
         </NavLink>
-          <NavLink to="/registerUSer" className="navBarLinks">
-            Registrate
-        </NavLink>
-          <NavLink to="/signIn" className="navBarLinks">
-            Iniciar sesión
-        </NavLink>
+          {!loggedUser ? (
+            <>
+              <NavLink to="/registerUSer" className="navBarLinks">
+                Registrate
+            </NavLink>
+              <NavLink to="/signIn" className="navBarLinks">
+                Iniciar sesión
+            </NavLink>
+            </>
+          ) : (
+              <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
+
+            )}
           <div className="userPic" style={{ backgroundImage: `url(${userPic})` }}>
 
           </div>
@@ -32,4 +49,13 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+const mapStateToProps = state => {
+  return {
+    loggedUser: state.userR.loggedUser
+  }
+}
+
+const mapDispatchToProps = {
+  signOut: userActions.signOut
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
