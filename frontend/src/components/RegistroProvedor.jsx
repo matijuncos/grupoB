@@ -5,6 +5,10 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 
+const data = {
+    rubros: ["Albañil", "Pintor", "Electricista", "Tecnico de Aire Acondicionado", "Plomero", "Gasista", "Herrero", "Techista", "Mudanzas", "Fumigador", "Tapicero", "Cerrajero"]
+}
+
 function RegistroProvedor(props) {
     const [nuevoProvedor, setNuevoProvedor] = useState({})
     // Funcion para ler input
@@ -30,30 +34,43 @@ function RegistroProvedor(props) {
     }
     return (
         <div className="registro">
+            <h2>Registro Proveedor</h2>
             <div className="formulario">
-                <h2>Registro Proveedor</h2>
-                <div className="inputDiv"><input name='firstName' type='text' placeholder='Nombre' onChange={leerInput} /></div>
-                <div className="inputDiv"><input name='lastName' type='' placeholder='Apellido' onChange={leerInput} /></div>
-                <div className="inputDiv"><input name='email' type='text' placeholder='Email' onChange={leerInput} /></div>
-                <div className="inputDiv"><input name='phone' type='text' placeholder='Telefono' onChange={leerInput} /></div>
-                <div className="inputDiv">
-                    {/* idProfession TEMPORAL */}
-                    <select name='idProfession' onChange={leerInput}>
-                        <option disabled>Seleccione su Rubro</option>
-                        <option >ALBAÑIL</option>
-                        <option >PINTOR</option>
-                        <option >CARPINTERO</option>
-                    </select>
+                <div>
+                    <input name='Nombre' type='text' placeholder='Nombre' onChange={leerInput} />
                 </div>
-                <div className="inputDiv">
-                    <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
+                <div>
+                    <input name='Apellido' type='' placeholder='Apellido' onChange={leerInput} />
+                </div>
+                <div>
+                    <input name='Email' type='text' placeholder='Email' onChange={leerInput} />
+                </div>
+                <div>
+                    <input name='Telefono' type='text' placeholder='Telefono' onChange={leerInput} />
+                </div>
+                <div>
+                    <select name='Rubro' onChange={leerInput}>
+                        <option disabled>Seleccione su Rubro</option>
+
+                        {data.rubros.map((profesion, index) => {
+                            return (
+                                <>
+                                    <option key={index}>{profesion}</option>
+                                </>
+                            )
+                        })}
+                    </select>
+
+                </div>
+                <div>
+                    <input name='Password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>
                 <div className="">
                     <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
                 </div>
-                <div className="">
+                <div>
                     <GoogleLogin className="google"
-                        clientId="56670268622-ujtfv11jtt2esb9qe4cgo4drut70tgu4.apps.googleusercontent.com"
+                        clientId="84161810761-i373rjs0mohqvvd6etl56hr39pdtbbms.apps.googleusercontent.com"
                         buttonText="Crear cuenta con Google"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}

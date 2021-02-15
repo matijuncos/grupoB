@@ -42,9 +42,15 @@ function RegistroUsuario({ signUp }) {
                 </div>
                 <div className=""><button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
                 </div>
+<<<<<<< HEAD
                 <div className="">
                     <GoogleLogin className="google"
                         clientId="56670268622-ujtfv11jtt2esb9qe4cgo4drut70tgu4.apps.googleusercontent.com"
+=======
+                <div>
+                <GoogleLogin className="google"
+                        clientId="84161810761-i373rjs0mohqvvd6etl56hr39pdtbbms.apps.googleusercontent.com"
+>>>>>>> 1439189c65607831df2db6bb61a98fefa80f4857
                         buttonText="Crear cuenta con Google"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}

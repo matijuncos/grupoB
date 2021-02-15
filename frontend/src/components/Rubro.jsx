@@ -1,6 +1,6 @@
 import React from 'react'
-import { BsTools } from "react-icons/bs";
 import { Link } from 'react-router-dom'
+import {BsTools} from 'react-icons/bs'
 
 const Rubro = ({ rubro }) => {
   return (
