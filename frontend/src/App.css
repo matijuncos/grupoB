@@ -24,6 +24,14 @@ body{
   align-items: center;
   justify-content: space-between;
 }
+.logoName{
+  display: flex;
+  align-items: center;
+}
+.navUserName{
+  margin: 0 1vw;
+  color: rgb(250, 250, 250);
+}
 .navBarLinks{
   color: rgb(250, 250, 250);
   font-size: 1rem;
@@ -40,6 +48,7 @@ body{
   height: 5vh;
   display: inline-block;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
