@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 
 
-function RegistroUsuario({ signUp }) {
+function RegistroUsuario({ signUp,loggedUser }) {
     const [nuevoUsuario, setNuevoUsuario] = useState({})
     // Funcion para ler input
     const leerInput = e => {
@@ -19,11 +19,12 @@ function RegistroUsuario({ signUp }) {
     //Funcion para enviar formulario 
     const validarUsuario = async () => {
         const res = await signUp(nuevoUsuario)
+        //mostrar al usuario sí el objeto con la propiedad success es true o false
+        //el objeto respuesta va a llegar como un array de strings
         console.log(res)
     }
     //Respuesta de Google
     const responseGoogle = async (response) => {
-        console.log(response)
 
     }
     return (
