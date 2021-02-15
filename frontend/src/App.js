@@ -1,25 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react'
+import Navbar from './components/Navbar';
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import LandingPage from './components/LandingPage';
+import Footer from './components/Footer';
+import RegistroUsuario from './components/RegistroUsuario'
+import RegistroProvedor from './components/RegistroProvedor'
+import Profesional from './components/Profesional'
+import signIn from './components/SignIn'
+import { connect } from 'react-redux';
+import userActions from './Redux/actions/userActions';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = (props) => {
+if(props.loggedUser){
+  var links =
+  <>
+    <Switch>
+      <Route exact path='/' component={LandingPage}/>
+  </Switch>
+  </>
+}else if(localStorage.getItem('token')){
+props.preserveLog(localStorage.getItem('token'))
+}else{
+  links =
+  <>
+      <Switch>
+        <Route exact path='/' component={LandingPage}/>
+        <Route path='/registerService' component={RegistroProvedor}/>
+        <Route path='/registerUSer' component={RegistroUsuario}/>
+        <Route path='/signIn'component={signIn}/>
+        <Route patch='/profesional' component = {Profesional}/>
+      </Switch>
+  </>
 }
+  return (
+    <>
+      <BrowserRouter>
+      <Navbar/>
+      {links}
+      </BrowserRouter>
+      <Footer/>
+    </>
 
-export default App;
+ 
+  )
+}
+const mapStateToProps = state => {
+  return {
+    loggedUser: state.userR.loggedUser
+  }
+}
+const mapDispatchToProps = {
+  preserveLog: userActions.preserveLog
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+
