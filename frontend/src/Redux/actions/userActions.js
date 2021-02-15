@@ -6,10 +6,8 @@ const userActions = {
       console.log('llegue a la action')
       try{
         const response = await axios.post('http://localhost:4000/api/user/customer', newUser)
-        console.log(response)
         if(response.data.success===false){
           var errors=[]
-          console.log(response.data)
           response.data.errores && response.data.errores.details.map(error=>{
             switch (error.path[0]) {
               case 'firtsName':
@@ -42,7 +40,6 @@ const userActions = {
         })
         return ({success:true,response:["Tu cuenta fue creada con éxito!"]})
       }catch(err){
-        console.log(err)
         alert('Uy! Algo salió mal!')
       }
     }
@@ -90,7 +87,6 @@ const userActions = {
         
       }
       catch(error){
-        console.log("1")
         console.log(error)
     //     if(error.response.status === 401){
     //       localStorage.clear()

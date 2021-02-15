@@ -26,14 +26,12 @@ const SignIn = ({history,signIn,loggedUser}) => {
             validar(e)
         }
     }
-    console.log(loguear)
     const validar = async e => {
         e.preventDefault()
         if (!loguear.email||!loguear.password) {
             alert('todos los campos son requeridos')
         } else {
             const respuesta=signIn(loguear)
-            console.log(respuesta)
             if(loggedUser !== null)
             setTimeout(() => {
                 history.push('/')
