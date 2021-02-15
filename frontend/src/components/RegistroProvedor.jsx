@@ -65,7 +65,7 @@ function RegistroProvedor(props) {
 
                 </div>
                 <div className="inputDiv">
-                    <input name='Password' type='password' placeholder='Contraseña' onChange={leerInput} />
+                    <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>
                 <div className="">
                     <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
