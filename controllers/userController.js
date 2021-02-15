@@ -1,21 +1,29 @@
 const UserBase = require('../models/UserBase')
 const UserProvider = require('../models/UserProvider')
 const UserConsumer = require('../models/UserConsumer')
+<<<<<<< HEAD
 const userBase = require('../models/UserBase')
+=======
+const bcryptjs = require('bcryptjs');
+const jwtoken = require('jsonwebtoken')
+
+>>>>>>> a515f23a0c86e1cc2ad9c2926cc3c4c70cba07cb
 
 const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
       const {firstName, lastName, urlPic, email, phone, password, country,
       website, valoration, review, rol, idProfession} = req.body
-
+      
+      const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
-         firstName, lastName, urlPic, email, phone, password, country
+         firstName, lastName, urlPic, email, phone, password: hashedPassword, country
       })
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos      
       try{
          const newUserBase = await userBase.save()
-
+         
+         
          const idUserBase = newUserBase
          const userProvider = new UserProvider({
             idUserBase, website, valoration, review, rol, idProfession
@@ -24,7 +32,15 @@ const userController = {
          .then(async newUserProvider =>{
             // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
             const populateUserProvider = await UserProvider.findById(newUserProvider._id).populate('idUserBase')
-            res.json({success:true, response:populateUserProvider})
+            var token = jwtoken.sign({...populateUserProvider}, process.env.SECRET_KEY, {})
+            res.json({
+               success:true, 
+               response:
+               {token,
+                firstName:  userBase.firstName,
+                urlPic: userBase.urlPic,
+                email: userBase.email
+               }})
          })
          .catch(error => {return res.json({success:false, error})})
       }
@@ -50,7 +66,15 @@ const userController = {
             .then(async newUserConsumer =>{
                // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
                const populateUserConsumer = await UserConsumer.findById(newUserConsumer._id).populate('idUserBase')
-               res.json({success:true, response:populateUserConsumer})
+               var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
+               res.json({
+                  success:true, 
+                  response:{
+                     token,
+                     firstName:  userBase.firstName,
+                     urlPic: userBase.urlPic,
+                     email: userBase.email
+                  }})
             })
             .catch(error => {return res.json({success:false, error})})
          }
@@ -59,6 +83,7 @@ const userController = {
          }
          
    },
+<<<<<<< HEAD
    login: async (req,res) => {
       const {firstName, password} = req.body
       const userRegister = await userBase.findOne({firstName:firstName}) // verifica que el usuario exista, 
@@ -75,6 +100,19 @@ const userController = {
       return res.json({success: true, response:{token,firstName:userRegister.firstName, picture:userRegister.urlPic}})
       // respondo al frontEnd con un objeto que tiene el token, nombre de usuario y foto
    }
+=======
+   preserveLog:  (req, res) =>{
+      console.log('contolador de persistencia')
+      console.log(req.body)
+      res.json({
+         success: true, 
+         response: {
+           token: req.body.token, 
+
+         }})
+      }
+   
+>>>>>>> a515f23a0c86e1cc2ad9c2926cc3c4c70cba07cb
 }
 
 module.exports = userController
