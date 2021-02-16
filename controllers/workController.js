@@ -1,0 +1,49 @@
+const Work = require('../models/Work')
+
+const WorkController = {
+   addWork:(req,res) =>{
+      const {idUserConsumer, idUserProvider, state, comment} = req.body
+      const newWork = new Work({
+        idUserConsumer, idUserProvider, state, comment
+      })
+      newWork.save()
+      .then(newWork =>{return res.json({success:true, response:newWork})})
+      .catch(error => {return res.json({success:false, error})})
+   },
+   getWork:(req,res) =>{
+     const id=req.params.id
+      Work.find({_id:id})
+      .then(work => {return res.json({success:true, response:work})})
+      .catch(error => {return res.json({success:false, error})})
+   },
+   getWorks:(req,res) =>{
+      Work.find()
+      .then(work => {return res.json({success:true, response:work})})
+      .catch(error => {return res.json({success:false, error})})
+   },
+   delWork:async(req,res) =>{
+     const idForDelete=req.params.id
+     try {
+      const data = await Work.findOneAndRemove({_id:idForDelete})
+      return res.json({success:true, respuesta:data})
+    } catch (e) {
+      return res.json({success:false, respuesta: 'Ha ocurrido un error en la eliminacion.'})
+    }
+   },
+   changeState:async(req,res)=>{
+     const idWork=req.body.id
+     try {
+      const work= await Work.find({'_id':idWork})
+      const newState=work[0].state+1
+      const respuesta= await Work.updateOne(
+         {'_id':idWork},
+         {'$set' : {'state':newState}}
+        )
+        return res.json({success:true, respuesta:respuesta})
+     } catch (error) {
+      return res.json({success:false, respuesta: 'Ha ocurrido un error en la modificacion del estado'})
+    }
+     
+   }
+}
+module.exports = WorkController

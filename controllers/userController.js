@@ -9,8 +9,14 @@ const userController = {
       // Desestructuro la req del front-end
       console.log(req.body)
       var {firstName, lastName, urlPic, email, phone, password, country,
+<<<<<<< HEAD
       website, arrayValoration, review, rol, idProfession} = req.body
       if(req.body.idUserBase !== "undefined"){
+=======
+      website, arrayValoration, review, rol, idProfession,arrayWorks} = req.body
+      
+      if(req.body.idUserBase !== undefined){
+>>>>>>> 2dab7959ca186ba8b785cc75c2839f75e5399ddb
          const userBaseExists = await UserBase.findOne({_id: req.body.idUserBase})
          firstName=userBaseExists.firstName, 
          lastName=userBaseExists.lastName,
@@ -18,6 +24,7 @@ const userController = {
          email=userBaseExists.email,
          phone=userBaseExists.phone,
          password=userBaseExists.password
+         arrayWorks=userBaseExists.arrayWorks
       }
       console.log(req.body)
       const hashedPassword =  bcryptjs.hashSync(password, 10)
@@ -30,7 +37,7 @@ const userController = {
          const idUserBase = newUserBase
          const userProvider = new UserProvider({
             //_id:idUserBase,
-            idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession
+            idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession, arrayWorks
          })
          userProvider.save()
          .then(async newUserProvider =>{
@@ -132,7 +139,6 @@ const userController = {
    },
    getProviders: async (req,res) =>{
       try {
-
          const usersProviders = await UserProvider.find()
          .populate('idUserBase')
          .populate('idProfession')
@@ -150,11 +156,35 @@ const userController = {
               model:'userBase'
             }
           })
-         
          return res.json({success:true, respuesta:usersProviders})
        } catch (e) {
          return res.json({success:false, respuesta: 'Ha ocurrido un error en el proceso: '+e})
        }
+   },
+   getProfessionalsForId:async(req,res)=>{
+      const idRequest=req.params.id
+      try {
+         const respuesta=await UserProvider.find({idProfession:idRequest})
+         .populate('idUserBase')
+         .populate('idProfession')
+         .populate({
+            path:'review',
+            populate:{
+              path:'idUser',
+              model:'userConsumer'
+            }
+          })
+          .populate({
+            path:'review.idUser',
+            populate:{
+              path:'idUserBase',
+              model:'userBase'
+            }
+          })
+         res.json({success:true,response:respuesta})
+      } catch (error) {
+         res.json({success:false,response:error})
+      }
    }
 }
 

@@ -18,6 +18,8 @@ if(props.loggedUser){
   <>
     <Switch>
       <Route exact path='/' component={LandingPage}/>
+        <Route path='/profesionales' component = {Profesionales}/>
+        <Route path='/profesional' component = {Profesional} />
       <Redirect to ="/"/>
     </Switch>
   </>
