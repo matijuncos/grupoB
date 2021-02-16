@@ -7,6 +7,7 @@ import userActions from '../Redux/actions/userActions'
 
 function RegistroUsuario({ signUp, loggedUser }) {
     const [newUser, setNewUser] = useState({})
+    const [errores, setErrores] = useState([])
     // Funcion para ler input
     const leerInput = e => {
         const property = e.target.name
@@ -25,7 +26,27 @@ function RegistroUsuario({ signUp, loggedUser }) {
     }
     //Respuesta de Google
     const responseGoogle = async (response) => {
+        console.log(response)
 
+        if (response.error) {
+            alert("Algo pasó...")
+        } else {
+            const respuesta = await signUp({
+                firstName: response.profileObj.familyName,
+                lastName: response.profileObj.familyName,
+                email: response.profileObj.email,
+                phone: "3513963871",
+                urlPic: response.profileObj.imageUrl,
+                password: `Aa${response.profileObj.googleId}`,
+
+            })
+            if (respuesta && !respuesta.success) {
+                setErrores(respuesta.errores)
+                console.log(errores)
+            } else {
+                alert("Usuario nuevo grabado")
+            }
+        }
     }
     return (
         <div className="registro">

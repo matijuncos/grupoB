@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import plumber from '../assets/tools.png'
 import Articles from './Articles'
 import Rubro from './Rubro'
 import { Link } from 'react-router-dom'
 import Slider from './Slider'
+import { connect } from 'react-redux'
+import professionActions from '../Redux/actions/professionActions'
 
 const rubros = [{ rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }]
-const LandingPage = () => {
+const LandingPage = (props) => {
+
+  useEffect(() => {
+    props.getProfessions()
+  }, [])
+
+
   return (
     <div className="landingPage">
       <Slider />
@@ -38,7 +46,7 @@ const LandingPage = () => {
         <h2>Tenemos muchos prestadores de diversos rubros registrados</h2>
         <h3>Lo podés contratar al alcance de un click!</h3>
         <div className="rubros">
-          {rubros.map(rubro => <Rubro rubro={rubro} />)}
+          {props.professions.response && props.professions.response.map(profession => <Rubro profession={profession} />)}
         </div>
       </div>
       <Articles />
@@ -46,4 +54,13 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+const mapStateToProps = state => {
+  return {
+    professions: state.professionR.professions
+  }
+}
+const mapDispatchToProps = {
+  getProfessions: professionActions.getProfessions
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)

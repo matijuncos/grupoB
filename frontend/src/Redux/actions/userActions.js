@@ -6,6 +6,7 @@ const userActions = {
       console.log('llegue a la action')
       try{
         const response = await axios.post('http://localhost:4000/api/user/customer', newUser)
+        console.log(response)
         if(response.data.success===false){
           var errors=[]
           response.data.errores && response.data.errores.details.map(error=>{

@@ -137,6 +137,7 @@ const userController = {
               model:'userConsumer'
             }
           })
+         
          return res.json({success:true, respuesta:usersProviders})
        } catch (e) {
          return res.json({success:false, respuesta: 'Ha ocurrido un error en el proceso: '+e})

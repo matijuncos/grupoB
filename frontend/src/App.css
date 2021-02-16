@@ -241,27 +241,46 @@ body{
 .rubros{
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   margin: 2vh auto;
-  width: 50%;
+  width: 45%;
 }
-.rubro{
+.profession{
+  margin: 0 0 2vh 0;
+  transition: all ease 0.3s;
+  text-decoration: none;
+  color: rgb(17, 1, 1);
   display: flex;
   flex-direction: column;
-  margin: 3vh ;
+  align-items: center;
+}
+
+.profession small{
+  width: 100%;
+  min-height: 8vh;
+  
+}
+.professionLink{
+  display: flex;
+  flex-direction: column;
+  margin:  0  3vh ;
+  width: 12vh;
+  height: 12vh;
   align-items: center;
   padding: 1vh;
   transition: all ease .3s;
-  background-color: rgb(250, 250, 250);
   border-radius: 4px;
+  background-repeat: no-repeat;
+  background-size: cover;
   text-decoration: none;
   color:rgb(216,0,27);
   border: solid 1px rgb(216,0,27);
+  text-decoration: none;
 
 }
 
-.rubro:hover{
+.profession:hover{
   transform: scale(1.05);
 }
 .toolIcon{

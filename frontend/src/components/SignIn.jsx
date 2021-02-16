@@ -7,6 +7,7 @@ const SignIn = (props) => {
 
     const { history, signIn, loggedUser } = props
     const [user, setUser] = useState({})
+    const [errores, setErrores] = useState([])
     useEffect(() => {
         if (loggedUser !== null)
             setTimeout(() => {
@@ -41,8 +42,24 @@ const SignIn = (props) => {
                 }, 3000)
         }
     }
-    const responseGoogle = async (response) => {
-
+    const responseGoogle = async response => {
+        if (response.error) {
+            alert("Algo pasó...")
+        } else {
+            const res = await props.signIn({
+                email: response.profileObj.email,
+                password: `Aa${response.profileObj.googleId}`
+            }
+            )
+            if (res && !res.success) {
+                setErrores([res.mensaje])
+                console.log(errores)
+            } else {
+                alert(
+                    "bienvenido"
+                )
+            }
+        }
     }
     return (
         <div className="registro">
