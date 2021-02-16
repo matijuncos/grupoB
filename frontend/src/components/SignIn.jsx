@@ -1,26 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import GoogleLogin from 'react-google-login'
+import userActions from '../Redux/actions/userActions'
 
 const SignIn = (props) => {
-    const [loguear, setLoguear] = useState({})
-    const leerInput = e => {
-        const valor = e.target.value
-        const campo = e.target.name
-        setLoguear({
-            ...loguear,
-            [campo]: valor
+    const { history, signIn, loggedUser } = props
+    const [user, setUser] = useState({})
+    useEffect(() => {
+        if (loggedUser !== null)
+            setTimeout(() => {
+                history.push('/')
+            }, 3000)
+    }, [loggedUser])
+
+    const readInput = e => {
+        const value = e.target.value
+        const property = e.target.name
+        setUser({
+            ...user,
+            [property]: value
         })
     }
-    console.log(loguear)
-    const validar = async e => {
+    const enterKeyboard = e => {
+        //El numero 13 seria la tecla enter, si fue presionada envio la validacion
+        //como si fuera el boton sign in
+        if (e.charCode === 13) {
+            Validate(e)
+        }
+    }
+    const Validate = async e => {
         e.preventDefault()
-        if (loguear.Email === '' || loguear.Password === '') {
+        if (!user.email || !user.password) {
             alert('todos los campos son requeridos')
         } else {
-            alert('Bienvenido')
-            setTimeout(() => {
-                props.history.push('/')
-            }, 2000)
+            const response = await signIn(user)
+            if (loggedUser !== null)
+                setTimeout(() => {
+                    props.history.push('/')
+                }, 3000)
         }
     }
     const responseGoogle = async (response) => {
@@ -31,12 +48,12 @@ const SignIn = (props) => {
             <div className="formulario">
                 <h2>Iniciar Sesión</h2>
                 <div className="inputDiv">
-                    <input type="text" autoComplete="nope" name="Email" placeholder="Email" onChange={leerInput} />
+                    <input onKeyPress={enterKeyboard} type="text" autoComplete="nope" name="email" placeholder="Email" onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input type="password" name="Password" placeholder="Contraseña" onChange={leerInput} />
+                    <input onKeyPress={enterKeyboard} type="password" name="password" placeholder="Contraseña" onChange={readInput} />
                 </div>
-                <button className="enviar" onClick={validar}>Ingresar</button>
+                <button className="enviar" onClick={Validate}>Ingresar</button>
                 <GoogleLogin
                     clientId="1033031988698-pivaiq2e71rsq2njp75tfdd952jgl950.apps.googleusercontent.com"
                     buttonText="Iniciar con Google"
@@ -48,4 +65,12 @@ const SignIn = (props) => {
         </div>
     )
 }
-export default SignIn
+const mapStateToProps = state => {
+    return {
+        loggedUser: state.userR.loggedUser
+    }
+}
+const mapDispatchToProps = {
+    signIn: userActions.signIn
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

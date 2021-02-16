@@ -7,14 +7,15 @@
 nav{
   width: 100%;
   padding: 2vh;
+  height: 11vh;
+  background-color: rgb(216,0,27);
 }
 body{
   font-family: 'Poppins', sans-serif;
 }
 #root{
-  background-image: url('./assets/pattern5.svg');
+  background-color: rgb(250, 250, 250);
   background-size: cover;
-  /* background-position-x: center; */
   background-attachment: fixed;
   min-height: 100vh;
 }
@@ -23,12 +24,20 @@ body{
   align-items: center;
   justify-content: space-between;
 }
+.logoName{
+  display: flex;
+  align-items: center;
+}
+.navUserName{
+  margin: 0 1vw;
+  color: rgb(250, 250, 250);
+}
 .navBarLinks{
-  color: rgb(255, 255, 255);
-  font-size: 1.2rem;
+  color: rgb(250, 250, 250);
+  font-size: 1rem;
   text-decoration: none;
   padding: 0 2vh;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.459);
+  font-weight: 400;
 }
 .links{
   display: flex;
@@ -37,34 +46,55 @@ body{
 .userPic{
   width: 5vh;
   height: 5vh;
+  border-radius: 100%;
   display: inline-block;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.slideImg{
+  height: 89vh;
+  background-size: cover;
+  background-position: 50% 25%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 5vh;
+}
+.slideImg h2{
+  background-color: rgba(0, 0, 0, 0.562) ;
+  width: 100%;
+  padding: 2.5vh;
+  margin-bottom: 5vh;
+  color: rgb(250, 250, 250);
+  
 }
 .landingPage{
-  padding: 6vh 0;
   text-align: center;
  min-height: 92vh;
 }
 .landingPage h2{
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 .landingPage h3{
-  font-size: 2rem;
+  font-size: 1.6rem;
   margin-top: 2vh;
 }
 .logoDiv{
-  background-color: rgb(55, 185, 241);
+  background-color: rgb(216,0,27);
   border-radius: 100%;
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.555);
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.288);
 
 }
 .logoDiv img{
-  width: 4vw;
+  width: 3vw;
   min-width: 4rem;
 }
 .registerBtn, .enviar{
-  font-size: 1.2rem;
+  font-size: 1rem;
   padding: 1vh 2vh;
-  background-color: rgb(55, 185, 241);
+  background-color: rgba(172, 4, 4, 0.356);
   color: whitesmoke;
   border: none;
   border-radius: 14px;
@@ -72,37 +102,104 @@ body{
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.301);
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  border: solid 1px rgb(250, 250, 250);
+
   outline: none;
   transition: all ease 0.2s;
+}
+.enviar{
+  background-color: rgb(250, 250, 250);
+  color: rgb(216,0,27);
+}
+.enviar:hover{
+  color:  rgb(250, 250, 250);
+  background-color: rgb(216,0,27);
 }
 .registerBtn:hover{
   transform: scale(1.02);
 }
+.callToAction{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  border-radius: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all ease 0.2s;
+  height: 40vh;
+  width: 40vh;
+}
+
+.callToAction button{
+  font-size: 1.2rem;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.418);
+  color: whitesmoke;
+  border: none;
+  border-radius: 100%;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.555);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.582);
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all ease 0.2s;
+}
+.callToAction button:hover{
+  font-size: 2.5rem;
+}
 .footer{
   height: 25vh;
-  background-color: transparent;
+  background-color: rgb(216,0,27);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
+.footerCol{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  color: rgb(250, 250, 250);
+}
+  
+
+.footerIcons{
+  font-size: 2rem;
+  justify-content: space-between;
+  color: rgb(250, 250, 250);
+  flex-direction: row;
+}
+.footerIcon{
+  margin: 15px;
+  cursor: pointer;
+}
+
 .container{
-  background-color: rgba(255, 255, 255, 0.671);
+  background-color: rgba(255, 255, 255, 0.247);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  margin: 3vw auto 5vw auto;
+  margin: 3vh auto ;
   padding: 3vh;
-  box-shadow: 6px 6px 36px rgba(0, 0, 0, 0.582);
+  /* box-shadow: 6px 6px 36px rgba(0, 0, 0, 0.582); */
 }
 .container .img{
   background-image: url('./assets/blob.svg');
   background-size: cover;
-  height: 40vh;
-  width: 40vh;
   border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
 }
+
+
 .img img{
   width: 100%;
   border-radius: 100%;
@@ -156,11 +253,11 @@ body{
   align-items: center;
   padding: 1vh;
   transition: all ease .3s;
-  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.582);
-  background-color: rgb(65, 28, 58);
+  background-color: rgb(250, 250, 250);
   border-radius: 4px;
   text-decoration: none;
-  color:rgb(255, 255, 255);
+  color:rgb(216,0,27);
+  border: solid 1px rgb(216,0,27);
 
 }
 
@@ -169,7 +266,7 @@ body{
 }
 .toolIcon{
   font-size: 3rem;
-  color: whitesmoke
+  color: rgb(216,0,27)
 }
 .howItWorks{
   margin-bottom: 5vh;
@@ -212,7 +309,7 @@ body{
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  
 }
 /* ###################################### REGISTRO Y LOGIN ########################### */
 .registro{
@@ -224,16 +321,16 @@ body{
 .registro h2{
   color: rgb(39, 25, 25);
 }
+
 .formulario {
   display: flex;
   width: 40%;
   padding: 4vh ;
   align-items: center;
   flex-direction: column;
-  background: rgba(255, 248, 248, 0.649);
   box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.555);
   border-radius: 10px;
-  margin-bottom: 3vh;
+  background-color: rgb(204, 0, 24);
 }
 
 .formulario h2{
