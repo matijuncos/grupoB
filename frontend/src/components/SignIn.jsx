@@ -2,10 +2,7 @@ import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login'
 
 const SignIn = (props) => {
-    const [loguear, setLoguear] = useState({
-        Email: '', Password: ''
-    }
-    )
+    const [loguear, setLoguear] = useState({})
     const leerInput = e => {
         const valor = e.target.value
         const campo = e.target.name
