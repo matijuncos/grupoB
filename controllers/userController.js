@@ -133,7 +133,6 @@ const userController = {
    },
    getProviders: async (req,res) =>{
       try {
-
          const usersProviders = await UserProvider.find()
          .populate('idUserBase')
          .populate('idProfession')
@@ -151,11 +150,37 @@ const userController = {
               model:'userBase'
             }
           })
-         
          return res.json({success:true, respuesta:usersProviders})
        } catch (e) {
          return res.json({success:false, respuesta: 'Ha ocurrido un error en el proceso: '+e})
        }
+   },
+   getProfessionalsForId:async(req,res)=>{
+      console.log('entre')
+      console.log(req.params)
+      const idRequest=req.params.id
+      try {
+         const respuesta=await UserProvider.find({idProfession:idRequest})
+         .populate('idUserBase')
+         .populate('idProfession')
+         .populate({
+            path:'review',
+            populate:{
+              path:'idUser',
+              model:'userConsumer'
+            }
+          })
+          .populate({
+            path:'review.idUser',
+            populate:{
+              path:'idUserBase',
+              model:'userBase'
+            }
+          })
+         res.json({success:true,response:respuesta})
+      } catch (error) {
+         res.json({success:false,response:error})
+      }
    }
 }
 

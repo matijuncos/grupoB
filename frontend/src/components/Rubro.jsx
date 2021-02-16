@@ -1,17 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { BsTools } from 'react-icons/bs'
+import professionActions from '../Redux/actions/professionActions'
 
 const Rubro = ({ profession }) => {
-  const id = profession._id
   return (
-
-    <Link className="profession" to={'/profesionales/' + id}  >
+    <Link className="profession" to={'/profesionales/' + profession._id}  >
       <div className="professionLink" style={{ backgroundImage: `url(${profession.urlPic})` }}>
       </div>
       <small>{profession.type}</small>
     </Link>
   )
 }
+
+
 
 export default Rubro

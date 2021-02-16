@@ -20,6 +20,10 @@ router.route('/user/customer')
 router.route('/user/providers')
 .get(userController.getProviders)
 
+//Obtener professionales por id de profesiones
+router.route('/user/professionals/:id')
+.get(userController.getProfessionalsForId)
+
 // Ruta para cargar y obtener artículos
 router.route('/article')
 .get(articleController.getArticles)
@@ -28,6 +32,7 @@ router.route('/article')
 router.route('/professions')
 .get(professionalController.getProfession)
 .post(professionalController.addProfession)
+
 
 router.route('/user/storage')
 .post(passport.authenticate('jwt', {session:false}), userController.preserveLog)

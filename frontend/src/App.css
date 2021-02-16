@@ -83,12 +83,11 @@ body{
 }
 .logoDiv{
   background-color: rgba(0, 0, 255, 0);
-  border-radius: 100%;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.288);
+
 
 }
 .logoDiv img{
-  width: 3vw;
+  width: 4vw;
   min-width: 4rem;
 }
 .registerBtn, .enviar{
@@ -309,7 +308,7 @@ body{
   width: 100%;
   height: 55%;
   background-size: cover;
-  border-radius: 6px 6px;
+  border-radius: 6px 6px 0 0;
 }
 .cardBottom{
   background-color: white;
@@ -373,7 +372,14 @@ body{
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.356);
 
 }
-
+.eye{
+  position: absolute;
+  top: 16%;
+  right: 2%;
+  color:  rgb(56, 56, 56);
+  font-size: 1.4rem;
+  
+}
 .enviar {
   width: 15vw;
   margin-bottom: 3vh;
