@@ -4,7 +4,6 @@ const UserConsumer = require('../models/UserConsumer')
 const bcryptjs = require('bcryptjs');
 const jwtoken = require('jsonwebtoken');
 
-
 const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
@@ -31,7 +30,7 @@ const userController = {
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase
          const userProvider = new UserProvider({
-            _id:idUserBase,
+            //_id:idUserBase,
             idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession
          })
          userProvider.save()
@@ -70,7 +69,7 @@ const userController = {
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase._id
          const userConsumer = new UserConsumer({
-            _id:idUserBase,
+            //_id:idUserBase,
             idUserBase:idUserBase
          })
          userConsumer.save()

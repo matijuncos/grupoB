@@ -3,7 +3,6 @@ const mongoose = require("mongoose")
 
 const reviewSchema = new mongoose.Schema({
     idUser:{type: mongoose.Schema.ObjectId, ref: "userConsumer"},
-    urlPic:{type:String,required:true},
     comment: String
 })
 // las review tienen su propio schema, el mismo será llamado dentro del schema userprovider, propiedad review.
