@@ -10,7 +10,8 @@ import RegistroProvedor from './components/RegistroProvedor'
 import Profesionales from './components/Profesionales'
 import signIn from './components/SignIn'
 import userActions from './Redux/actions/userActions';
-import Profesional from './components/Profesional';
+import Profesional from './components/Details';
+import Details from './components/Details'
 
 const App = (props) => {
 if(props.loggedUser){
@@ -33,8 +34,8 @@ props.preserveLog(localStorage.getItem('token'))
         <Route path='/registerService' component={RegistroProvedor}/>
         <Route path='/registerUser' component={RegistroUsuario}/>
         <Route path='/signIn'component={signIn}/>
-        <Route path='/profesionales' component = {Profesionales}/>
-        <Route path='/profesional' component = {Profesional} />
+        <Route path='/profesionales/:id' component = {Profesionales}/>
+        <Route path='/profesional/:id' component = {Details} />
       </Switch>
   </>
 }

@@ -156,6 +156,8 @@ const userController = {
        }
    },
    getProfessionalsForId:async(req,res)=>{
+      console.log('entre')
+      console.log(req.params)
       const idRequest=req.params.id
       try {
          const respuesta=await UserProvider.find({idProfession:idRequest})

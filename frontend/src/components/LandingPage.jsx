@@ -12,9 +12,10 @@ const LandingPage = (props) => {
 
   useEffect(() => {
     props.getProfessions()
+
   }, [])
 
-
+  console.log(props.professions.response)
   return (
     <div className="landingPage">
       <Slider />
@@ -60,7 +61,8 @@ const mapStateToProps = state => {
   }
 }
 const mapDispatchToProps = {
-  getProfessions: professionActions.getProfessions
+  getProfessions: professionActions.getProfessions,
+
 
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
