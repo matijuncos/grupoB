@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux'
 import UserResucer from './userReducer'
+import professionReducer from './professionReducer'
 
 const rootReducer = combineReducers({
-userR: UserResucer
-
+userR: UserResucer,
+professionR: professionReducer
 })
 
 export default rootReducer

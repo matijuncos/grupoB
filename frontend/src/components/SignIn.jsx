@@ -4,8 +4,10 @@ import GoogleLogin from 'react-google-login'
 import userActions from '../Redux/actions/userActions'
 
 const SignIn = (props) => {
+
     const { history, signIn, loggedUser } = props
     const [user, setUser] = useState({})
+    const [errores, setErrores] = useState('')
     useEffect(() => {
         if (loggedUser !== null)
             setTimeout(() => {
@@ -29,24 +31,42 @@ const SignIn = (props) => {
         }
     }
     const Validate = async e => {
-        e.preventDefault()
+        setErrores('')
         if (!user.email || !user.password) {
-            alert('todos los campos son requeridos')
+            setErrores('Todos los campos son requeridos')
         } else {
             const response = await signIn(user)
+            setErrores(response.message)
             if (loggedUser !== null)
                 setTimeout(() => {
                     props.history.push('/')
                 }, 3000)
         }
     }
-    const responseGoogle = async (response) => {
-
+    const responseGoogle = async response => {
+        if (response.error) {
+            alert("Intente nuevamente")
+        } else {
+            const res = await props.signIn({
+                email: response.profileObj.email,
+                password: `Aa${response.profileObj.googleId}`
+            }
+            )
+            if (res && !res.success) {
+                alert('Intente nuevamente')
+                console.log(errores)
+            } else {
+                alert(
+                    "bienvenido"
+                )
+            }
+        }
     }
     return (
         <div className="registro">
             <div className="formulario">
                 <h2>Iniciar Sesión</h2>
+                <h4>{errores}</h4>
                 <div className="inputDiv">
                     <input onKeyPress={enterKeyboard} type="text" autoComplete="nope" name="email" placeholder="Email" onChange={readInput} />
                 </div>

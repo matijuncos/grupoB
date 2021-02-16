@@ -9,7 +9,7 @@ const validator = {
             urlPic: Joi.string().uri(),
             email: Joi.string().trim().required().email({minDomainSegments: 1, tlds: {allow: false}}),
             phone:Joi.string().min(10).max(12).regex(/^[0-9]{10}$/).required(),
-            password: Joi.string().trim().required().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,8}$/), // PASS: LMAYUSC, LMINUSC,N0-9,3,8CARAC
+            password: Joi.string().trim().required().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,50}$/), // PASS: LMAYUSC, LMINUSC,N0-9,3,8CARAC
             country: Joi.string()
         })
 

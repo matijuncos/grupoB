@@ -30,9 +30,9 @@ function RegistroProvedor(props) {
         const res = await props.signProviderUp(newProfessional)
     }
     //Respuesta de Google
-    const responseGoogle = async (response) => {
-        console.log(response)
-    }
+    // const responseGoogle = async (response) => {
+    //     console.log(response)
+    // }
     return (
         <div className="registro">
             <div className="formulario">
@@ -73,23 +73,19 @@ function RegistroProvedor(props) {
                     <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
                 </div>
                 <div>
-                    <GoogleLogin className="google"
+                    {/* <GoogleLogin className="google"
                         clientId="84161810761-i373rjs0mohqvvd6etl56hr39pdtbbms.apps.googleusercontent.com"
                         buttonText="Crear cuenta con Google"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
-                    />
+                    /> */}
                 </div >
             </div>
         </div>
     )
 }
-
 const mapDispatchToProps = {
     signProviderUp: userActions.signProviderUp
-
 }
-
 export default connect(null, mapDispatchToProps)(RegistroProvedor)
-

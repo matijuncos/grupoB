@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
-import Logo from '../assets/logo.png'
+import Logo from '../assets/logo2.svg'
 import userPic from '../assets/user.svg'
 import userActions from '../Redux/actions/userActions'
 

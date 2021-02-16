@@ -7,6 +7,7 @@ import userActions from '../Redux/actions/userActions'
 
 function RegistroUsuario({ signUp, loggedUser }) {
     const [newUser, setNewUser] = useState({})
+    const [errores, setErrores] = useState([])
     // Funcion para ler input
     const leerInput = e => {
         const property = e.target.name
@@ -17,15 +18,38 @@ function RegistroUsuario({ signUp, loggedUser }) {
         })
     }
     //Funcion para enviar formulario 
+
     const validarUsuario = async () => {
         const res = await signUp(newUser)
+        if (res && !res.success) {
+            console.log(res)
+        }
         //mostrar al usuario sí el objeto con la propiedad success es true o false
         //el objeto respuesta va a llegar como un array de strings
-        console.log(res)
     }
     //Respuesta de Google
     const responseGoogle = async (response) => {
+        console.log(response)
 
+        if (response.error) {
+            alert("Algo pasó...")
+        } else {
+            const respuesta = await signUp({
+                firstName: response.profileObj.familyName,
+                lastName: response.profileObj.familyName,
+                email: response.profileObj.email,
+                phone: "3513963871",
+                urlPic: response.profileObj.imageUrl,
+                password: `Aa${response.profileObj.googleId}`,
+
+            })
+            if (respuesta && !respuesta.success) {
+                setErrores(respuesta.errores)
+                console.log(errores)
+            } else {
+                alert("Usuario nuevo grabado")
+            }
+        }
     }
     return (
         <div className="registro">
