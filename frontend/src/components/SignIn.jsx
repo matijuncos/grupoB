@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import GoogleLogin from 'react-google-login'
 import userActions from '../Redux/actions/userActions'
+import { FaEye } from "react-icons/fa";
 
 const SignIn = (props) => {
 
     const { history, signIn, loggedUser } = props
     const [user, setUser] = useState({})
     const [errores, setErrores] = useState('')
+    const [hidden, setHidden] = useState(true)
     useEffect(() => {
         if (loggedUser !== null)
             setTimeout(() => {
@@ -71,7 +73,8 @@ const SignIn = (props) => {
                     <input onKeyPress={enterKeyboard} type="text" autoComplete="nope" name="email" placeholder="Email" onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input onKeyPress={enterKeyboard} type="password" name="password" placeholder="Contraseña" onChange={readInput} />
+                    <input onKeyPress={enterKeyboard} type={hidden ? "password" : " text"} name="password" placeholder="Contraseña" onChange={readInput} />
+                    < FaEye className="eye" onClick={() => setHidden(!hidden)} />
                 </div>
                 <button className="enviar" onClick={Validate}>Ingresar</button>
                 <GoogleLogin
