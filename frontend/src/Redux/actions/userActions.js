@@ -3,7 +3,6 @@ import axios from 'axios'
 const userActions = {
    signUp: (newUser) =>{
     return async (dispatch, getState) =>{
-      console.log('llegue a la action')
       try{
         const response = await axios.post('http://localhost:4000/api/user/customer', newUser)
         console.log(response)
@@ -47,7 +46,7 @@ const userActions = {
   },   
   signProviderUp: (newUser) =>{
     return async (dispatch, getState) =>{
-      console.log('llegue a la action')
+      console.log(newUser)
       try{
         const response = await axios.post('http://localhost:4000/api/user/provider', newUser)
         if(!response.data.success){
