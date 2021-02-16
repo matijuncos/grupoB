@@ -10,12 +10,7 @@ const userController = {
       console.log(req.body)
       var {firstName, lastName, urlPic, email, phone, password, country,
       website, arrayValoration, review, rol, idProfession} = req.body
-<<<<<<< HEAD
       if(req.body.idUserBase !== "undefined"){
-=======
-      
-      if(req.body.idUserBase !== undefined){
->>>>>>> f6dc65e7da427e28ffa592189814d2a027088d2c
          const userBaseExists = await UserBase.findOne({_id: req.body.idUserBase})
          firstName=userBaseExists.firstName, 
          lastName=userBaseExists.lastName,
