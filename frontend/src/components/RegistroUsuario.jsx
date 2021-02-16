@@ -5,25 +5,26 @@ import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 
 
-function RegistroUsuario({ signUp }) {
-    const [nuevoUsuario, setNuevoUsuario] = useState({})
+function RegistroUsuario({ signUp, loggedUser }) {
+    const [newUser, setNewUser] = useState({})
     // Funcion para ler input
     const leerInput = e => {
-        const campo = e.target.name
-        const valor = e.target.value
-        setNuevoUsuario({
-            ...nuevoUsuario,
-            [campo]: valor
+        const property = e.target.name
+        const value = e.target.value
+        setNewUser({
+            ...newUser,
+            [property]: value
         })
     }
     //Funcion para enviar formulario 
     const validarUsuario = async () => {
-        const res = await signUp(nuevoUsuario)
+        const res = await signUp(newUser)
+        //mostrar al usuario sí el objeto con la propiedad success es true o false
+        //el objeto respuesta va a llegar como un array de strings
         console.log(res)
     }
     //Respuesta de Google
     const responseGoogle = async (response) => {
-        console.log(response)
 
     }
     return (
