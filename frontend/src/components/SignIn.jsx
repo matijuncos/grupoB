@@ -4,6 +4,7 @@ import GoogleLogin from 'react-google-login'
 import userActions from '../Redux/actions/userActions'
 
 const SignIn = (props) => {
+
     const { history, signIn, loggedUser } = props
     const [user, setUser] = useState({})
     useEffect(() => {

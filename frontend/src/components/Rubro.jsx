@@ -5,7 +5,7 @@ import {BsTools} from 'react-icons/bs'
 const Rubro = ({ rubro }) => {
   return (
 
-    <Link className="rubro" to='/profesional'>
+    <Link className="rubro" to='/profesionales'>
       < BsTools className="toolIcon" />
       <small>{rubro.rubro}</small>
     </Link>

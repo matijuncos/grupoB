@@ -7,9 +7,10 @@ import LandingPage from './components/LandingPage';
 import Footer from './components/Footer';
 import RegistroUsuario from './components/RegistroUsuario'
 import RegistroProvedor from './components/RegistroProvedor'
-import Professional from './components/Profesional'
+import Profesionales from './components/Profesionales'
 import signIn from './components/SignIn'
 import userActions from './Redux/actions/userActions';
+import Profesional from './components/Profesional';
 
 const App = (props) => {
 if(props.loggedUser){
@@ -30,7 +31,8 @@ props.preserveLog(localStorage.getItem('token'))
         <Route path='/registerService' component={RegistroProvedor}/>
         <Route path='/registerUser' component={RegistroUsuario}/>
         <Route path='/signIn'component={signIn}/>
-        <Redirect to ="/"/>
+        <Route path='/profesionales' component = {Profesionales}/>
+        <Route path='/profesional' component = {Profesional} />
       </Switch>
   </>
 }
