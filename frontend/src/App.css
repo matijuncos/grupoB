@@ -502,3 +502,12 @@ body{
 .sealsNoVerif{
   background-image: url('./assets//noverificado.svg');
 }
+.star{
+  cursor: pointer;
+  transition: color 200ms;
+  margin: 3px;
+  font-size: 1.6rem;
+}
+.starInput{
+  display: none;
+}

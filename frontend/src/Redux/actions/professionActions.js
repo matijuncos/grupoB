@@ -15,13 +15,13 @@ const professionActions = {
       }
     }
   },
-  getOneProfession: (id) =>{
+  getProviders: () =>{
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.get('http://localhost:4000/api/user/professionals/'+ id)
+        const response = await axios.get('http://localhost:4000/api/user/providers/')
         console.log(response)
         dispatch({
-          type: "GET_THIS_PROFESSION",
+          type: "GET_PROVIDERS",
           payload: response.data
         })
       }catch(error){

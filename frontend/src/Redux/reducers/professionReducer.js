@@ -1,6 +1,6 @@
 const initState = {
   professions: [],
-  profession: []
+  providers: []
 }
 
 const professionReducer = (state = initState, action) =>{
@@ -11,10 +11,10 @@ const professionReducer = (state = initState, action) =>{
           ...state,
           professions: action.payload
         }
-      case "GET_THIS_PROFESSION":
+      case "GET_PROVIDERS":
         return{
           ...state,
-          profession: action.payload
+          providers: action.payload
         }
       default :
           return state
