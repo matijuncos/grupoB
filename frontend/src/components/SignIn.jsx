@@ -7,7 +7,7 @@ const SignIn = (props) => {
 
     const { history, signIn, loggedUser } = props
     const [user, setUser] = useState({})
-    const [errores, setErrores] = useState([])
+    const [errores, setErrores] = useState('')
     useEffect(() => {
         if (loggedUser !== null)
             setTimeout(() => {
@@ -31,11 +31,12 @@ const SignIn = (props) => {
         }
     }
     const Validate = async e => {
-        e.preventDefault()
+        setErrores('')
         if (!user.email || !user.password) {
-            alert('todos los campos son requeridos')
+            setErrores('Todos los campos son requeridos')
         } else {
             const response = await signIn(user)
+            setErrores(response.message)
             if (loggedUser !== null)
                 setTimeout(() => {
                     props.history.push('/')
@@ -44,7 +45,7 @@ const SignIn = (props) => {
     }
     const responseGoogle = async response => {
         if (response.error) {
-            alert("Algo pasó...")
+            alert("Intente nuevamente")
         } else {
             const res = await props.signIn({
                 email: response.profileObj.email,
@@ -52,7 +53,7 @@ const SignIn = (props) => {
             }
             )
             if (res && !res.success) {
-                setErrores([res.mensaje])
+                alert('Intente nuevamente')
                 console.log(errores)
             } else {
                 alert(
@@ -65,6 +66,7 @@ const SignIn = (props) => {
         <div className="registro">
             <div className="formulario">
                 <h2>Iniciar Sesión</h2>
+                <h4>{errores}</h4>
                 <div className="inputDiv">
                     <input onKeyPress={enterKeyboard} type="text" autoComplete="nope" name="email" placeholder="Email" onChange={readInput} />
                 </div>
