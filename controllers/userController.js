@@ -47,7 +47,7 @@ const userController = {
                 urlPic: userBase.urlPic,
                 email: userBase.email,
                //  _id:idUserBase._id
-               idUserBase: idUserBase._id
+               _id: idUserBase._id
                }})
          })
          .catch(error => {return res.json({success:false, error})})
@@ -113,6 +113,7 @@ const userController = {
    },
    preserveLog:  (req, res) =>{
       const {firstName,urlPic,_id} = req.user
+      console.log(req)
       res.json({
          success: true, 
          response: {
