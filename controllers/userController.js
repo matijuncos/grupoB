@@ -8,17 +8,20 @@ const jwtoken = require('jsonwebtoken');
 const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
+      console.log(req.body)
       var {firstName, lastName, urlPic, email, phone, password, country,
       website, arrayValoration, review, rol, idProfession} = req.body
-      if(req.body.idUserBase!==''){
+      
+      if(req.body.idUserBase !== undefined){
          const userBaseExists = await UserBase.findOne({_id: req.body.idUserBase})
          firstName=userBaseExists.firstName, 
-         lastName=userBaseExists.lastName, 
-         urlPic=userBaseExists.urlPic, 
-         email=userBaseExists.email, 
-         phone=userBaseExists.phone, 
-         password=userBaseExists.password  
+         lastName=userBaseExists.lastName,
+         urlPic=userBaseExists.urlPic,
+         email=userBaseExists.email,
+         phone=userBaseExists.phone,
+         password=userBaseExists.password
       }
+      console.log(req.body)
       const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
          firstName, lastName, urlPic, email, phone, password: hashedPassword, country
@@ -28,7 +31,8 @@ const userController = {
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase
          const userProvider = new UserProvider({
-            _id:idUserBase, website, arrayValoration, review, rol, idProfession
+            // _id:idUserBase,
+            idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession
          })
          userProvider.save()
          .then(async newUserProvider =>{
@@ -42,7 +46,8 @@ const userController = {
                 firstName: userBase.firstName,
                 urlPic: userBase.urlPic,
                 email: userBase.email,
-                _id:idUserBase._id
+               //  _id:idUserBase._id
+               idUserBase: idUserBase._id
                }})
          })
          .catch(error => {return res.json({success:false, error})})
@@ -127,7 +132,9 @@ const userController = {
    },
    getProviders: async (req,res) =>{
       try {
+
          const usersProviders = await UserProvider.find()
+         .populate('_id')
          .populate('idUserBase')
          .populate('idProfession')
          .populate({

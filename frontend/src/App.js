@@ -1,16 +1,20 @@
-import './App.css';
-import { connect } from 'react-redux';
+import './App.css'
+import { connect } from 'react-redux'
 import React from 'react'
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar'
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
-import LandingPage from './components/LandingPage';
-import Footer from './components/Footer';
+import LandingPage from './components/LandingPage'
+import Footer from './components/Footer'
 import RegistroUsuario from './components/RegistroUsuario'
 import RegistroProvedor from './components/RegistroProvedor'
 import Profesionales from './components/Profesionales'
 import signIn from './components/SignIn'
+<<<<<<< HEAD
 import userActions from './Redux/actions/userActions';
 import Profesional from './components/Profesional';
+=======
+import userActions from './Redux/actions/userActions'
+>>>>>>> c7ae6136281a536d916fa02aa133f1038c86a9b4
 
 const App = (props) => {
 if(props.loggedUser){
