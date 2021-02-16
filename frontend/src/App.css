@@ -473,3 +473,10 @@ body{
 .sealsNoVerif{
   background-image: url('./assets//noverificado.svg');
 }
+input[type="radio"]{
+  display: none;  
+}
+.star{
+  cursor: pointer;
+  transition: color 200ms;
+}
