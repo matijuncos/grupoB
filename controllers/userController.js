@@ -31,7 +31,7 @@ const userController = {
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase
          const userProvider = new UserProvider({
-            // _id:idUserBase,
+            _id:idUserBase,
             idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession
          })
          userProvider.save()
@@ -70,7 +70,8 @@ const userController = {
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase._id
          const userConsumer = new UserConsumer({
-            _id:idUserBase
+            _id:idUserBase,
+            idUserBase:idUserBase
          })
          userConsumer.save()
          .then(async newUserConsumer =>{
@@ -134,15 +135,20 @@ const userController = {
       try {
 
          const usersProviders = await UserProvider.find()
-         .populate('_id')
          .populate('idUserBase')
          .populate('idProfession')
          .populate({
             path:'review',
             populate:{
               path:'idUser',
-              select:'idUserBase',
               model:'userConsumer'
+            }
+          })
+          .populate({
+            path:'review.idUser',
+            populate:{
+              path:'idUserBase',
+              model:'userBase'
             }
           })
          
