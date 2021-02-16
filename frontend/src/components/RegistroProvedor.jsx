@@ -9,12 +9,6 @@ function RegistroProvedor(props) {
     const [professions, setProfessions] = useState([])
     // Funcion para ler input
 
-    console.log(professions)
-    useEffect(() => {
-        fetch('http://localhost:4000/api/professions/')
-            .then(response => response.json())
-            .then(data => setProfessions(data.response))
-    }, [])
 
     const readInput = e => {
         const property = e.target.name
