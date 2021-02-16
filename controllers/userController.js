@@ -10,7 +10,7 @@ const userController = {
       // Desestructuro la req del front-end
       var {firstName, lastName, urlPic, email, phone, password, country,
       website, arrayValoration, review, rol, idProfession} = req.body
-      if(req.body.idUserBase!==''){
+      if(req.body.idUserBase !== undefined){
          const userBaseExists = await UserBase.findOne({_id: req.body.idUserBase})
          firstName=userBaseExists.firstName, 
          lastName=userBaseExists.lastName, 
