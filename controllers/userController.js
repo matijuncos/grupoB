@@ -9,7 +9,7 @@ const userController = {
       // Desestructuro la req del front-end
       console.log(req.body)
       var {firstName, lastName, urlPic, email, phone, password, country,
-      website, arrayValoration, review, rol, idProfession} = req.body
+      website, arrayValoration, review, rol, idProfession,arrayWorks} = req.body
       
       if(req.body.idUserBase !== undefined){
          const userBaseExists = await UserBase.findOne({_id: req.body.idUserBase})
@@ -19,6 +19,7 @@ const userController = {
          email=userBaseExists.email,
          phone=userBaseExists.phone,
          password=userBaseExists.password
+         arrayWorks=userBaseExists.arrayWorks
       }
       console.log(req.body)
       const hashedPassword =  bcryptjs.hashSync(password, 10)
@@ -31,7 +32,7 @@ const userController = {
          const idUserBase = newUserBase
          const userProvider = new UserProvider({
             //_id:idUserBase,
-            idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession
+            idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession, arrayWorks
          })
          userProvider.save()
          .then(async newUserProvider =>{
