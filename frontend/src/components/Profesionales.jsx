@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import professionActions from '../Redux/actions/professionActions'
+import { connect, Provider } from 'react-redux'
+// import { connect } from 'react-redux'
+// import professionActions from '../Redux/actions/professionActions'
 import Professional from './Professional'
 
 
 const Profesionales = (props) => {
-    console.log(props)
-
+    const [providers, setProviders] = useState([])
     const id = props.match.params.id
 
-    const [professionals, setProfessionals] = useState([])
     useEffect(() => {
-        fetch()
+        if (props.providers.length === 0) {
+            props.history.push('/')
+            return false
+        }
+        const professionals = props.providers.respuesta.filter(provider => {
+            return id === provider.idProfession._id
+        })
+        setProviders(professionals)
+
     }, [])
 
-    const fetch = async () => {
-        const res = await props.getOneProfession(id)
-        console.log(res)
-        setProfessionals(props.profession.response)
-    }
     return (
         <>
             <div className="profesionales">
                 <h2>Elegí tu profesional favorito</h2>
-                {professionals && professionals.map(professionals => {
+                {providers && providers.map(professionals => {
                     return (
                         <Professional professionals={professionals} />
                     )
@@ -35,11 +37,9 @@ const Profesionales = (props) => {
 
 const mapStateToProps = state => {
     return {
-        profession: state.professionR.profession
+        providers: state.professionR.providers
     }
 }
-const mapDispatchToProps = {
-    getOneProfession: professionActions.getOneProfession
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profesionales)
+
+export default connect(mapStateToProps)(Profesionales)

@@ -6,6 +6,7 @@ const validator = require('../controllers/validator')
 const userController = require('../controllers/userController.js')
 const articleController = require('../controllers/articleController')
 const professionalController=require('../controllers/professionController')
+const workController=require('../controllers/workController')
 // Ruta para crear usuario que brinda servicios
 router.route('/user/provider')
 .post(userController.addUserProvider)
@@ -20,10 +21,6 @@ router.route('/user/customer')
 router.route('/user/providers')
 .get(userController.getProviders)
 
-//Obtener professionales por id de profesiones
-router.route('/user/professionals/:id')
-.get(userController.getProfessionalsForId)
-
 // Ruta para cargar y obtener artículos
 router.route('/article')
 .get(articleController.getArticles)
@@ -33,6 +30,19 @@ router.route('/professions')
 .get(professionalController.getProfession)
 .post(professionalController.addProfession)
 
+//Rutas de trabajos
+router.route('/work')
+.post(workController.addWork)
+.get(workController.getWorks)
+.put(workController.changeState)
+
+router.route('/work/:id')
+.get(workController.getWork)
+.delete(workController.delWork)
+
+//mails
+router.route('/mail/sendMail')
+.post(userController.sendMail)
 
 router.route('/user/storage')
 .post(passport.authenticate('jwt', {session:false}), userController.preserveLog)

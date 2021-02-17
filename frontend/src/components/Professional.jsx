@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 const Professional = ({ professionals }) => {
   const { idUserBase, idProfession } = professionals
-  console.log(professionals)
+
   return (
     <div>
-      <Link to={'/profesional/' + professionals._id} className="profesional">
+      <Link to={'/details/' + professionals._id} className="profesional">
         <div className="user">
           <div className="fotoUser" style={{ backgroundImage: `url(${idUserBase.urlPic})` }}></div>
           <h2>{idUserBase.firstName} {idUserBase.lastName}</h2>
