@@ -38,14 +38,6 @@ const SignIn = (props) => {
             setErrores('Todos los campos son requeridos')
         } else {
             const response = await signIn(user)
-<<<<<<< HEAD
-            if(response.message){
-                setErrores(response.message)
-            }
-            
-=======
-
->>>>>>> fa0ef6b2fd3ba237a259d3d9366e8501271b1363
             if (loggedUser !== null)
                 setTimeout(() => {
                     props.history.push('/')

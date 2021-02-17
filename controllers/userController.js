@@ -7,20 +7,9 @@ const jwtoken = require('jsonwebtoken');
 const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
-      console.log(req.body)
       var {firstName, lastName, urlPic, email, phone, password, country,
       website, arrayValoration, review, rol, idProfession} = req.body
-      
-      if(req.body.idUserBase !== undefined){
-         const userBaseExists = await UserBase.findOne({_id: req.body.idUserBase})
-         firstName=userBaseExists.firstName, 
-         lastName=userBaseExists.lastName,
-         urlPic=userBaseExists.urlPic,
-         email=userBaseExists.email,
-         phone=userBaseExists.phone,
-         password=userBaseExists.password
-      }
-      console.log(req.body)
+
       const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
          firstName, lastName, urlPic, email, phone, password: hashedPassword, country
