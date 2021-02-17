@@ -4,6 +4,9 @@ import { NavLink, Link } from 'react-router-dom'
 import Logo from '../assets/logo3.png'
 import userPic from '../assets/user.svg'
 import userActions from '../Redux/actions/userActions'
+// Librearía rsuite
+import { Drawer } from 'rsuite'
+import MenuUser from './MenuUser'
 
 const Navbar = ({ loggedUser, signOut }) => {
   console.log(loggedUser)
@@ -41,6 +44,8 @@ const Navbar = ({ loggedUser, signOut }) => {
                 Iniciar sesión
             </NavLink>
               <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>
+              {/* TESTEANDO CESAR */}
+              <MenuUser />
             </>
           ) : (
               <>
@@ -51,6 +56,7 @@ const Navbar = ({ loggedUser, signOut }) => {
             )}
         </div>
       </div>
+      
     </nav>
   )
 }
