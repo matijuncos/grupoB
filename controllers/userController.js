@@ -10,10 +10,6 @@ const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
       var {firstName, lastName, urlPic, email, phone, password, country,
-<<<<<<< HEAD
-      website, arrayValoration, review, rol, idProfession} = req.body
-
-=======
       website, arrayValoration, review, rol, idProfession,arrayWorks} = req.body
       
       if(req.body.idUserBase !== undefined){
@@ -26,7 +22,6 @@ const userController = {
          password=userBaseExists.password
          arrayWorks=userBaseExists.arrayWorks
       }
->>>>>>> dev
       const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
          firstName, lastName, urlPic, email, phone, password: hashedPassword, country
