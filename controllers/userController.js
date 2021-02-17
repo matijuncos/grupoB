@@ -23,7 +23,6 @@ const userController = {
          password=userBaseExists.password
          arrayWorks=userBaseExists.arrayWorks
       }
-      console.log(req.body)
       const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
          firstName, lastName, urlPic, email, phone, password: hashedPassword, country
@@ -166,7 +165,7 @@ const userController = {
       userProvider=work.idUserProvider.idUserBase
       var to=`${userConsumer.email},${userProvider.email}`
       const orden=`${work._id.toString().slice(2,7)}${userConsumer.lastName.toString().slice(0,3)}`
-      const subject= work.state===1 ? "Se ha abierto con exito la solicitud." : work.state===3 && "El trabajo se ha terminado."
+      const subject= work.state===1 ? "Se ha abierto con exito la solicitud." : work.state===2  ? "La propuesta de trabajo ha sido aceptado." :work.state===3 && "El trabajo se ha terminado."
       switch (work.state) {
          case 1:
             message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible.</p>
