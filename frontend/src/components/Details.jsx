@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import professionActions from "../Redux/actions/professionActions"
 
 import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 
 const Details = (props) => {
+    console.log(props)
     const id = props.match.params.id
     const [providers, setProviders] = useState({})
     const [rating, setRating] = useState(0)
@@ -28,7 +30,10 @@ const Details = (props) => {
         //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
     }, [providers])
 
+    const btnContract = ()=>{
+        props.addWork(providers._id,props.consumers._id)
 
+}
 
 
 
@@ -71,6 +76,7 @@ const Details = (props) => {
                             )
                         })}
                     </div>
+                    <div className="containerContract"><button className="contract" onClick={btnContract}>Contratar</button></div>   
                 </div>
                 <div className="commentProffesional"><p>ACA IRÄ LA PRESENTACIÖN DEL TIPO</p></div>
             </div>
@@ -83,6 +89,7 @@ const Details = (props) => {
                         <div className="seals sealsNoVerif"></div>
                     </div>
                 </div>
+                <div><input type="text" name="commentConsumer" placeholder="Deje su comentario"/></div>
 
             </div>
         </>
@@ -91,10 +98,15 @@ const Details = (props) => {
 }
 const mapStateToProps = state => {
     return {
-        providers: state.professionR.providers
+        providers: state.professionR.providers,
+        consumers: state.userR.loggedUser
     }
+}
+
+const mapDispatchToProps ={
+    addWork: professionActions.addWork
 }
 
 
 
-export default connect(mapStateToProps)(Details)
+export default connect(mapStateToProps,mapDispatchToProps)(Details)

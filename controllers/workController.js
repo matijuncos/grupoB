@@ -2,7 +2,9 @@ const Work = require('../models/Work')
 
 const WorkController = {
    addWork:(req,res) =>{
+
       const {idUserConsumer, idUserProvider, state, comment} = req.body
+      console.log(req.body)
       const newWork = new Work({
         idUserConsumer, idUserProvider, state, comment
       })
