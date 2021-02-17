@@ -36,7 +36,7 @@ const userController = {
          userProvider.save()
          .then(async newUserProvider =>{
             // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
-            const populateUserProvider = await UserProvider.findById(newUserProvider._id).populate('idUserBase')
+            const populateUserProvider = await newUserProvider.populate('idUserBase').execPopulate()
             var token = jwtoken.sign({...populateUserProvider}, process.env.SECRET_KEY, {})
             res.json({
                success:true, 
@@ -75,7 +75,7 @@ const userController = {
          userConsumer.save()
          .then(async newUserConsumer =>{
             // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
-            const populateUserConsumer = await UserConsumer.findById(newUserConsumer._id).populate('idUserBase')
+            const populateUserConsumer =  await newUserConsumer.populate('idUserBase').execPopulate()
             var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
             res.json({
                success:true, 
@@ -84,7 +84,7 @@ const userController = {
                   firstName: userBase.firstName,
                   urlPic: userBase.urlPic,
                   email: userBase.email,
-                  _id: newUserBase._id
+                  _id: idUserBase._id
                }})
          })
          .catch(error => {
@@ -112,7 +112,6 @@ const userController = {
    },
    preserveLog:  (req, res) =>{
       const {firstName,urlPic,_id} = req.user
-      console.log(req)
       res.json({
          success: true, 
          response: {
