@@ -157,6 +157,7 @@ const userController = {
          return res.json({success:false, respuesta: 'Ha ocurrido un error en el proceso: '+e})
        }
    },
+<<<<<<< HEAD
    sendMail:async(req,res)=>{
       var message=""
       const idWork=req.body.id
@@ -192,6 +193,21 @@ const userController = {
             <style>
             .contenedor,.cabecera,.footer{
                width: 100%;
+=======
+   getProfessionalsForId:async(req,res)=>{
+      console.log('entre')
+      console.log(req.params)
+      const idRequest=req.params.id
+      try {
+         const respuesta=await UserProvider.find({idProfession:idRequest})
+         .populate('idUserBase')
+         .populate('idProfession')
+         .populate({
+            path:'review',
+            populate:{
+              path:'idUser',
+              model:'userConsumer'
+>>>>>>> db731bb968a5291b67908a44fe93235f7a389d91
             }
             .cabecera,.footer{
                background-color: rgb(216,0,27);

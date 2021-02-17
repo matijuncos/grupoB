@@ -85,11 +85,7 @@ function RegistroProvedor(props) {
         </div>
     )
 }
-
 const mapDispatchToProps = {
     signProviderUp: userActions.signProviderUp
-
 }
-
 export default connect(null, mapDispatchToProps)(RegistroProvedor)
-
