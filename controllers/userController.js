@@ -38,7 +38,7 @@ const userController = {
          userProvider.save()
          .then(async newUserProvider =>{
             // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
-            const populateUserProvider = await UserProvider.findById(newUserProvider._id).populate('idUserBase')
+            const populateUserProvider = await newUserProvider.populate('idUserBase').execPopulate()
             var token = jwtoken.sign({...populateUserProvider}, process.env.SECRET_KEY, {})
             res.json({
                success:true, 
@@ -77,7 +77,7 @@ const userController = {
          userConsumer.save()
          .then(async newUserConsumer =>{
             // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
-            const populateUserConsumer = await UserConsumer.findById(newUserConsumer._id).populate('idUserBase')
+            const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
             var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
             res.json({
                success:true, 
@@ -157,7 +157,6 @@ const userController = {
          return res.json({success:false, respuesta: 'Ha ocurrido un error en el proceso: '+e})
        }
    },
-<<<<<<< HEAD
    sendMail:async(req,res)=>{
       var message=""
       const idWork=req.body.id
@@ -193,21 +192,6 @@ const userController = {
             <style>
             .contenedor,.cabecera,.footer{
                width: 100%;
-=======
-   getProfessionalsForId:async(req,res)=>{
-      console.log('entre')
-      console.log(req.params)
-      const idRequest=req.params.id
-      try {
-         const respuesta=await UserProvider.find({idProfession:idRequest})
-         .populate('idUserBase')
-         .populate('idProfession')
-         .populate({
-            path:'review',
-            populate:{
-              path:'idUser',
-              model:'userConsumer'
->>>>>>> db731bb968a5291b67908a44fe93235f7a389d91
             }
             .cabecera,.footer{
                background-color: rgb(216,0,27);
