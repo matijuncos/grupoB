@@ -2,16 +2,13 @@ const Work = require('../models/Work')
 
 const WorkController = {
    addWork:(req,res) =>{
-<<<<<<< HEAD
-
-=======
      console.log(req.body)
->>>>>>> 107ae5b58fd98a87568e03d0b59c0cf85cd06451
       const {idUserConsumer, idUserProvider, state, comment} = req.body
       console.log(req.body)
       const newWork = new Work({
         idUserConsumer, idUserProvider, state, comment
       })
+      console.log(newWork)
       newWork.save()
       .then(newWork =>{return res.json({success:true, response:newWork})})
       .catch(error => {return res.json({success:false, error})})
