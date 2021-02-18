@@ -1,23 +1,29 @@
 import Work from './Work'
 import { connect } from 'react-redux'
+import {useEffect,useState} from 'react'
+import workActions from '../Redux/actions/workActions'
 
-const WorkState = (props) => {
+const WorkState = ({getWorks,works}) => {
+   const [reload,setReload]=useState(false)
+   useEffect(() => {
+      getWorks()
+   }, [reload])
    // Array estático de estados de trabajo
    return (
       <>
-         {props.works.map(work => {
-            return <Work work={work} />
+         {works.map(work => {
+            return <Work reload={reload} setReload={setReload} work={work} />
          })}
-
       </>
    )
 
 }
-
 const mapStateToProps = state => {
    return {
       works: state.workR.works
    }
 }
-
-export default connect(mapStateToProps)(WorkState)
+const mapDispatchToProps={
+   getWorks:workActions.getWorks
+}
+export default connect(mapStateToProps,mapDispatchToProps)(WorkState)

@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import professionActions from "../Redux/actions/professionActions"
+import workActions from "../Redux/actions/workActions"
 import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 const Details = (props) => {
@@ -26,10 +26,13 @@ const Details = (props) => {
         //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
     }, [providers])
     const btnContract = () => {
-        props.consumer!==null ?
-        props.addWork(providers._id, props.consumer._id)
-        :
-        setErrores("No puede contratar a un profesional sin iniciar sesion.")
+        props.consumer && console.log(props.consumer)
+        if(props.consumer!==null){ 
+        props.addWork({"idUserConsumer":props.consumer.idUser, "idUserProvider":providers._id})
+        props.getWorks()
+    }
+        else{
+        setErrores("No puede contratar a un profesional sin iniciar sesion.")}
     }
     if (!providers._id) {
         return <h1>Cargando</h1>
@@ -93,6 +96,7 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = {
-    addWork: professionActions.addWork
+    addWork: workActions.addWork,
+    getWorks: workActions.getWorks
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Details)

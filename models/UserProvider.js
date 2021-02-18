@@ -8,7 +8,7 @@ const reviewSchema = new mongoose.Schema({
 // las review tienen su propio schema, el mismo será llamado dentro del schema userprovider, propiedad review.
 const userProviderSchema = new mongoose.Schema({
     idUserBase: {type: mongoose.Schema.ObjectId, ref: "userBase"},
-    arrayValoration:[{type:Number,default:0}],
+    arrayValoration:{type:Array,default:3},
     review: [reviewSchema],
     rol: {type:String,default:"provider"},
     arrayWorks:[String],

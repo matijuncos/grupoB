@@ -4,10 +4,11 @@ import { NavLink, Link } from 'react-router-dom'
 import Logo from '../assets/logo3.png'
 import userPic from '../assets/user.svg'
 import userActions from '../Redux/actions/userActions'
-import workAction from '../Redux/actions/workAction'
+import workActions from '../Redux/actions/workActions'
 import MenuUser from './MenuUser'
 
 const Navbar = ({ loggedUser, signOut, getWorks }) => { 
+  loggedUser && console.log(loggedUser)
   const logOut = () => {
     signOut()
     localStorage.clear()
@@ -67,7 +68,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   signOut: userActions.signOut,
-  getWorks: workAction.getWorks
+  getWorks: workActions.getWorks
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
 

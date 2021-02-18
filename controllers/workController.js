@@ -2,14 +2,12 @@ const Work = require('../models/Work')
 
 const WorkController = {
    addWork:(req,res) =>{
-     console.log(req.body)
       const {idUserConsumer, idUserProvider} = req.body
       const newWork = new Work({
-        idUserConsumer: idUserConsumer, idUserProvider :idUserProvider
+        idUserConsumer, idUserProvider
       })
-      console.log(newWork)
       newWork.save()
-      .then(newWork =>{return res.json({success:true, response:newWork})})
+      .then(work =>{return res.json({success:true, response:work})})
       .catch(error => {return res.json({success:false, error})})
    },
    getWork:(req,res) =>{
@@ -49,7 +47,8 @@ const WorkController = {
     }
    },
    changeState:async(req,res)=>{
-     const idWork=req.body.id
+     console.log("change")
+     const idWork=req.body.idWork
      try {
       const work= await Work.find({'_id':idWork})
       const newState=work[0].state+1

@@ -1,8 +1,7 @@
-import {connect} from 'react-redux'
 import React from 'react'
 import { Drawer, ButtonToolbar, Button, Placeholder } from 'rsuite'
 import '../../node_modules/rsuite/dist/styles/rsuite-default.css'
-import Work from './Work'
+import WorkState from './WorkState'
 
 class MenuUser extends React.Component {
   constructor(props) {
@@ -24,7 +23,6 @@ class MenuUser extends React.Component {
   componentDidMount(){
     this.props.getWorks()
   }
-  
   render() {
     return (
       <div>
@@ -39,10 +37,7 @@ class MenuUser extends React.Component {
             <Drawer.Title>Drawer Title</Drawer.Title>
           </Drawer.Header>
           <Drawer.Body>
-          {console.log(this.props.works)}
-          {this.props.works.map(work => {
-            return <Work work={work} />
-          })}
+            <WorkState/>
           </Drawer.Body>
           <Drawer.Footer>
             <Button onClick={this.close} appearance="primary">Confirm</Button>
@@ -53,9 +48,4 @@ class MenuUser extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-     works: state.workR.works
-  }
-}
-export default connect(mapStateToProps)(MenuUser)
+export default MenuUser

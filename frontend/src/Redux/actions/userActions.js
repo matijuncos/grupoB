@@ -9,7 +9,6 @@ const userActions = {
             'Content-Type':'multipart/form-data'
           }
         })
-        console.log(response)
         if(response.data.success===false){
           var errors=[]
           response.data.errores && response.data.errores.details.map(error=>{
@@ -79,9 +78,10 @@ const userActions = {
     }
   },
   preserveLog: (token) =>{
+    const idUser=localStorage.getItem('idUser')
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.post('http://localhost:4000/api/user/storage', {token}, {
+        const response = await axios.post('http://localhost:4000/api/user/storage', {token,idUser}, {
           headers:{
             Authorization:`Bearer ${token}`
           }

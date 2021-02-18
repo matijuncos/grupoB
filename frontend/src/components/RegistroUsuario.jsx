@@ -20,8 +20,7 @@ function RegistroUsuario({ signUp, loggedUser }) {
         })
     }
     //Funcion para enviar formulario 
-    const validarUsuario = async e => {
-        e.preventDefault()
+    const validarUsuario = async () => {
         //llenando el formData con la informacion de los input
         const fdNewUser = new FormData()
         fdNewUser.append('firstName', newUser.firstName)

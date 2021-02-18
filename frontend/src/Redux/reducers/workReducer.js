@@ -1,6 +1,7 @@
 const initState = {
    works:[ ],
-   addWorks: []
+   addWorks: [],
+   currentWorks:0
  }
  
  const workReducer = (state = initState, action) =>{
@@ -12,12 +13,15 @@ const initState = {
            works: action.payload
          }
        case "ADD_WORK":
-          console.log(action.payload)
-          console.log("estoy en ADD_WORK")
           return {
              ...state.works,
              addWorks: action.payload
           }
+        case 'CHANGE_STATE':
+          return {
+            ...state,
+            currentWorks:state.currentWorks+1
+         }
        default :
            return state
        }
