@@ -88,7 +88,8 @@ function RegistroUsuario({ signUp, loggedUser }) {
                     </select>
                 </div>
                 <div className="inputDiv">
-                    <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={leerInput} /></div>
+                    <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={leerInput} />
+                </div>
                 <div className="inputDiv">
                     <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>

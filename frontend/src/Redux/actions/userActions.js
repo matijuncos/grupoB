@@ -48,10 +48,14 @@ const userActions = {
       }
     }
   },   
-  signProviderUp: (newUser) =>{
+  signProviderUp: (fdNewUser) =>{
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.post('http://localhost:4000/api/user/provider', newUser)
+        const response = await axios.post('http://localhost:4000/api/user/provider', fdNewUser,{
+          headers:{
+            'Content-Type':'multipart/form-data'
+          }
+        })
         if(!response.data.success){
           return response.data
         }
@@ -103,6 +107,7 @@ const userActions = {
           if (!respuesta.data.success) {
               return respuesta.data
           }
+          console.log(respuesta)
           dispatch({type:'USER_LOG', payload: respuesta.data})
       }
   }

@@ -9,14 +9,15 @@ const nodemailer = require("nodemailer");
 const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
-      var {firstName, lastName, urlPic, email, phone, password, country,
-      website, arrayValoration, review, rol, idProfession,arrayWorks} = req.body
-      
+      console.log(req.body)
+      var {firstName, lastName, email, phone, password, country, 
+         arrayValoration, review, idProfession} = req.body
+      var arrayWorks=[]
+
       if(req.body.idUserBase !== undefined){
          const userBaseExists = await UserBase.findOne({_id: req.body.idUserBase})
          firstName=userBaseExists.firstName, 
          lastName=userBaseExists.lastName,
-         urlPic=userBaseExists.urlPic,
          email=userBaseExists.email,
          phone=userBaseExists.phone,
          password=userBaseExists.password
@@ -24,24 +25,50 @@ const userController = {
       }
       const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
-         firstName, lastName, urlPic, email, phone, password: hashedPassword, country
+         firstName, lastName, email, phone, password: hashedPassword, country
       })
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos      
       try{
+       //File urlPic
+       const {fileUrlPic,fileWorkPic,fileWorkPic2}=req.files
+       console.log(req.files)
+       if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0&&fileWorkPic.mimetype.indexOf('image/jpeg')!==0&&fileWorkPic2.mimetype.indexOf('image/jpeg')!==0){
+          return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG, JPEG, BMP ó PNG."})
+       }
+       const extPicUrl=fileUrlPic.name.split('.',2)[1]
+       fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPicUrl}`,error =>{
+             if(error){
+                return res.json({success:false,respuesta:"Intente nuevamente..."})
+             }
+       })
+       userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPicUrl}`
+       //WorkPic1
+       const extPicWork=fileWorkPic.name.split('.',2)[1]
+       fileWorkPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}1.${extPicWork}`,error =>{
+             if(error){
+                return res.json({success:false,respuesta:"Intente nuevamente..."})
+             }
+       })
+      //WorkPic2
+       const extPicWork2=fileWorkPic2.name.split('.',2)[1]
+       fileWorkPic2.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}2.${extPicWork2}`,error =>{
+             if(error){
+                return res.json({success:false,respuesta:"Intente nuevamente..."})
+             }
+       })
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase
+         arrayWorks.push(`./assets/usersPics/${userBase._id}1.${extPicWork}`)
+         arrayWorks.push(`./assets/usersPics/${userBase._id}2.${extPicWork2}`)
          const userProvider = new UserProvider({
-            //_id:idUserBase,
-            idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession, arrayWorks
+            idUserBase: idUserBase._id, arrayValoration, review, idProfession, arrayWorks
          })
          userProvider.save()
          .then(async newUserProvider =>{
             // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
             const populateUserProvider = await newUserProvider.populate('idUserBase').execPopulate()
             var token = jwtoken.sign({...populateUserProvider}, process.env.SECRET_KEY, {})
-            res.json({
-               success:true, 
-               response:
+            res.json({success:true,response:
                {token,
                 firstName: userBase.firstName,
                 urlPic: userBase.urlPic,
@@ -67,8 +94,6 @@ const userController = {
       })
       //File urlPic
       const {fileUrlPic}=req.files
-      console.log(typeof(fileUrlPic.mimetype))
-      console.log(fileUrlPic.mimetype.indexOf('image/jpeg'))
       if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
          return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
       }
@@ -129,13 +154,14 @@ const userController = {
    },
    preserveLog:  (req, res) =>{
       console.log(req.user)
-      const {firstName,urlPic,_id} = req.user
+      const {firstName,urlPic,_id,idUser} = req.user
       res.json({
          success: true, 
          response: {
             token: req.body.token, 
             firstName,
             urlPic,
+            idUser,
             _id
          }})
       },

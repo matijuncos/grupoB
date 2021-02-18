@@ -26,17 +26,11 @@ const Details = (props) => {
         //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
     }, [providers])
     const btnContract = () => {
-<<<<<<< HEAD
-        props.addWork(providers._id, props.consumers._id)
-    }
-
-=======
         props.consumer!==null ?
         props.addWork(providers._id, props.consumer._id)
         :
         setErrores("No puede contratar a un profesional sin iniciar sesion.")
     }
->>>>>>> alb
     if (!providers._id) {
         return <h1>Cargando</h1>
     }

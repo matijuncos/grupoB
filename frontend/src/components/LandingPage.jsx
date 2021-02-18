@@ -12,6 +12,7 @@ const LandingPage = (props) => {
   useEffect(() => {
     props.getProfessions()
     props.getProviders()
+    console.log(props.providers)
   }, [])
 
   return (
