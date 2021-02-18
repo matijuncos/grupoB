@@ -2,10 +2,10 @@ const Work = require('../models/Work')
 
 const WorkController = {
    addWork:(req,res) =>{
-
-      const {idConsumer, idProvider} = req.body
+     console.log(req.body)
+      const {idUserConsumer, idUserProvider} = req.body
       const newWork = new Work({
-        idUserConsumer:idConsumer, idUserProvider:idProvider
+        idUserConsumer: idUserConsumer, idUserProvider :idUserProvider
       })
       console.log(newWork)
       newWork.save()

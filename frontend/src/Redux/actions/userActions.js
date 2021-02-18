@@ -100,7 +100,6 @@ const userActions = {
   signIn: (user) => {
       return async (dispatch, getState) => {
           const respuesta = await axios.post('http://localhost:4000/api/user/signIn', user)
-          console.log(respuesta.data)
           if (!respuesta.data.success) {
               return respuesta.data
           }
