@@ -37,9 +37,9 @@ const SlideShow = () => {
     <>
       <div>
         <Slider {...settings}>
-          {pics.map(slide => {
+          {pics.map((slide, idx) => {
             return (
-              <Slide slide={slide} />
+              <Slide slide={slide} key={idx} />
             )
           })}
 

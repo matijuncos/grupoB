@@ -9,7 +9,6 @@ const nodemailer = require("nodemailer");
 const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
-      console.log(req.body)
       var {firstName, lastName, urlPic, email, phone, password, country,
       website, arrayValoration, review, rol, idProfession,arrayWorks} = req.body
       
@@ -101,8 +100,12 @@ const userController = {
                   firstName: userBase.firstName,
                   urlPic: userBase.urlPic,
                   email: userBase.email,
+<<<<<<< HEAD
                   idUser:newUserConsumer._id,
                   _id: newUserBase._id
+=======
+                  _id: idUserBase._id
+>>>>>>> d70b628d6f8c9897f85c0ffc7480bf13245fbd42
                }})
          })
          .catch(error => {
@@ -130,7 +133,6 @@ const userController = {
    },
    preserveLog:  (req, res) =>{
       const {firstName,urlPic,_id} = req.user
-      console.log(req)
       res.json({
          success: true, 
          response: {
