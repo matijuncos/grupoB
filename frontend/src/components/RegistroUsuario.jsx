@@ -4,28 +4,64 @@ import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 
-
-function RegistroUsuario({ signUp,loggedUser }) {
-    const [nuevoUsuario, setNuevoUsuario] = useState({})
+function RegistroUsuario({ signUp, loggedUser }) {
+    const [newUser, setNewUser] = useState({})
+    const [errores, setErrores] = useState([])
+    const countries=require('../data/dataContryNames.json')
     // Funcion para ler input
     const leerInput = e => {
-        const campo = e.target.name
-        const valor = e.target.value
-        setNuevoUsuario({
-            ...nuevoUsuario,
-            [campo]: valor
+        console.log(newUser)
+        const property = e.target.name
+        var value = e.target.value
+        if (property === 'fileUrlPic') value = e.target.files[0]
+        setNewUser({
+            ...newUser,
+            [property]: value
         })
     }
     //Funcion para enviar formulario 
-    const validarUsuario = async () => {
-        const res = await signUp(nuevoUsuario)
+    const validarUsuario = async e => {
+        e.preventDefault()
+        //llenando el formData con la informacion de los input
+        const fdNewUser=new FormData()
+        fdNewUser.append('firstName',newUser.firstName)
+        fdNewUser.append('lastName',newUser.lastName)
+        fdNewUser.append('fileUrlPic',newUser.fileUrlPic)
+        fdNewUser.append('email',newUser.email)
+        fdNewUser.append('phone',newUser.phone)
+        fdNewUser.append('password',newUser.password)
+        fdNewUser.append('country',newUser.country)
+
+        const res = await signUp(fdNewUser)
+        if (res && !res.success) {
+            console.log(res)
+        }
         //mostrar al usuario sí el objeto con la propiedad success es true o false
         //el objeto respuesta va a llegar como un array de strings
-        console.log(res)
     }
     //Respuesta de Google
     const responseGoogle = async (response) => {
+        console.log(response)
 
+        if (response.error) {
+            alert("Algo pasó...")
+        } else {
+            const respuesta = await signUp({
+                firstName: response.profileObj.familyName,
+                lastName: response.profileObj.familyName,
+                email: response.profileObj.email,
+                phone: "3513963871",
+                urlPic: response.profileObj.imageUrl,
+                password: `Aa${response.profileObj.googleId}`,
+
+            })
+            if (respuesta && !respuesta.success) {
+                setErrores(respuesta.errores)
+                console.log(errores)
+            } else {
+                alert("Usuario nuevo grabado")
+            }
+        }
     }
     return (
         <div className="registro">
@@ -44,7 +80,15 @@ function RegistroUsuario({ signUp,loggedUser }) {
                     <input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} /></div>
+                    <select name="country" type='text' placeholder='País' onChange={leerInput} >
+                        <option value=''>Selecciona un país</option>
+                        {countries.map((country,i)=>{
+                            return <option key={"selectCountry"+i} value={country.value}>{country.label}</option>
+                        })}
+                    </select>
+                </div>
+                <div className="inputDiv">
+                    <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={leerInput} /></div>
                 <div className="inputDiv">
                     <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>
@@ -64,9 +108,6 @@ function RegistroUsuario({ signUp,loggedUser }) {
         </div>
     )
 }
-
-
-
 const mapStateToProps = state => {
     return {
         loggedUser: state.userR.loggedUser
@@ -74,6 +115,5 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = {
     signUp: userActions.signUp
-
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegistroUsuario)

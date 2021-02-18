@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
-import Logo from '../assets/logo.png'
+import Logo from '../assets/logo3.png'
 import userPic from '../assets/user.svg'
 import userActions from '../Redux/actions/userActions'
 
 const Navbar = ({ loggedUser, signOut }) => {
-
+  console.log(loggedUser)
   const logOut = () => {
     signOut()
     localStorage.clear()
@@ -14,31 +14,39 @@ const Navbar = ({ loggedUser, signOut }) => {
   return (
     <nav>
       <div className="navBar">
-        <div className="logoDiv">
-          <img src={Logo} alt="" />
+        <div className="logoName">
+          <div className="logoDiv" >
+            <img src={Logo} alt="" />
+          </div>
+          {loggedUser && (
+            <h3 className="navUserName">Hola, {loggedUser.firstName}!</h3>
+          )}
+
         </div>
         <div className="links">
-          <NavLink to="/registerService" className="navBarLinks">
-            <button className="registerBtn">Registrate como Prestador</button>
-          </NavLink>
+          {!loggedUser && (
+            <NavLink to="/registerService" className="navBarLinks">
+              <button className="registerBtn">Registrate como Prestador</button>
+            </NavLink>
+          )}
           <NavLink exact to="/" className="navBarLinks">
             Inicio
         </NavLink>
           {!loggedUser ? (
             <>
-              <NavLink to="/registerUSer" className="navBarLinks">
+              <NavLink to="/registerUser" className="navBarLinks">
                 Registrate
             </NavLink>
               <NavLink to="/signIn" className="navBarLinks">
                 Iniciar sesión
             </NavLink>
-            <div className="userPic" style={{ backgroundImage: `url(${userPic})` }}></div>
+              <div className="userPic" style={{ backgroundImage: `url(${userPic})` }}></div>
             </>
           ) : (
-            <>
-              <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
-              <div className="userPic" style={{ backgroundImage: `url(${loggedUser.urlPic})` }}></div>
-            </>
+              <>
+                <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
+                <div className="userPic" style={{ backgroundImage: `url(../../../usersPics/${loggedUser.urlPic})`}}></div>
+              </>
             )}
         </div>
       </div>

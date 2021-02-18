@@ -1,39 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import plumber from '../assets/tools.png'
 import Articles from './Articles'
 import Rubro from './Rubro'
+import { Link } from 'react-router-dom'
+import Slider from './Slider'
+import { connect } from 'react-redux'
+import professionActions from '../Redux/actions/professionActions'
 
 const rubros = [{ rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }]
-const LandingPage = () => {
+const LandingPage = (props) => {
+
+  useEffect(() => {
+    props.getProfessions()
+    props.getProviders()
+  }, [])
+
+  console.log(props)
   return (
     <div className="landingPage">
-      <h2>¿Cómo funciona "Te cambio el foco"?</h2>
+      <Slider />
+      <h2>¿Cómo funciona Instant Solution?</h2>
       <h3>Sólo sigue estos pasos:</h3>
       <div className="container">
         <div></div>
         <div className="text">
           <div className="stepContainer">
-            <div className="step stepOne"></div>
+            <Link className="step stepOne" to='registerUSer'></Link>
             <p className="stepContent"><strong>Paso 1: </strong>Descubrí tu problema y entrá en pánico</p>
           </div>
           <div className="stepContainer">
-            <div className="step stepTwo"></div>
+            <Link className="step stepTwo" to='registerUSer'></Link>
             <p className="stepContent"><strong>Paso 2: </strong>Reaccioná, pensá que prestador necesitas y contratalo por nuestro sitio</p>
           </div>
           <div className="stepContainer">
-            <div className="step stepThree"></div>
+            <Link className="step stepThree" to='registerUSer'></Link>
             <p className="stepContent"><strong>Paso 3: </strong>Hacé de cuenta que no pasó nada</p>
           </div>
         </div>
-        <div className="img">
-          <img src={plumber} alt="" />
-        </div>
+        <Link className="img" to='registerUSer'>
+          <div style={{ backgroundImage: `url(${plumber})` }} className="callToAction">
+            <button>Empieza aquí!</button>
+          </div>
+        </Link>
       </div>
       <div className="howItWorks">
         <h2>Tenemos muchos prestadores de diversos rubros registrados</h2>
         <h3>Lo podés contratar al alcance de un click!</h3>
         <div className="rubros">
-          {rubros.map(rubro => <Rubro rubro={rubro} />)}
+          {props.professions.response && props.professions.response.map(profession => <Rubro profession={profession} />)}
         </div>
       </div>
       <Articles />
@@ -41,4 +55,15 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+const mapStateToProps = state => {
+  return {
+    professions: state.professionR.professions,
+    providers: state.professionR.providers
+  }
+}
+const mapDispatchToProps = {
+  getProfessions: professionActions.getProfessions,
+  getProviders: professionActions.getProviders
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
