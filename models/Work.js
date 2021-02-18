@@ -6,6 +6,6 @@ const workSchema = new mongoose.Schema({
   state: {type:Number, required:false, default:1},
   }) 
 
-const work = mongoose.model("work",workSchema) 
+const work = mongoose.model("work", workSchema)
 
 module.exports = work

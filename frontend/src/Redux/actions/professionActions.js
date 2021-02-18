@@ -24,7 +24,6 @@ const professionActions = {
           payload: response.data
         })
       }catch(error){
-        console.log(error)
       }
     }
   },
