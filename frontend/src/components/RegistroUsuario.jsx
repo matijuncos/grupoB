@@ -4,23 +4,35 @@ import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 
-
 function RegistroUsuario({ signUp, loggedUser }) {
     const [newUser, setNewUser] = useState({})
     const [errores, setErrores] = useState([])
+    const countries=require('../data/dataContryNames.json')
     // Funcion para ler input
     const leerInput = e => {
+        console.log(newUser)
         const property = e.target.name
-        const value = e.target.value
+        var value = e.target.value
+        if (property === 'fileUrlPic') value = e.target.files[0]
         setNewUser({
             ...newUser,
             [property]: value
         })
     }
     //Funcion para enviar formulario 
+    const validarUsuario = async e => {
+        e.preventDefault()
+        //llenando el formData con la informacion de los input
+        const fdNewUser=new FormData()
+        fdNewUser.append('firstName',newUser.firstName)
+        fdNewUser.append('lastName',newUser.lastName)
+        fdNewUser.append('fileUrlPic',newUser.fileUrlPic)
+        fdNewUser.append('email',newUser.email)
+        fdNewUser.append('phone',newUser.phone)
+        fdNewUser.append('password',newUser.password)
+        fdNewUser.append('country',newUser.country)
 
-    const validarUsuario = async () => {
-        const res = await signUp(newUser)
+        const res = await signUp(fdNewUser)
         if (res && !res.success) {
             console.log(res)
         }
@@ -68,7 +80,15 @@ function RegistroUsuario({ signUp, loggedUser }) {
                     <input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='urlPic' type='text' placeholder='Url de foto de perfil' onChange={leerInput} /></div>
+                    <select name="country" type='text' placeholder='País' onChange={leerInput} >
+                        <option value=''>Selecciona un país</option>
+                        {countries.map((country,i)=>{
+                            return <option key={"selectCountry"+i} value={country.value}>{country.label}</option>
+                        })}
+                    </select>
+                </div>
+                <div className="inputDiv">
+                    <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={leerInput} /></div>
                 <div className="inputDiv">
                     <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
                 </div>
@@ -88,9 +108,6 @@ function RegistroUsuario({ signUp, loggedUser }) {
         </div>
     )
 }
-
-
-
 const mapStateToProps = state => {
     return {
         loggedUser: state.userR.loggedUser
@@ -98,6 +115,5 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = {
     signUp: userActions.signUp
-
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegistroUsuario)

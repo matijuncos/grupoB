@@ -65,6 +65,21 @@ const userController = {
       const userBase = new UserBase ({
          firstName, lastName, urlPic, email, phone, password:hashedPassword, country
       })
+      //File urlPic
+      const {fileUrlPic}=req.files
+      console.log(typeof(fileUrlPic.mimetype))
+      console.log(fileUrlPic.mimetype.indexOf('image/jpeg'))
+      if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
+         return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
+      }
+      const extPic=fileUrlPic.name.split('.',2)[1]
+      console.log(`${__dirname}/../usersPics/${userBase._id}.${extPic}`)
+      fileUrlPic.mv(`${__dirname}/../usersPics/${userBase._id}.${extPic}`,error =>{
+            if(error){
+               return res.json({success:false,respuesta:"Intente nuevamente..."})
+            }
+      })
+      userBase.urlPic=`${userBase._id}.${extPic}`
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
       try{
          const newUserBase = await userBase.save()
@@ -76,7 +91,7 @@ const userController = {
          userConsumer.save()
          .then(async newUserConsumer =>{
             // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
-            const populateUserConsumer =  await newUserConsumer.populate('idUserBase').execPopulate()
+            const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
             var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
             res.json({
                success:true, 
