@@ -9,7 +9,6 @@ const nodemailer = require("nodemailer");
 const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
-      console.log(req.body)
       var {firstName, lastName, urlPic, email, phone, password, country,
       website, arrayValoration, review, rol, idProfession,arrayWorks} = req.body
       

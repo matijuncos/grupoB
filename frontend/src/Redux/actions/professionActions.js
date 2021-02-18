@@ -27,6 +27,15 @@ const professionActions = {
         console.log(error)
       }
     }
+  },
+  addWork : (idProvider,idConsumer) =>{
+    return async (dispatch,getState) =>{
+      const response = await axios.post('http://localhost:4000/api/work/',{idProvider,idConsumer})
+      dispatch({
+        type:"ADD_WORK", payload: response
+      })
+      console.log(response)
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import professionActions from "../Redux/actions/professionActions"
 
 import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
@@ -19,15 +20,16 @@ const Details = (props) => {
             setProviders(professionals[0])
             if (providers._id) {
                 const stars = Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length)
-                console.log(stars)
                 setRating(stars)
-                console.log(providers)
             }
         }
         //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
     }, [providers])
 
+    const btnContract = ()=>{
+        props.addWork(providers._id,props.consumers._id)
 
+}
 
 
 
@@ -45,7 +47,6 @@ const Details = (props) => {
                         <div className="fotoUser" style={{ backgroundImage: `url(${providers.idUserBase.urlPic})` }}></div>
                         <div>{[...Array(5)].map((m, i) => {
                             const ratingValue = i + 1
-                            console.log(rating)
                             return (
                                 <label>
                                     <input
@@ -70,6 +71,7 @@ const Details = (props) => {
                             )
                         })}
                     </div>
+                    <div className="containerContract"><button className="contract" onClick={btnContract}>Contratar</button></div>   
                 </div>
                 <div className="commentProffesional"><p>ACA IRÄ LA PRESENTACIÖN DEL TIPO</p></div>
             </div>
@@ -82,6 +84,7 @@ const Details = (props) => {
                         <div className="seals sealsNoVerif"></div>
                     </div>
                 </div>
+                <div><input type="text" name="commentConsumer" placeholder="Deje su comentario"/></div>
 
             </div>
         </>
@@ -90,10 +93,15 @@ const Details = (props) => {
 }
 const mapStateToProps = state => {
     return {
-        providers: state.professionR.providers
+        providers: state.professionR.providers,
+        consumers: state.userR.loggedUser
     }
+}
+
+const mapDispatchToProps ={
+    addWork: professionActions.addWork
 }
 
 
 
-export default connect(mapStateToProps)(Details)
+export default connect(mapStateToProps,mapDispatchToProps)(Details)

@@ -18,6 +18,22 @@ const WorkController = {
    },
    getWorks:(req,res) =>{
       Work.find()
+      .populate('idUserProvider')
+         .populate('idUserConsumer')
+         .populate({
+            path:'idUserProvider',
+            populate:{
+              path:'idUserBase',
+              model:'userBase'
+            }
+          })
+         .populate({
+            path:'idUserConsumer',
+            populate:{
+              path:'idUserBase',
+              model:'userBase'
+            }
+          })
       .then(work => {return res.json({success:true, response:work})})
       .catch(error => {return res.json({success:false, error})})
    },
