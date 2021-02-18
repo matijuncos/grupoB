@@ -1,11 +1,8 @@
 import { connect } from 'react-redux'
-import { useEffect, useState } from 'react'
 
 const Work = ({ work }) => {
    console.log(work)
    const { comment, idUserConsumer, idUserProvider, state, _id } = work
-
-
 
    return (
       <>

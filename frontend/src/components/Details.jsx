@@ -1,15 +1,13 @@
 
 import React, { useEffect, useState } from 'react'
 import professionActions from "../Redux/actions/professionActions"
-
 import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
-
 const Details = (props) => {
     const id = props.match.params.id
     const [providers, setProviders] = useState({})
+    const [errores, setErrores] = useState("")
     const [rating, setRating] = useState(0)
-
     useEffect(() => {
         if (props.providers.length === 0) {
             props.history.push('/')
@@ -26,19 +24,15 @@ const Details = (props) => {
         }
         //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
     }, [providers])
-
     const btnContract = () => {
-        props.addWork(providers._id, props.consumers._id)
-
+        props.consumer!==null ?
+        props.addWork(providers._id, props.consumer._id)
+        :
+        setErrores("No puede contratar a un profesional sin iniciar sesion.")
     }
-
-
-
-
     if (!providers._id) {
         return <h1>Cargando</h1>
     }
-
     return (
         <>
             <div className="professionalInfo">
@@ -55,7 +49,7 @@ const Details = (props) => {
                                         type="radio"
                                         name="rating"
                                         value={ratingValue}
-                                        onClick={() => setRating(ratingValue)}
+                                        onClick={() => {props.consumer!==null ? setRating(ratingValue) :setErrores("No puedes valorar sin iniciar sesion.")}}
                                     />
                                     <BsFillStarFill className="star" color={(ratingValue <= rating) ? '#ffc107' : '#8C8C8C'} />
                                 </label>
@@ -90,19 +84,14 @@ const Details = (props) => {
             </div>
         </>
     )
-
 }
 const mapStateToProps = state => {
     return {
         providers: state.professionR.providers,
-        consumers: state.userR.loggedUser
+        consumer: state.userR.loggedUser
     }
 }
-
 const mapDispatchToProps = {
     addWork: professionActions.addWork
 }
-
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(Details)
