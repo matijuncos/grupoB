@@ -5,6 +5,7 @@ import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 const Details = (props) => {
     const id = props.match.params.id
+    console.log(props.consumer)
     const [providers, setProviders] = useState({})
     const [errores, setErrores] = useState("")
     const [rating, setRating] = useState(0)
@@ -25,11 +26,17 @@ const Details = (props) => {
         //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
     }, [providers])
     const btnContract = () => {
+<<<<<<< HEAD
+        props.addWork(providers._id, props.consumers._id)
+    }
+
+=======
         props.consumer!==null ?
         props.addWork(providers._id, props.consumer._id)
         :
         setErrores("No puede contratar a un profesional sin iniciar sesion.")
     }
+>>>>>>> alb
     if (!providers._id) {
         return <h1>Cargando</h1>
     }
@@ -66,6 +73,7 @@ const Details = (props) => {
                             )
                         })}
                     </div>
+                    {/* ESTO TIENE QUE SER CONDICIONAL */}
                     <div className="containerContract"><button className="contract" onClick={btnContract}>Contratar</button></div>
                 </div>
                 <div className="commentProffesional"><p>ACA IRÄ LA PRESENTACIÖN DEL TIPO</p></div>
@@ -80,7 +88,6 @@ const Details = (props) => {
                     </div>
                 </div>
                 <div><input type="text" name="commentConsumer" placeholder="Deje su comentario" /></div>
-
             </div>
         </>
     )

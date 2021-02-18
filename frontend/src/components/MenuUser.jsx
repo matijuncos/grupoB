@@ -39,6 +39,7 @@ class MenuUser extends React.Component {
             <Drawer.Title>Drawer Title</Drawer.Title>
           </Drawer.Header>
           <Drawer.Body>
+          {console.log(this.props.works)}
           {this.props.works.map(work => {
             return <Work work={work} />
           })}
