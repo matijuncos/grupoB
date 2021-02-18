@@ -80,7 +80,6 @@ const Details = (props) => {
                     </div>
                 </div>
                 <div><input type="text" name="commentConsumer" placeholder="Deje su comentario" /></div>
-
             </div>
         </>
     )

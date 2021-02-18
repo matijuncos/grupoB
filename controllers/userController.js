@@ -124,7 +124,7 @@ const userController = {
           return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
       }
       var token = jwtoken.sign({...userExist},process.env.SECRET_KEY,{})
-      return res.json({success: true, response:{token,firstName:userExist.firstName, urlPic:userExist.urlPic, email:userExist.email,idUser:newUserConsumer._id,_id:userExist._id}})
+      return res.json({success: true, response:{token,firstName:userExist.firstName, urlPic:userExist.urlPic, email:userExist.email,idUser:userExist._id,_id:userExist._id}})
       // respondo al frontEnd con un objeto que tiene el token, nombre de usuario y foto
    },
    preserveLog:  (req, res) =>{
