@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
 import Logo from '../assets/logo3.png'
@@ -40,13 +40,12 @@ const Navbar = ({ loggedUser, signOut }) => {
               <NavLink to="/signIn" className="navBarLinks">
                 Iniciar sesión
             </NavLink>
-              <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>
+              <div className="userPic" style={{ backgroundImage: `url(${userPic})` }}></div>
             </>
           ) : (
               <>
                 <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
-                <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>
-
+                <div className="userPic" style={{ backgroundImage: `url(../../../usersPics/${loggedUser.urlPic})`}}></div>
               </>
             )}
         </div>
