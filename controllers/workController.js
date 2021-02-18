@@ -2,10 +2,12 @@ const Work = require('../models/Work')
 
 const WorkController = {
    addWork:(req,res) =>{
+     console.log(req.body)
       const {idUserConsumer, idUserProvider, state, comment} = req.body
       const newWork = new Work({
         idUserConsumer, idUserProvider, state, comment
       })
+      console.log(newWork)
       newWork.save()
       .then(newWork =>{return res.json({success:true, response:newWork})})
       .catch(error => {return res.json({success:false, error})})
@@ -18,6 +20,22 @@ const WorkController = {
    },
    getWorks:(req,res) =>{
       Work.find()
+      .populate('idUserProvider')
+         .populate('idUserConsumer')
+         .populate({
+            path:'idUserProvider',
+            populate:{
+              path:'idUserBase',
+              model:'userBase'
+            }
+          })
+         .populate({
+            path:'idUserConsumer',
+            populate:{
+              path:'idUserBase',
+              model:'userBase'
+            }
+          })
       .then(work => {return res.json({success:true, response:work})})
       .catch(error => {return res.json({success:false, error})})
    },
@@ -43,7 +61,6 @@ const WorkController = {
      } catch (error) {
       return res.json({success:false, respuesta: 'Ha ocurrido un error en la modificacion del estado'})
     }
-     
    }
 }
 module.exports = WorkController

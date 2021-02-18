@@ -8,8 +8,6 @@ function RegistroProvedor(props) {
     const [newProfessional, setNewProfessional] = useState({})
     const [professions, setProfessions] = useState([])
     // Funcion para ler input
-
-    console.log(professions)
     useEffect(() => {
         fetch('http://localhost:4000/api/professions/')
             .then(response => response.json())

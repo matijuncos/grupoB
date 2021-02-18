@@ -7,7 +7,7 @@ import userActions from '../Redux/actions/userActions'
 function RegistroUsuario({ signUp, loggedUser }) {
     const [newUser, setNewUser] = useState({})
     const [errores, setErrores] = useState([])
-    const countries=require('../data/dataContryNames.json')
+    const countries = require('../data/dataContryNames.json')
     // Funcion para ler input
     const leerInput = e => {
         console.log(newUser)
@@ -23,14 +23,14 @@ function RegistroUsuario({ signUp, loggedUser }) {
     const validarUsuario = async e => {
         e.preventDefault()
         //llenando el formData con la informacion de los input
-        const fdNewUser=new FormData()
-        fdNewUser.append('firstName',newUser.firstName)
-        fdNewUser.append('lastName',newUser.lastName)
-        fdNewUser.append('fileUrlPic',newUser.fileUrlPic)
-        fdNewUser.append('email',newUser.email)
-        fdNewUser.append('phone',newUser.phone)
-        fdNewUser.append('password',newUser.password)
-        fdNewUser.append('country',newUser.country)
+        const fdNewUser = new FormData()
+        fdNewUser.append('firstName', newUser.firstName)
+        fdNewUser.append('lastName', newUser.lastName)
+        fdNewUser.append('fileUrlPic', newUser.fileUrlPic)
+        fdNewUser.append('email', newUser.email)
+        fdNewUser.append('phone', newUser.phone)
+        fdNewUser.append('password', newUser.password)
+        fdNewUser.append('country', newUser.country)
 
         const res = await signUp(fdNewUser)
         if (res && !res.success) {
@@ -82,8 +82,8 @@ function RegistroUsuario({ signUp, loggedUser }) {
                 <div className="inputDiv">
                     <select name="country" type='text' placeholder='País' onChange={leerInput} >
                         <option value=''>Selecciona un país</option>
-                        {countries.map((country,i)=>{
-                            return <option key={"selectCountry"+i} value={country.value}>{country.label}</option>
+                        {countries.map((country, i) => {
+                            return <option key={"selectCountry" + i} value={country.value}>{country.label}</option>
                         })}
                     </select>
                 </div>
