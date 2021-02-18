@@ -7,7 +7,6 @@ import Slider from './Slider'
 import { connect } from 'react-redux'
 import professionActions from '../Redux/actions/professionActions'
 
-const rubros = [{ rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }, { rubro: 'carpinteria' }]
 const LandingPage = (props) => {
 
   useEffect(() => {
@@ -15,7 +14,6 @@ const LandingPage = (props) => {
     props.getProviders()
   }, [])
 
-  console.log(props)
   return (
     <div className="landingPage">
       <Slider />
@@ -47,7 +45,7 @@ const LandingPage = (props) => {
         <h2>Tenemos muchos prestadores de diversos rubros registrados</h2>
         <h3>Lo podés contratar al alcance de un click!</h3>
         <div className="rubros">
-          {props.professions.response && props.professions.response.map(profession => <Rubro profession={profession} />)}
+          {props.professions.response && props.professions.response.map(profession => <Rubro profession={profession} key={profession._id} />)}
         </div>
       </div>
       <Articles />

@@ -18,7 +18,6 @@ const Details = (props) => {
             })
             setProviders(professionals[0])
             if (providers._id) {
-
                 const stars = Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length)
                 console.log(stars)
                 setRating(stars)

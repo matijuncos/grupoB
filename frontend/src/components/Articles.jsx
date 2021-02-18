@@ -9,12 +9,11 @@ const Articles = () => {
       .then(response => response.json())
       .then(data => setArticles(data.response))
   }, [])
-  console.log(articles)
   return (
     <>
       <h3>Aprendamos juntos!</h3>
       <div className="cardContainer">
-        {articles.map(article => <Article article={article} />)}
+        {articles.map(article => <Article article={article} key={article._id} />)}
       </div>
     </>
   )

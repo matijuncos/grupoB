@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
 import Logo from '../assets/logo3.png'
@@ -6,11 +6,13 @@ import userPic from '../assets/user.svg'
 import userActions from '../Redux/actions/userActions'
 
 const Navbar = ({ loggedUser, signOut }) => {
-  console.log(loggedUser)
+  const [profilePic, setProfilePic] = useState()
   const logOut = () => {
     signOut()
     localStorage.clear()
   }
+
+
   return (
     <nav>
       <div className="navBar">

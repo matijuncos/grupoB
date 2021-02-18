@@ -43,7 +43,6 @@ const WorkController = {
      } catch (error) {
       return res.json({success:false, respuesta: 'Ha ocurrido un error en la modificacion del estado'})
     }
-     
    }
 }
 module.exports = WorkController
