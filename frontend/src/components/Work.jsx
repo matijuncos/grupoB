@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { useEffect, useState } from 'react'
 
 const Work = ({ work }) => {
    console.log(work)
