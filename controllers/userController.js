@@ -46,7 +46,6 @@ const userController = {
                 firstName: userBase.firstName,
                 urlPic: userBase.urlPic,
                 email: userBase.email,
-                idUser:newUserProvider._id,
                _id: idUserBase._id
                }})
          })
@@ -73,13 +72,13 @@ const userController = {
          return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
       }
       const extPic=fileUrlPic.name.split('.',2)[1]
-      console.log(`${__dirname}/../frontend/src/assets/usersPics/${userBase._id}.${extPic}`)
-      fileUrlPic.mv(`${__dirname}/../frontend/src/assets/usersPics/${userBase._id}.${extPic}`,error =>{
+      console.log(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`)
+      fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`,error =>{
             if(error){
                return res.json({success:false,respuesta:"Intente nuevamente..."})
             }
       })
-      userBase.urlPic=`../assets/usersPics/${userBase._id}.${extPic}`
+      userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPic}`
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
       try{
          const newUserBase = await userBase.save()
@@ -100,7 +99,6 @@ const userController = {
                   firstName: userBase.firstName,
                   urlPic: userBase.urlPic,
                   email: userBase.email,
-                  idUser:newUserConsumer._id,
                   _id: newUserBase._id
                }})
          })
@@ -124,10 +122,11 @@ const userController = {
           return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
       }
       var token = jwtoken.sign({...userExist},process.env.SECRET_KEY,{})
-      return res.json({success: true, response:{token,firstName:userExist.firstName, urlPic:userExist.urlPic, email:userExist.email,idUser:newUserConsumer._id,_id:userExist._id}})
+      return res.json({success: true, response:{token,firstName:userExist.firstName, urlPic:userExist.urlPic, email:userExist.email,_id:userExist._id}})
       // respondo al frontEnd con un objeto que tiene el token, nombre de usuario y foto
    },
    preserveLog:  (req, res) =>{
+      console.log(req.user)
       const {firstName,urlPic,_id} = req.user
       res.json({
          success: true, 
@@ -135,7 +134,6 @@ const userController = {
             token: req.body.token, 
             firstName,
             urlPic,
-            idUser,
             _id
          }})
       },

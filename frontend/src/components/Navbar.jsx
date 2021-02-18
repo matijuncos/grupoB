@@ -7,7 +7,7 @@ import userActions from '../Redux/actions/userActions'
 import workAction from '../Redux/actions/workAction'
 import MenuUser from './MenuUser'
 
-const Navbar = ({ loggedUser, signOut, getWorks }) => {
+const Navbar = ({ loggedUser, signOut, getWorks }) => { 
   const logOut = () => {
     signOut()
     localStorage.clear()
@@ -47,7 +47,7 @@ const Navbar = ({ loggedUser, signOut, getWorks }) => {
           ) : (
               <>
                 <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
-                <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? require("../assets/usersPics/602e6025f46cfe21303f0ad8.jpg").default : userPic})` }}></div>
+                <div className="userPic" style={{backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})`}}></div>
                 {/* TESTEANDO CESAR */}
                 <MenuUser getWorks={getWorks} />
               </>
