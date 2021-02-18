@@ -15,7 +15,6 @@ const LandingPage = (props) => {
     props.getProviders()
   }, [])
 
-  console.log(props)
   return (
     <div className="landingPage">
       <Slider />

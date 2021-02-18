@@ -4,12 +4,10 @@ import { NavLink, Link } from 'react-router-dom'
 import Logo from '../assets/logo3.png'
 import userPic from '../assets/user.svg'
 import userActions from '../Redux/actions/userActions'
-// Librearía rsuite
-import { Drawer } from 'rsuite'
+import workAction from '../Redux/actions/workAction'
 import MenuUser from './MenuUser'
 
-const Navbar = ({ loggedUser, signOut }) => {
-  console.log(loggedUser)
+const Navbar = ({ loggedUser, signOut, getWorks }) => {
   const logOut = () => {
     signOut()
     localStorage.clear()
@@ -44,14 +42,14 @@ const Navbar = ({ loggedUser, signOut }) => {
                 Iniciar sesión
             </NavLink>
               <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>
-              {/* TESTEANDO CESAR */}
-              <MenuUser />
+              
             </>
           ) : (
               <>
                 <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
                 <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>
-
+                {/* TESTEANDO CESAR */}
+                <MenuUser getWorks={getWorks}/>
               </>
             )}
         </div>
@@ -68,6 +66,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  signOut: userActions.signOut
+  signOut: userActions.signOut,
+  getWorks: workAction.getWorks
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

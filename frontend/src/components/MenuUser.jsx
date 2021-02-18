@@ -11,6 +11,7 @@ export default class MenuUser extends React.Component{
      };
      this.close = this.close.bind(this);
      this.toggleDrawer = this.toggleDrawer.bind(this);
+     
    }
    close() {
      this.setState({
@@ -19,7 +20,9 @@ export default class MenuUser extends React.Component{
    }
    toggleDrawer() {
      this.setState({ show: true });
+     this.props.getWorks()
    }
+   
    render() {
      return (
        <div>
@@ -34,7 +37,6 @@ export default class MenuUser extends React.Component{
              <Drawer.Title>Drawer Title</Drawer.Title>
            </Drawer.Header>
            <Drawer.Body>
-             <Placeholder.Paragraph />
              <WorkState />
            </Drawer.Body>
            <Drawer.Footer>

@@ -1,30 +1,19 @@
 import { connect } from 'react-redux'
 import { useEffect, useState } from 'react'
 
-const Work = (props) =>{
+const Work = ({work}) =>{
+   console.log(work)
+   const {comment, idUserConsumer, idUserProvider, state, _id} = work
 
-   console.log(props)
-   const [workDetails, setWorkDetails] = useState([])
    
-   useEffect(() =>{
-      const workDetail = props.works.filter(work => work._idWork === props._idWork)
-      console.log(workDetail)
-      setWorkDetails(workDetail)
-   }, [])
-
-   const hola = () =>{
-      alert('Apretaste: ' + workDetails[0].nameWork)
-   }
-
-   if(workDetails.length === 0){
-      return <></>
-   }
 
    return (
    <>
-      <h3>{workDetails[0].nameWork}</h3>
-      <h3>{workDetails[0].estado}</h3>
-      <button onClick={hola}>Boton</button>
+      <div style={{width:'50px', height:'50px', backgroundImage: `url('${idUserConsumer.idUserBase.urlPic}')`, backgroundPosition: 'center', backgroundSize:'cover', backgroundRepeat: 'no-repeat'}}></div>
+      <h3>{idUserConsumer.idUserBase.firstName} {idUserConsumer.idUserBase.lastName}</h3>
+      <h4>{idUserConsumer.idUserBase.email}</h4>
+      <h4>{state}</h4>
+      <button>Aceptar</button>
       <hr/>
    </>
    )
@@ -36,4 +25,4 @@ const mapStateToProps = state =>{
    }
 }
 
-export default connect(mapStateToProps)(Work)
+export default Work

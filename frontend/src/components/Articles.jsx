@@ -9,7 +9,6 @@ const Articles = () => {
       .then(response => response.json())
       .then(data => setArticles(data.response))
   }, [])
-  console.log(articles)
   return (
     <>
       <h3>Aprendamos juntos!</h3>

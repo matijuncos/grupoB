@@ -4,11 +4,9 @@ import { connect } from 'react-redux'
 const WorkState = (props) =>{
 // Array estático de estados de trabajo
 
-   console.log(props.works)
-
    return (
       <>{props.works.map(work=>{
-         return <Work _idWork={work._idWork}/>
+         return <Work work={work}/>
       })}
          
       </>

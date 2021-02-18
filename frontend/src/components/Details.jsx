@@ -5,7 +5,6 @@ import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 
 const Details = (props) => {
-    console.log(props)
     const id = props.match.params.id
     const [providers, setProviders] = useState({})
     const [rating, setRating] = useState(0)
@@ -20,11 +19,8 @@ const Details = (props) => {
             })
             setProviders(professionals[0])
             if (providers._id) {
-
                 const stars = Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length)
-                console.log(stars)
                 setRating(stars)
-                console.log(providers)
             }
         }
         //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
@@ -51,7 +47,6 @@ const Details = (props) => {
                         <div className="fotoUser" style={{ backgroundImage: `url(${providers.idUserBase.urlPic})` }}></div>
                         <div>{[...Array(5)].map((m, i) => {
                             const ratingValue = i + 1
-                            console.log(rating)
                             return (
                                 <label>
                                     <input
