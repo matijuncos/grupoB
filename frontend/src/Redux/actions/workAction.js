@@ -13,10 +13,11 @@ const professionActions = {
       }
     }
   },
-  addWork : (idConsumer,idProvider) =>{
+  addWork : (idUserConsumer,idUserProvider) =>{
     console.log()
     return async (dispatch,getState) =>{
-      const response = await axios.post('http://localhost:4000/api/work/',{idConsumer,idProvider})
+      
+      const response = await axios.post('http://localhost:4000/api/work',{idUserConsumer,idUserProvider})
       dispatch({
         type:"ADD_WORK", payload: response.data
       })

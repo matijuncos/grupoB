@@ -5,6 +5,7 @@ import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 const Details = (props) => {
     const id = props.match.params.id
+    console.log(props.consumer)
     const [providers, setProviders] = useState({})
     const [errores, setErrores] = useState("")
     const [rating, setRating] = useState(0)

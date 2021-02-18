@@ -29,10 +29,10 @@ const userController = {
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos      
       try{
          const newUserBase = await userBase.save()
-         const idUserBase = newUserBase
+         const idUserBase = newUserBase._id
          const userProvider = new UserProvider({
             //_id:idUserBase,
-            idUserBase: idUserBase._id, website, arrayValoration, review, rol, idProfession, arrayWorks
+            idUserBase: idUserBase, website, arrayValoration, review, rol, idProfession, arrayWorks
          })
          userProvider.save()
          .then(async newUserProvider =>{
@@ -101,7 +101,7 @@ const userController = {
                   urlPic: userBase.urlPic,
                   email: userBase.email,
                   idUser:newUserConsumer._id,
-                  _id: newUserBase._id
+                  _id: userBase._id
                }})
          })
          .catch(error => {
@@ -112,6 +112,7 @@ const userController = {
       }}
    },
    signIn: async (req,res) => {
+      console.log(req.body)
       // desestructuro del front la req 
       const {email, password} = req.body
       const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
