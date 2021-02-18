@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState } from 'react'
-import workAction from "../Redux/actions/workAction"
+import professionActions from "../Redux/actions/professionActions"
 
 import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
@@ -8,7 +9,6 @@ const Details = (props) => {
     const id = props.match.params.id
     const [providers, setProviders] = useState({})
     const [rating, setRating] = useState(0)
-    const [comment, setComment] = useState({})
 
     useEffect(() => {
         if (props.providers.length === 0) {
@@ -28,18 +28,12 @@ const Details = (props) => {
     }, [providers])
 
     const btnContract = () => {
-        props.addWork(providers._id, props.consumer._id)
-    }
-    const readComment = (e) => {
-        const property = e.target.name
-        const value = e.target.value
-        setComment({
-            ...comment,
-            [property]: value,
-        })
-        console.log(comment)
+        props.addWork(providers._id, props.consumers._id)
 
     }
+
+
+
 
     if (!providers._id) {
         return <h1>Cargando</h1>
@@ -77,20 +71,21 @@ const Details = (props) => {
 
                             )
                         })}
-                        <div>
-                            <h2>Sellos del Profesional</h2>
-                            <div className="containerSeals">
-                                <div className="seals sealsGarantia"></div>
-                                <div className="seals sealsNoVerif"></div>
-                            </div>
-                        </div>
                     </div>
                     <div className="containerContract"><button className="contract" onClick={btnContract}>Contratar</button></div>
                 </div>
                 <div className="commentProffesional"><p>ACA IRÄ LA PRESENTACIÖN DEL TIPO</p></div>
             </div>
             <div className="areaWork">
-                <div><input type="text" name="consumer" placeholder="Deje su comentario" onChange={readComment} /></div>
+
+                <div>
+                    <h2>Sellos del Profesional</h2>
+                    <div className="containerSeals">
+                        <div className="seals sealsGarantia"></div>
+                        <div className="seals sealsNoVerif"></div>
+                    </div>
+                </div>
+                <div><input type="text" name="commentConsumer" placeholder="Deje su comentario" /></div>
 
             </div>
         </>
@@ -100,12 +95,12 @@ const Details = (props) => {
 const mapStateToProps = state => {
     return {
         providers: state.professionR.providers,
-        consumer: state.userR.loggedUser,
+        consumers: state.userR.loggedUser
     }
 }
 
 const mapDispatchToProps = {
-    addWork: workAction.addWork
+    addWork: professionActions.addWork
 }
 
 

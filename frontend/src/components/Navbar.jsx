@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
 import Logo from '../assets/logo3.png'
@@ -12,8 +12,6 @@ const Navbar = ({ loggedUser, signOut, getWorks }) => {
     signOut()
     localStorage.clear()
   }
-
-
   return (
     <nav>
       <div className="navBar">
@@ -43,16 +41,20 @@ const Navbar = ({ loggedUser, signOut, getWorks }) => {
               <NavLink to="/signIn" className="navBarLinks">
                 Iniciar sesión
             </NavLink>
-              <div className="userPic" style={{ backgroundImage: `url(${userPic})` }}></div>
+              <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>
+
             </>
           ) : (
               <>
                 <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
-                <div className="userPic" style={{ backgroundImage: `url(../../../usersPics/${loggedUser.urlPic})` }}></div>
+                <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>
+                {/* TESTEANDO CESAR */}
+                <MenuUser getWorks={getWorks} />
               </>
             )}
         </div>
       </div>
+
     </nav>
   )
 }
@@ -64,10 +66,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  signOut: userActions.signOut
+  signOut: userActions.signOut,
+  getWorks: workAction.getWorks
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
-
 
 
 
