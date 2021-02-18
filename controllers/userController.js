@@ -46,10 +46,7 @@ const userController = {
                 firstName: userBase.firstName,
                 urlPic: userBase.urlPic,
                 email: userBase.email,
-<<<<<<< HEAD
-=======
-               //  _id:idUserBase._id
->>>>>>> cab67fed34acfa4185c72bc609213c00e7dbad43
+                idUser: userProvider._id,
                _id: idUserBase._id
                }})
          })
@@ -76,22 +73,13 @@ const userController = {
          return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
       }
       const extPic=fileUrlPic.name.split('.',2)[1]
-<<<<<<< HEAD
       console.log(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`)
       fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`,error =>{
-=======
-      console.log(`${__dirname}/../usersPics/${userBase._id}.${extPic}`)
-      fileUrlPic.mv(`${__dirname}/../usersPics/${userBase._id}.${extPic}`,error =>{
->>>>>>> cab67fed34acfa4185c72bc609213c00e7dbad43
             if(error){
                return res.json({success:false,respuesta:"Intente nuevamente..."})
             }
       })
-<<<<<<< HEAD
       userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPic}`
-=======
-      userBase.urlPic=`${userBase._id}.${extPic}`
->>>>>>> cab67fed34acfa4185c72bc609213c00e7dbad43
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
       try{
          const newUserBase = await userBase.save()
@@ -112,11 +100,8 @@ const userController = {
                   firstName: userBase.firstName,
                   urlPic: userBase.urlPic,
                   email: userBase.email,
-<<<<<<< HEAD
+                  idUser: userConsumer._id,
                   _id: newUserBase._id
-=======
-                  _id: idUserBase._id
->>>>>>> cab67fed34acfa4185c72bc609213c00e7dbad43
                }})
          })
          .catch(error => {
