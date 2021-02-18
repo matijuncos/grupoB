@@ -29,11 +29,7 @@ const Details = (props) => {
 
     const btnContract = () => {
         props.addWork(providers._id, props.consumers._id)
-
     }
-
-
-
 
     if (!providers._id) {
         return <h1>Cargando</h1>
@@ -72,6 +68,7 @@ const Details = (props) => {
                             )
                         })}
                     </div>
+                    {/* ESTO TIENE QUE SER CONDICIONAL */}
                     <div className="containerContract"><button className="contract" onClick={btnContract}>Contratar</button></div>
                 </div>
                 <div className="commentProffesional"><p>ACA IRÄ LA PRESENTACIÖN DEL TIPO</p></div>

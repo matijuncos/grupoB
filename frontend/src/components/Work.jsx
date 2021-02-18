@@ -5,8 +5,6 @@ const Work = ({ work }) => {
    console.log(work)
    const { comment, idUserConsumer, idUserProvider, state, _id } = work
 
-
-
    return (
       <>
          <div style={{ width: '50px', height: '50px', backgroundImage: `url('${idUserConsumer.idUserBase.urlPic}')`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}></div>
