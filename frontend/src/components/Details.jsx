@@ -5,10 +5,14 @@ import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 const Details = (props) => {
     const id = props.match.params.id
-    console.log(props.consumer)
     const [providers, setProviders] = useState({})
     const [errores, setErrores] = useState("")
+    const [visible, setVisible] = useState(true)
+    const [state, setState] = useState(0)
+
     const [rating, setRating] = useState(0)
+
+
     useEffect(() => {
         if (props.providers.length === 0) {
             props.history.push('/')
@@ -22,18 +26,35 @@ const Details = (props) => {
                 const stars = Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length)
                 setRating(stars)
             }
+            if (props.state && props.works.state === 3) {
+                setState(3)
+            }
         }
+        if (props.works && props.works.length !== 0) {
+            const workId = props.works.filter(work => (work.idUserConsumer._id === props.loggedUser.idUser))
+
+            console.log(workId)
+        }
+        console.log(props.providers.respuesta)
         //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
-    }, [providers])
+    }, [providers, props.works])
     const btnContract = () => {
-        props.consumer && console.log(props.consumer)
-        if(props.consumer!==null){ 
-        props.addWork({"idUserConsumer":props.consumer.idUser, "idUserProvider":providers._id})
-        props.getWorks()
+
+        if (props.loggedUser) {
+            alert('entre')
+            props.addWork({ "idUserConsumer": props.loggedUser.idUser, "idUserProvider": providers._id })
+            console.log(props.loggedUser.idUser)
+            console.log(providers._id)
+            props.getWorks()
+            props.getWorkbyId(id)
+            setVisible(!visible)
+
+        }
+        else {
+            setErrores("No puede contratar a un profesional sin iniciar sesion.")
+        }
     }
-        else{
-        setErrores("No puede contratar a un profesional sin iniciar sesion.")}
-    }
+
     if (!providers._id) {
         return <h1>Cargando</h1>
     }
@@ -53,7 +74,7 @@ const Details = (props) => {
                                         type="radio"
                                         name="rating"
                                         value={ratingValue}
-                                        onClick={() => {props.consumer!==null ? setRating(ratingValue) :setErrores("No puedes valorar sin iniciar sesion.")}}
+                                        onClick={() => { props.consumer !== null ? setRating(ratingValue) : setErrores("No puedes valorar sin iniciar sesion.") }}
                                     />
                                     <BsFillStarFill className="star" color={(ratingValue <= rating) ? '#ffc107' : '#8C8C8C'} />
                                 </label>
@@ -71,7 +92,11 @@ const Details = (props) => {
                         })}
                     </div>
                     {/* ESTO TIENE QUE SER CONDICIONAL */}
-                    <div className="containerContract"><button className="contract" onClick={btnContract}>Contratar</button></div>
+                    {visible &&
+                        <div className="containerContract">
+                            <button className="contract" onClick={btnContract}>Contratar</button>
+                        </div>
+                    }
                 </div>
                 <div className="commentProffesional"><p>ACA IRÄ LA PRESENTACIÖN DEL TIPO</p></div>
             </div>
@@ -84,7 +109,11 @@ const Details = (props) => {
                         <div className="seals sealsNoVerif"></div>
                     </div>
                 </div>
-                <div><input type="text" name="commentConsumer" placeholder="Deje su comentario" /></div>
+                {state === 3 &&
+                    <div>
+                        <input type="text" name="commentConsumer" placeholder="Deje su comentario" />
+                    </div>
+                }
             </div>
         </>
     )
@@ -92,11 +121,14 @@ const Details = (props) => {
 const mapStateToProps = state => {
     return {
         providers: state.professionR.providers,
-        consumer: state.userR.loggedUser
+        loggedUser: state.userR.loggedUser,
+        works: state.workR.works
+
     }
 }
 const mapDispatchToProps = {
     addWork: workActions.addWork,
-    getWorks: workActions.getWorks
+    getWorks: workActions.getWorks,
+    getWorkbyId: workActions.getWorkbyId
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Details)

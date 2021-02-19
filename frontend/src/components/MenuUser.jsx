@@ -20,10 +20,11 @@ class MenuUser extends React.Component {
   toggleDrawer() {
     this.setState({ show: true });
   }
-  componentDidMount(){
+  componentDidMount() {
     this.props.getWorks()
   }
   render() {
+
     return (
       <div>
         <ButtonToolbar>
@@ -37,7 +38,7 @@ class MenuUser extends React.Component {
             <Drawer.Title>Drawer Title</Drawer.Title>
           </Drawer.Header>
           <Drawer.Body>
-            <WorkState/>
+            <WorkState />
           </Drawer.Body>
           <Drawer.Footer>
             <Button onClick={this.close} appearance="primary">Confirm</Button>

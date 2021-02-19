@@ -35,7 +35,19 @@ const workActions = {
         type:"CHANGE_STATE"
       })
     }
-  }
+  },
+  getWorkbyId: (id) =>{
+    return async (dispatch, getState) =>{
+      try{
+        const response = await axios.get('http://localhost:4000/api/work/'+id)
+        console.log(response.data)
+        dispatch({type:'GET_WORK', payload:response.data.response})
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+  },
 }
 
 export default workActions
