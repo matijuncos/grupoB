@@ -10,7 +10,7 @@ const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
       var {firstName, lastName, email, phone, password, country, 
-         arrayValoration, review, idProfession} = req.body
+         arrayValoration, review, idProfession, rol} = req.body
       var arrayWorks=[]
 
       if(req.body.idUserBase !== undefined){
@@ -24,7 +24,7 @@ const userController = {
       }
       const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
-         firstName, lastName, email, phone, password: hashedPassword, country
+         firstName, lastName, email, phone, password: hashedPassword, country, rol
       })
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos      
       try{
@@ -72,7 +72,8 @@ const userController = {
                 urlPic: userBase.urlPic,
                 email: userBase.email,
                 idUser: userProvider._id,
-               _id: idUserBase._id
+               _id: idUserBase._id,
+               rol: userBase.rol
                }})
          })
          .catch(error => {return res.json({success:false, error})})
@@ -82,13 +83,13 @@ const userController = {
       }      
    },
    addUserCustomer: async (req, res) =>{
-      const {firstName, lastName, urlPic, email, phone, password, country} = req.body
+      const {firstName, lastName, urlPic, email, phone, password, country, rol} = req.body
       const emailExists = await UserBase.findOne({email: email})
       if (emailExists){ return res.json({success: false, message: "Este correo ya esta siendo usado."})}
       else{
             const hashedPassword =  bcryptjs.hashSync(password, 10)
             const userBase = new UserBase ({
-            firstName, lastName, urlPic, email, phone, password:hashedPassword, country
+            firstName, lastName, urlPic, email, phone, password:hashedPassword, country, rol
             })
             //File urlPic
             const {fileUrlPic}=req.files
@@ -123,7 +124,8 @@ const userController = {
                         urlPic: userBase.urlPic,
                         email: userBase.email,
                         idUser: userConsumer._id,
-                        _id: newUserBase._id
+                        _id: newUserBase._id,
+                        rol: userBase.rol
                      }})
                })
                .catch(error => {
@@ -151,11 +153,20 @@ const userController = {
       }
       console.log(userConsult)
       var token = jwtoken.sign({...userExist},process.env.SECRET_KEY,{})
-      return res.json({success: true, response:{token,firstName:userExist.firstName, urlPic:userExist.urlPic, email:userExist.email,idUser:userConsult._id,_id:userExist._id}})
+      return res.json({success: true, 
+         response:{
+            token,
+            firstName:userExist.firstName, 
+            urlPic:userExist.urlPic, 
+            email:userExist.email,
+            idUser:userConsult._id,
+            _id:userExist._id,
+            rol: userExist.rol
+         }})
       // respondo al frontEnd con un objeto que tiene el token, nombre de usuario y foto
    },
    preserveLog:  (req, res) =>{
-      const {firstName,urlPic,_id} = req.user
+      const {firstName,urlPic,_id, rol} = req.user
       return res.json({
          success: true, 
          response: {
@@ -163,7 +174,8 @@ const userController = {
             firstName,
             urlPic,
             idUser:req.body.idUser,
-            _id
+            _id,
+            rol
          }})
       },
    //gets user metodos
@@ -200,8 +212,10 @@ const userController = {
        }
    },
    sendMail:async(req,res)=>{
+      console.log('Entre al controlador de mails')
+      console.log(req.body.idWork)
       var message=""
-      const idWork=req.body.id
+      const idWork=req.body.idWork
       const work=await Work.findOne({'_id':idWork}).populate('idUserConsumer').populate('idUserProvider').populate({path:'idUserConsumer',populate:{path:'idUserBase',model:'userBase'}}).populate({path:'idUserProvider',populate:{path:'idUserBase',model:'userBase'}})
       userConsumer=work.idUserConsumer.idUserBase
       userProvider=work.idUserProvider.idUserBase

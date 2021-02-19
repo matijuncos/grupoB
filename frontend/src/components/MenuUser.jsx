@@ -2,6 +2,7 @@ import React from 'react'
 import { Drawer, ButtonToolbar, Button, Placeholder } from 'rsuite'
 import '../../node_modules/rsuite/dist/styles/rsuite-default.css'
 import WorkState from './WorkState'
+import { RiMenuFoldFill } from "react-icons/ri"
 
 class MenuUser extends React.Component {
   constructor(props) {
@@ -20,15 +21,13 @@ class MenuUser extends React.Component {
   toggleDrawer() {
     this.setState({ show: true });
   }
-  componentDidMount() {
-    this.props.getWorks()
-  }
+
   render() {
 
     return (
       <div>
         <ButtonToolbar>
-          <Button onClick={this.toggleDrawer}>Open</Button>
+          <RiMenuFoldFill onClick={this.toggleDrawer} className="openBtn" />
         </ButtonToolbar>
         <Drawer
           show={this.state.show}
@@ -40,10 +39,6 @@ class MenuUser extends React.Component {
           <Drawer.Body>
             <WorkState />
           </Drawer.Body>
-          <Drawer.Footer>
-            <Button onClick={this.close} appearance="primary">Confirm</Button>
-            <Button onClick={this.close} appearance="subtle">Cancel</Button>
-          </Drawer.Footer>
         </Drawer>
       </div>
     );
