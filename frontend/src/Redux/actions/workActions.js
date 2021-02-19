@@ -52,6 +52,7 @@ const workActions = {
     alert('entrea la action delete')
     return async (dispatch, getState) =>{
       try{
+        const res = await axios.post('http://localhost:4000/api/mail/sendMail', {action: 'Delete', idWork: id})
         const response = await axios.delete('http://localhost:4000/api/work/'+id)
         console.log(response)
         dispatch({type:'DEL_WORK', payload:response.data})
@@ -65,6 +66,7 @@ const workActions = {
   getConsumerWorks: (id) =>{
     return async (dispatch, getState) =>{
       try{
+        
         const response = await axios.get('http://localhost:4000/api/userWorks/'+ id)
         dispatch({type:'GET_WORK', payload:response.data.response})
       }
@@ -77,7 +79,7 @@ const workActions = {
     alert('action de mail')
     return async (dispatch, getState) =>{
       try {
-        const response = await axios.post('http://localhost:4000/api/mail/sendMail', idWork)
+        const response = await axios.post('http://localhost:4000/api/mail/sendMail', {idWork})
         dispatch({
           type: 'SEND_MAIL',
           

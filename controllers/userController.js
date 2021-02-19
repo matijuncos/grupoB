@@ -212,35 +212,43 @@ const userController = {
        }
    },
    sendMail:async(req,res)=>{
-      console.log('Entre al controlador de mails')
+      
       console.log(req.body.idWork)
       var message=""
       const idWork=req.body.idWork
+      const action = req.body.action
+      
       const work=await Work.findOne({'_id':idWork}).populate('idUserConsumer').populate('idUserProvider').populate({path:'idUserConsumer',populate:{path:'idUserBase',model:'userBase'}}).populate({path:'idUserProvider',populate:{path:'idUserBase',model:'userBase'}})
       userConsumer=work.idUserConsumer.idUserBase
       userProvider=work.idUserProvider.idUserBase
       var to=`${userConsumer.email},${userProvider.email}`
       const orden=`${work._id.toString().slice(2,7)}${userConsumer.lastName.toString().slice(0,3)}`
-      const subject= work.state===1 ? "Se ha abierto con exito la solicitud." : work.state===2  ? "La propuesta de trabajo ha sido aceptado." :work.state===3 && "El trabajo se ha terminado."
-      switch (work.state) {
-         case 1:
-            message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible.</p>
-            <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
-            `
-            break;
-         case 2:
-            message=`<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha aceptado la solicitud de trabajo <span>Nº-${orden}</span>, pronto nuestro profesional te dara soporte.</p>
-            <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
-            `
-            to=userConsumer.email
-            break;
-         case 3:
-            message=`<p>La orden de trabajo Nº-${orden} ha sido finalizada con exito.</p>
-            <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
-            `
-            break;
-         default:
-            break;
+      var subject= work.state===1 ? "Se ha abierto con exito la solicitud." : work.state===2  ? "La propuesta de trabajo ha sido aceptado." :work.state===3 && "El trabajo se ha terminado."
+      if (action === 'Delete'){
+         subject= 'El profesional rechazó su solicitud'
+         message= `<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha rechazado su solicitud. Intente con otro profesional.` 
+         to=userConsumer.email
+      }else{
+         switch (work.state) {
+            case 1:
+               message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible.</p>
+               <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+               `
+               break;
+            case 2:
+               message=`<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha aceptado la solicitud de trabajo <span>Nº-${orden}</span>, pronto nuestro profesional te dara soporte.</p>
+               <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+               `
+               to=userConsumer.email
+               break;
+            case 3:
+               message=`<p>La orden de trabajo Nº-${orden} ha sido finalizada con exito.</p>
+               <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+               `
+               break;
+            default:
+               break;
+         }
       }
       const html=`
          <html lang="es">
@@ -332,6 +340,16 @@ const userController = {
             return res.json({success:true, respuesta: 'Se ha enviado el correo electrónico correctamente.'})
          }
       })
+   },
+   sendComment:async(req,res)=>{
+      console.log('llegué a mandar commentarios controller')
+      console.log(req.body)
+      const {idProvider,idUser,comment}=req.body
+      await UserProvider.findOneAndUpdate(
+         {_id:idProvider},
+         { $push: {'review': {idUser:idUser,comment:comment}} })
+         .then(()=>res.json({success:true}))
+         .catch(e=>res.json({success:false, error:"Error while modifying in database."}))
    }
 }
 module.exports = userController

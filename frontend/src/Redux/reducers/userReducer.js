@@ -22,6 +22,12 @@ const userReducer = (state = initState, action) =>{
           ...state,
           loggedUser: null
         }
+      case 'SEND_COMMENT':
+        console.log(action.payload + 'comment reducer')
+        return{
+          ...state
+
+        }
       default :
           return state
       }

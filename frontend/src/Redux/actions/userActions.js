@@ -110,6 +110,15 @@ const userActions = {
           console.log(respuesta)
           dispatch({type:'USER_LOG', payload: respuesta.data})
       }
+  },
+  sendComment: (comment) =>{
+    return async (dispatch, getState) =>{
+      const respuesta = await axios.post('http://localhost:4000/api/comment', comment)
+      dispatch({
+        type: 'SEND_COMMENT',
+        payload: respuesta.data
+      })
+    }
   }
 }
 

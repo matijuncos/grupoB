@@ -45,6 +45,9 @@ router.route('/userWorks/:id')
 router.route('/mail/sendMail')
 .post(userController.sendMail)
 
+router.route('/comment')
+.post(userController.sendComment)
+
 router.route('/user/storage')
 .post(passport.authenticate('jwt', {session:false}), userController.preserveLog)
 module.exports = router

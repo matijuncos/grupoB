@@ -4,17 +4,24 @@ import workActions from "../Redux/actions/workActions"
 import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 import Comment from './Comment'
+import userActions from '../Redux/actions/userActions'
 const Details = (props) => {
     const id = props.match.params.id
     const [providers, setProviders] = useState({})
     const [errores, setErrores] = useState("")
     const [visible, setVisible] = useState(true)
     const [state, setState] = useState(0)
-
     const [rating, setRating] = useState(0)
+    const [workArray, setWorkArray] = useState([])
+    const [comment, setComment] = useState({})
 
 
     useEffect(() => {
+        if (props.loggedUser) {
+            getWorks()
+            const contractedId = props.works && props.works.filter(work => id === work.idUserProvider._id)
+            setWorkArray(contractedId)
+        }
         if (props.providers.length === 0) {
             props.history.push('/')
             return false
@@ -32,24 +39,25 @@ const Details = (props) => {
             }
         }
         if (props.works && props.works.length !== 0) {
-            const workId = props.works.filter(work => (work.idUserConsumer._id === props.loggedUser.idUser))
-            console.log(workId)
+            const workId = props.works.filter(work => {
+                return (
+                    work.idUserConsumer._id === props.loggedUser.idUser
+                )
+            })
         }
-        console.log(props.providers.respuesta)
-        //setRating(Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length))
-    }, [providers, props.works])
 
+    }, [providers])
+
+    const getWorks = async () => {
+        const res = await props.getWorks()
+    }
 
     const btnContract = async () => {
-
         if (props.loggedUser) {
             alert('entre')
             props.addWork({ "idUserConsumer": props.loggedUser.idUser, "idUserProvider": providers._id })
-            console.log(props.loggedUser.idUser)
-            console.log(providers._id)
             await props.getConsumerWorks(id)
             setVisible(!visible)
-            await props.sendMail()
         }
         else {
             setErrores("No puede contratar a un profesional sin iniciar sesion.")
@@ -59,6 +67,14 @@ const Details = (props) => {
     if (!providers._id) {
         return <h1>Cargando</h1>
     }
+
+    const readInput = (e) => {
+        setComment({ comment: e.target.value, idUser: props.loggedUser.idUser, idProvider: id })
+    }
+    const sendComment = async () => {
+        await props.sendComment(comment)
+    }
+
     return (
         <>
             <div className="professionalInfo">
@@ -101,7 +117,7 @@ const Details = (props) => {
                         })}
                     </div>
                     {/* ESTO TIENE QUE SER CONDICIONAL */}
-                    {visible &&
+                    {(props.loggedUser && props.loggedUser.rol === 'consumer') && (workArray.length < 1) &&
                         <div className="containerContract">
                             <button className="contract" onClick={btnContract}>Contratar</button>
                         </div>
@@ -111,21 +127,24 @@ const Details = (props) => {
             </div>
             <div className="areaWork">
                 <div className="comments">
-                    <h2>Comentarios de clientes previos: </h2>
-                    {props.works && props.works.map(work => {
-                        return <div className="comment" key={work._id}>
-                            {work.idUserProvider.review.map(comment => {
-                                return (
-                                    <Comment comment={comment} key={comment._id} />
-                                )
-                            })}
-                        </div>
-                    })}
+                    <h4>Comentarios de clientes previos: </h4>
+                    {workArray.map(work => {
+                        if (work.idUserProvider._id === id) {
+                            return (
+                                work.idUserProvider.review.map(comment => {
+                                    return (
+                                        <Comment comment={comment} />
+                                    )
+                                })
+                            )
 
+                        }
+                    })}
                 </div>
-                {state === 3 &&
+                {(props.loggedUser && props.loggedUser.rol === 'consumer') && (workArray.length > 0) &&
                     <div>
-                        <input type="text" name="commentConsumer" placeholder="Deje su comentario" />
+                        <input type="text" name="commentConsumer" placeholder="Deje su comentario" onChange={readInput} />
+                        <button onClick={sendComment}>Enviar</button>
                     </div>
                 }
             </div>
@@ -144,7 +163,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     addWork: workActions.addWork,
     getConsumerWorks: workActions.getConsumerWorks,
-    sendMail: workActions.sendMail
-
+    sendMail: workActions.sendMail,
+    getWorks: workActions.getWorks,
+    sendComment: userActions.sendComment
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Details)
