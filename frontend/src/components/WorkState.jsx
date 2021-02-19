@@ -1,18 +1,19 @@
 import Work from './Work'
 import { connect } from 'react-redux'
-import {useEffect,useState} from 'react'
+import { useEffect, useState } from 'react'
 import workActions from '../Redux/actions/workActions'
 
-const WorkState = ({getWorks,works}) => {
-   const [reload,setReload]=useState(false)
+const WorkState = ({ works, loggedUser, getConsumerWorks }) => {
+   const [reload, setReload] = useState(false)
    useEffect(() => {
-      getWorks()
+      getConsumerWorks(loggedUser.idUser)
    }, [reload])
    // Array estático de estados de trabajo
+
    return (
       <>
-         {works.map(work => {
-            return <Work reload={reload} setReload={setReload} work={work} />
+         {works && works.map(work => {
+            return <Work reload={reload} setReload={setReload} work={work} key={work._id} />
          })}
       </>
    )
@@ -20,10 +21,11 @@ const WorkState = ({getWorks,works}) => {
 }
 const mapStateToProps = state => {
    return {
-      works: state.workR.works
+      works: state.workR.works,
+      loggedUser: state.userR.loggedUser
    }
 }
-const mapDispatchToProps={
-   getWorks:workActions.getWorks
+const mapDispatchToProps = {
+   getConsumerWorks: workActions.getConsumerWorks
 }
-export default connect(mapStateToProps,mapDispatchToProps)(WorkState)
+export default connect(mapStateToProps, mapDispatchToProps)(WorkState)

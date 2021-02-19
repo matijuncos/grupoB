@@ -37,9 +37,10 @@ router.route('/work')
 .put(workController.changeState)
 
 router.route('/work/:id')
-.get(workController.getWork)
 .delete(workController.delWork)
 
+router.route('/userWorks/:id')
+.get(workController.findWorkById)
 //mails
 router.route('/mail/sendMail')
 .post(userController.sendMail)

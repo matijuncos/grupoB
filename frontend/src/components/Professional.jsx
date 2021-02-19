@@ -7,7 +7,7 @@ const Professional = ({ professionals }) => {
     <div>
       <Link to={'/details/' + professionals._id} className="profesional">
         <div className="user">
-          <div className="fotoUser" style={{ backgroundImage: `url(${idUserBase.urlPic})` }}></div>
+          <div className="fotoUser" style={{ backgroundImage: `url(.${idUserBase.urlPic})` }}></div>
           <h2>{idUserBase.firstName} {idUserBase.lastName}</h2>
         </div>
         <div>

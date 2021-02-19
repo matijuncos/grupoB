@@ -7,13 +7,12 @@ const  WorkController = {
         idUserConsumer, idUserProvider
       })
       newWork.save()
-      .then(work =>{return res.json({success:true, response:work})})
-      .catch(error => {return res.json({success:false, error})})
-   },
-   getWork:(req,res) =>{
-     const id=req.params.id
-      Work.find({_id:id})
-      .then(work => {return res.json({success:true, response:work})})
+      .then(work =>{return res.json({
+        success:true, 
+        response:{work,
+          workId: work._id
+        }
+        })})
       .catch(error => {return res.json({success:false, error})})
    },
    getWorks:(req,res) =>{
@@ -60,6 +59,55 @@ const  WorkController = {
      } catch (error) {
       return res.json({success:false, respuesta: 'Ha ocurrido un error en la modificacion del estado'})
     }
-   }
+   },
+   findWorkById :async (req,res) =>{
+     const urlId = req.params.id
+     var userConsult=await Work.find({'idUserConsumer': urlId})
+     .populate('idUserConsumer')
+     .populate('idUserProvider')
+     .populate({
+      path:'idUserConsumer',
+      populate:{
+        path:'idUserBase',
+        model:'userBase'
+      }
+    })
+    .populate({
+      path:'idUserProvider',
+      populate:{
+        path:'idUserBase',
+        model:'userBase'
+      }
+    })
+     if (userConsult.length === 0) {
+       userConsult=await Work.find({'idUserProvider': urlId})
+       .populate('idUserConsumer')
+       .populate('idUserProvider')
+       .populate({
+        path:'idUserConsumer',
+        populate:{
+          path:'idUserBase',
+          model:'userBase'
+        }
+      })
+      .populate({
+        path:'idUserProvider',
+        populate:{
+          path:'idUserBase',
+          model:'userBase'
+        }
+      })
+       if(userConsult.length === 0){
+         return res.json({
+           success: false,
+           response: []
+         })
+       }
+      }
+      return res.json({
+        success: true,
+        response: userConsult
+      })
+},
 }
 module.exports = WorkController

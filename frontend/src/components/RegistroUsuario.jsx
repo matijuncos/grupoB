@@ -30,6 +30,7 @@ function RegistroUsuario({ signUp, loggedUser }) {
         fdNewUser.append('phone', newUser.phone)
         fdNewUser.append('password', newUser.password)
         fdNewUser.append('country', newUser.country)
+        fdNewUser.append('rol', 'consumer')
 
         const res = await signUp(fdNewUser)
         if (res && !res.success) {

@@ -27,7 +27,7 @@ const Profesionales = (props) => {
                 <h2>Elegí tu profesional favorito</h2>
                 {providers && providers.map(professionals => {
                     return (
-                        <Professional professionals={professionals} />
+                        <Professional professionals={professionals} key={professionals._id} />
                     )
                 })}
             </div>
