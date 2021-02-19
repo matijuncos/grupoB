@@ -1,7 +1,8 @@
 const initState = {
    works:[ ],
    addWorks: [],
-   currentWorks:0
+   currentWorks:0,
+   oneWork: {}
  }
  
  const workReducer = (state = initState, action) =>{
@@ -22,6 +23,11 @@ const initState = {
             ...state,
             currentWorks:state.currentWorks+1
          }
+        case 'GET_WORK':
+          return{
+            ...state,
+            oneWork: action.payload
+          }
        default :
            return state
        }
