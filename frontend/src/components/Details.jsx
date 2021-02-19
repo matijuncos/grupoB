@@ -4,6 +4,7 @@ import workActions from "../Redux/actions/workActions"
 import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 const Details = (props) => {
+    console.log(props)
     const id = props.match.params.id
     console.log(props.consumer)
     const [providers, setProviders] = useState({})
