@@ -1,38 +1,589 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+nav{
+  width: 100%;
+  padding: 2vh;
+  height: 11vh;
+ background-color: rgb(216,0,27); 
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body{
+  font-family: 'Poppins', sans-serif;
 }
-
-.App-header {
-  background-color: #282c34;
+#root{
+  background-color: rgb(250, 250, 250);
+  background-size: cover;
+  background-attachment: fixed;
   min-height: 100vh;
+}
+.navBar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logoName{
+  display: flex;
+  align-items: center;
+}
+.navUserName{
+  margin: 0 1vw;
+  color: rgb(250, 250, 250);
+}
+.navBarLinks{
+  color: rgb(250, 250, 250);
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0 2vh;
+  font-weight: 400;
+}
+.links{
+  display: flex;
+  align-items: center;
+}
+.userPic{
+  width: 5vh;
+  height: 5vh;
+  border-radius: 100%;
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.slideImg{
+  height: 89vh;
+  background-size: cover;
+  background-position: 50% 25%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 5vh;
+}
+.slideImg h2{
+  background-color: rgba(0, 0, 0, 0.562) ;
+  width: 100%;
+  padding: 2.5vh;
+  margin-bottom: 5vh;
+  color: rgb(250, 250, 250);
+  
+}
+.landingPage{
+  text-align: center;
+ min-height: 92vh;
+}
+.landingPage h2{
+  font-size: 2rem;
+}
+.landingPage h3{
+  font-size: 1.6rem;
+  margin-top: 2vh;
+}
+.logoDiv{
+  background-color: rgba(0, 0, 255, 0);
+
+
+}
+.logoDiv img{
+  width: 4vw;
+  min-width: 4rem;
+}
+.registerBtn, .enviar{
+  font-size: 1rem;
+  padding: 1vh 2vh;
+  background-color: rgba(172, 4, 4, 0.356);
+  color: whitesmoke;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.555);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.301);
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  border: solid 1px rgb(250, 250, 250);
+
+  outline: none;
+  transition: all ease 0.2s;
+}
+.enviar{
+  background-color: rgb(250, 250, 250);
+  color: rgb(216,0,27);
+}
+.enviar:hover{
+  color:  rgb(250, 250, 250);
+  background-color: rgb(216,0,27);
+}
+.registerBtn:hover{
+  transform: scale(1.02);
+}
+.callToAction{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  border-radius: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all ease 0.2s;
+  height: 40vh;
+  width: 40vh;
+}
+
+.callToAction button{
+  font-size: 1.2rem;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.418);
+  color: whitesmoke;
+  border: none;
+  border-radius: 100%;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.555);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.582);
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all ease 0.2s;
+}
+.callToAction button:hover{
+  font-size: 2.5rem;
+}
+.footer{
+  height: 25vh;
+  background-color: rgb(216,0,27);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.footerCol{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  color: rgb(250, 250, 250);
+}
+  
+
+.footerIcons{
+  font-size: 2rem;
+  justify-content: space-between;
+  color: rgb(250, 250, 250);
+  flex-direction: row;
+}
+.footerIcon{
+  margin: 15px;
+  cursor: pointer;
+}
+
+.container{
+  background-color: rgba(255, 255, 255, 0.247);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 3vh auto ;
+  padding: 3vh;
+  /* box-shadow: 6px 6px 36px rgba(0, 0, 0, 0.582); */
+}
+.container .img{
+  background-image: url('./assets/blob.svg');
+  background-size: cover;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+
+.img img{
+  width: 100%;
+  border-radius: 100%;
+}
+.stepContainer{
+  display: flex;
+  align-items: center;
+  text-align: start;
+}
+.text{
+  width: 50%
+}
+.stepContainer p{
+  font-size: 1.4rem;
+  width: 50%;
+}
+.step{
+  width: 15vh;
+  height: 15vh;
+  background-size: cover;
+  background-position: center;
+  margin: 2vh 2vw;
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.582);
+  border-radius: 6px;
+  transition: all ease .3s;
+}
+.step:hover{
+  transform: scale(1.1);
+}
+.stepOne{
+  background-image: url('./assets/step1.jpg');
+}
+.stepTwo{
+  background-image: url('./assets/step2.jpg');
+}
+.stepThree{
+  background-image: url('./assets/step3.jpg');
+}
+.rubros{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 2vh auto;
+  width: 45%;
+}
+.profession{
+  margin: 0 0 2vh 0;
+  transition: all ease 0.3s;
+  text-decoration: none;
+  color: rgb(17, 1, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.profession small{
+  width: 100%;
+  min-height: 8vh;
+  
+}
+.professionLink{
+  display: flex;
+  flex-direction: column;
+  margin:  0  .5vh ;
+  width: 20vh;
+  height: 20vh;
+  align-items: center;
+  padding: 1vh;
+  transition: all ease .3s;
+  border-radius: 12px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-decoration: none;
+  color:rgb(216,0,27);
+  border: solid 5px rgb(216,0,27);
+  text-decoration: none;
+
+}
+
+.profession:hover{
+  transform: scale(1.05);
+}
+.toolIcon{
+  font-size: 3rem;
+  color: rgb(216,0,27)
+}
+.howItWorks{
+  margin-bottom: 5vh;
+}
+.howItWorks h3{
+  margin-bottom: 4vh;
+}
+.card{
+  border-radius: 6px;
+  width: 20vw;
+  min-width: 280px;
+  height: 40vh;
+  margin: 2vh;
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.582);
+  transition: all ease 0.3s;
+}
+.card:hover{
+  transform: scale(1.05);
+}
+.cardTop{
+  width: 100%;
+  height: 55%;
+  background-size: cover;
+  border-radius: 6px 6px 0 0;
+}
+.cardBottom{
+  background-color: white;
+  height: 45%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 0 0 6px 6px;
+}
+.cardContainer{
+  width: 80%;
+  margin: 2vh auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  
+}
+/* ###################################### REGISTRO Y LOGIN ########################### */
+.registro{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  
+  background-color: rgb(250, 250, 250);
+  padding: 4vh;
+  color: rgb(250, 250, 250);
+  min-height: 89vh;
+  justify-content: center;
+  background-image: url('./assets/pattern2.svg');
+
+}
+
+.formulario {
+  display: flex;
+  width: 40%;
+  padding: 4vh ;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.555);
+  border-radius: 10px;
+  background-color: rgb(204, 0, 24);
+}
+
+.formulario h2{
+  margin-bottom: 1vw ;
+}
+.inputDiv{
+  width: 100%;
+  position: relative;
+}
+.formulario input,select{
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 1.5vh 2vh ;
+  border-radius: 8px;
+  margin-bottom: 3vh;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.356);
+  color: black
+
+}
+.eye{
+  position: absolute;
+  top: 16%;
+  right: 2%;
+  color:  rgb(56, 56, 56);
+  font-size: 1.4rem;
+  
+}
+.enviar {
+  width: 15vw;
+  margin-bottom: 3vh;
+  transition: all 0.2s;
+}
+.enviar:hover{
+  transform: scale(1.02);
+}
+.enviar:active{
+  border: none;
+  transform: translateY(7px);
+  box-shadow: 0px 0px rgba(0, 0, 0, 0.555);
+}
+
+/* ###################################### CARD DE PROFESIONALES ###################################################################################### */
+
+.profesionales{
+  width: 70vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profesional{
+  margin-top: 5vh;
+  background: rgba(255, 248, 248, 0.649);
+  border-radius: 10px;
+  margin-bottom: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  transition: all ease 0.3s;
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.582);
+}
+.profesional:hover{
+  transform: scale(1.05);
+}
+.user{
+  margin:5vh;
+  display: flex;
+  flex-direction: column;
+}
+.user h2{
+  margin-top: 3vh;
+}
+.fotoUser{
+  width: 10vw;
+  margin-bottom: 2vh;
+  height: 10vw;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+
+}
+.info{
+  width: 40vw;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+/* ################################################################## INFO DEL PROFESIONAL ################################################## */
+
+.professionalInfo{
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin: auto;
+  background: rgba(255, 248, 248, 0.649);
+  min-height: 50vh;
+  border-radius: 10px 10px 0 0;
+}
+.bgPorfessional{
+  background-image: url('./assets/fondo.webp');
+  width: 100%;
+  height: 25vh;
+  background-size: cover;
+  border-radius: 10px 10px 0 0;
+  background-position: center;
+}
+.containerProffesional{
+  display: flex;
+}
+.proffesionalImg{
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+  align-items: center;
+  margin: 0 2vw;
+  margin-top: -5vw;
+}
+.nameProffesional{
+  margin: 2vh 0 0 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35vw;
+}
+.containerContract{
+  display: flex;
+  align-items: center;
+}
+.contract{
+  font-size: 1rem;
+  padding: 1vh 2vh;
+  background-color: rgb(216,0,27);
+  color: whitesmoke;
+  border: none;
+  outline: none;
+  border-radius: 14px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.555);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.301);
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  border: solid 1px rgb(250, 250, 250);
+}
+.nameProffesional h2{
+  font-size: 30px;
+}
+.commentProffesional{
+  margin: 2vw;
+}
+.areaWork{
+  background: rgba(255, 248, 248, 0.649);
+  display: flex;
+  justify-content: space-between;
+  width: 80vw;
+  margin:4vh auto;
+  padding: 4vw;
+}
+.containerSeals{
+  display: flex;
+  justify-content: center;
+}
+.seals{
+  width: 4vw;
+  height: 4vw;
+}
+.sealsGarantia{
+  background-image: url('./assets/garantia30.svg');
+}
+.sealsNoVerif{
+  background-image: url('./assets//noverificado.svg');
+}
+.star{
+  cursor: pointer;
+  transition: color 200ms;
+  margin: 3px;
+  font-size: 1.6rem;
+}
+.starInput{
+  display: none;
+}
+/*Timeline*/
+.custom-timeline {
+  margin-left: 20px;
+}
+.custom-timeline .rs-timeline-item-custom-dot .rs-icon {
+  position: absolute;
+  background: #fff;
+  top: 0;
+  left: -2px;
+  border: 2px solid #ddd;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  padding-top: 9px;
+  color: #999;
+  margin-left: -13px;
+}
+.workTimeline p{
+  margin-top: 1vh;
+  padding: 0!important;
+}
+.rs-timeline-item-content{
+  padding: 1vh 0 1.8vh 0 !important;
+  margin: 0 0 0 1.3vh!important;
+}
+.custom-timeline .rs-timeline-item-content {
+  margin-left: 24px;
+}
+.workContainer{
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 0 1vw 0;
+}
+.workBtn{
+  padding: 1vh;
   color: white;
+  background-color: rgb(204, 0, 24);
+  border-radius: 6px;
+  margin: 1.2vh 12px;
 }
-
-.App-link {
-  color: #61dafb;
+.openBtn{
+  color: rgb(250, 250, 250);
+  font-size: 2.5rem;
+  margin: 0 1vw
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.radius{
+  border-radius: 100%;
+}
+.success{
+  color: rgb(0, 83, 0);
 }
