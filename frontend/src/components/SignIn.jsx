@@ -5,7 +5,6 @@ import userActions from '../Redux/actions/userActions'
 import { FaEye } from "react-icons/fa";
 
 const SignIn = (props) => {
-
     const { history, signIn, loggedUser } = props
     const [user, setUser] = useState({})
     const [errores, setErrores] = useState('')
