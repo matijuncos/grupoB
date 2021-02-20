@@ -45,7 +45,6 @@ const SignIn = (props) => {
     }
     const responseGoogle = async response => {
         if (response.error) {
-            alert("Intente nuevamente")
         } else {
             const res = await props.signIn({
                 email: response.profileObj.email,
@@ -53,7 +52,6 @@ const SignIn = (props) => {
             }
             )
             if (res && !res.success) {
-                alert('Intente nuevamente')
                 console.log(errores)
             } else {
                 alert(

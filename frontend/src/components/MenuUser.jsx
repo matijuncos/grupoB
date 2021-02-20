@@ -3,6 +3,8 @@ import { Drawer, ButtonToolbar, Button, Placeholder } from 'rsuite'
 import '../../node_modules/rsuite/dist/styles/rsuite-default.css'
 import WorkState from './WorkState'
 import { RiMenuFoldFill } from "react-icons/ri"
+import { connect } from 'react-redux'
+import workActions from '../Redux/actions/workActions'
 
 class MenuUser extends React.Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class MenuUser extends React.Component {
     });
   }
   toggleDrawer() {
+    this.props.getWorks()
     this.setState({ show: true });
   }
 
@@ -34,7 +37,7 @@ class MenuUser extends React.Component {
           onHide={this.close}
         >
           <Drawer.Header>
-            <Drawer.Title>Drawer Title</Drawer.Title>
+            <Drawer.Title>Lista de trabajos :)👻</Drawer.Title>
           </Drawer.Header>
           <Drawer.Body>
             <WorkState />
@@ -44,4 +47,8 @@ class MenuUser extends React.Component {
     );
   }
 }
-export default MenuUser
+
+const mapDispatchToProps = {
+  getWorks: workActions.getWorks
+}
+export default connect(null, mapDispatchToProps)(MenuUser)

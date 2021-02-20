@@ -1,8 +1,9 @@
 const initState = {
-   works:[ ],
+   works:[],
    addWorks: [],
    currentWorks:0,
-   oneWork: {}   
+   oneWork: {} ,
+   userWork: {}
    }
  
  const workReducer = (state = initState, action) =>{
@@ -18,16 +19,16 @@ const initState = {
            addWorks: action.payload,
            workId: action.payload.workId
           }
+          case 'GET_WORK':
+            return{
+              ...state,
+              userWork: action.payload
+            }
           case 'CHANGE_STATE':
             return {
               ...state,
               currentWorks:state.currentWorks+1
             }
-            case 'GET_WORK':
-          return{
-            ...state,
-            works: action.payload
-          }
           case 'DEL_WORK':
             alert('borro laburo')
             console.log(action.payload)
@@ -38,6 +39,20 @@ const initState = {
             return{
               ...state
             }
+            case 'COMMENT':
+              return{
+                ...state,
+                //works: state.works.filter( work => work._id === action.payload.respuesta._id ? action.payload.respuesta : work)
+              }
+            
+            case 'RANK':
+              console.log(action.payload)
+            return{
+              ...state,
+              works: state.works.filter( work => work._id === action.payload.respuesta._id ? action.payload.respuesta : work)
+
+            }
+            
        default :
            return state
        }

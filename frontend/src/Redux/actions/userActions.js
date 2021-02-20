@@ -110,7 +110,9 @@ const userActions = {
           console.log(respuesta)
           dispatch({type:'USER_LOG', payload: respuesta.data})
       }
-  }
+  },
+
+  
 }
 
 export default userActions

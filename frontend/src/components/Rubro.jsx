@@ -8,11 +8,9 @@ const Rubro = ({ profession }) => {
     <Link className="profession" to={'/profesionales/' + profession._id}  >
       <div className="professionLink" style={{ backgroundImage: `url(${profession.urlPic})` }}>
       </div>
-      <small>{profession.type}</small>
+      <h6>{profession.type}</h6>
     </Link>
   )
 }
-
-
 
 export default Rubro

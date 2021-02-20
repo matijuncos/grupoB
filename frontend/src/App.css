@@ -16,8 +16,15 @@ nav .active{
   border-bottom: 2px solid rgb(250,250,250);
  
 }
+nav .active{
+  color: whitesmoke;
+  font-weight: bold;
+  border-bottom: 2px solid rgb(250, 250, 250);
+}
 body{
   font-family: 'Poppins', sans-serif;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 #root{
   background-color: rgb(250, 250, 250);
@@ -39,7 +46,7 @@ body{
 }
 .navUserName{
   margin: 0 1vw;
-  color: rgb(250, 250, 250);
+  color: rgb(250, 250, 250)!important;
 }
 .navBarLinks{
   color: rgb(250, 250, 250);
@@ -64,6 +71,18 @@ body{
 .links a:focus{
   color:rgb(250, 250, 250)!important;
   
+}
+.links a{
+  padding: 15px;
+  text-decoration: none!important;
+}
+.links a:hover{
+  color:rgb(250,250,250)!important;
+  font-weight: bold;
+}
+.links a:focus{
+  color:rgb(250, 250, 250)!important;
+
 }
 .userPic{
   width: 5vh;
@@ -271,9 +290,12 @@ body{
 }
 .profession{
   margin: 0 1vh 2vh 0;
+<<<<<<< HEAD
   width: 20vw;
+=======
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
   transition: all ease 0.3s;
-  text-decoration: none;
+  text-decoration: none!important;
   color: rgb(17, 1, 1);
   display: flex;
   flex-direction: column;
@@ -282,10 +304,18 @@ body{
 
 .profession small{
   width: 70%;
+<<<<<<< HEAD
   font-size: 20px;
   font-weight: 600;
   min-height: 8vh;
   color: rgb(61, 61, 61);
+=======
+  min-height: 8vh;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(61,61,61);
+  
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 }
 .professionLink{
   display: flex;
@@ -308,11 +338,18 @@ body{
 .profession:hover{
   transform: scale(1.05);
   text-decoration: none!important;
+<<<<<<< HEAD
   
   font-weight: 600;
 }
 .profession small:hover{
   color: rgb(216,0,27)!important;
+=======
+  font-weight: 600;
+}
+.profession small:hover{
+  color: rgb(216,0,27) !important;
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 }
 .toolIcon{
   font-size: 3rem;
@@ -352,6 +389,10 @@ body{
   padding: 10px;
   border-radius: 0 0 6px 6px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 .cardBottom h4{
   font-size: 1.1rem;
   height: 10vh;
@@ -362,6 +403,7 @@ body{
 .cardContainer{
   width: 80%;
   margin: 2vh auto;
+  min-height: 89vh;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -390,6 +432,7 @@ body{
   box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.555);
   border-radius: 10px;
   background-color: rgb(204, 0, 24);
+  position: relative;
 }
 
 .formulario h2{
@@ -444,7 +487,10 @@ body{
   align-items: center;
   background-image: url('./assets/pattern2.svg');
   padding-bottom: 2vh;
+<<<<<<< HEAD
   
+=======
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 }
 .profesional{
   margin-top: 5vh;
@@ -453,10 +499,15 @@ body{
   background: rgba(255, 248, 248, 0.678);
   border-radius: 5px;
   display: flex;
+  padding-right: 2vh;
+  width: 70%;
+  background: rgba(255, 248, 248, 0.678);
+  border-radius: 5px;
   align-items: center;
   justify-content: space-evenly;
   transition: all ease 0.3s;
   box-shadow: 0 5px 5px rgb(114, 113, 113)
+<<<<<<< HEAD
 }
 .starIcons{
   display: flex;
@@ -465,7 +516,10 @@ body{
 .profesional h2,h3 {
   font-size: 1.8rem;
   color:  rgb(56, 56, 56)!important;
+=======
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 }
+
 .user{
   margin:5vh;
   display: flex;
@@ -474,6 +528,15 @@ body{
 }
 .user h2{
   margin-top: 3vh;
+  background-position: center;
+}
+.starIcons{
+  display: flex;
+  color: #ffc107;
+}
+.profesional h2,h3 {
+  font-size: 1.8rem;
+  color:  rgb(56, 56, 56)!important;
 }
 .fotoUser{
   width: 10vw;
@@ -500,6 +563,10 @@ body{
   /* border: 4px solid rgb(128, 128, 128); */
   border-radius: 5px;
   padding: 1vh;
+}
+.info p{
+  color:  rgb(56, 56, 56)!important;
+  padding-right: 1vh;
 }
 .info p{
   color:  rgb(56, 56, 56)!important;
@@ -538,6 +605,203 @@ body{
   align-items: center;
   margin: 0 2vw;
   margin-top: -5vw;
+}
+
+nav{
+  width: 100%;
+  padding: 2vh;
+  height: 11vh;
+ background-color: rgb(216,0,27); 
+  background-color: rgb(216,0,27); 
+}
+nav .active{
+  color: whitesmoke;
+  font-weight: bold;
+  border-bottom: 2px solid rgb(250,250,250);
+
+}
+body{
+  font-family: 'Poppins', sans-serif;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+#root a:hover{
+  text-decoration: none!important;
+}
+.navBar{
+  display: flex;
+  align-items: center;
+}
+.links{
+  display: flex;
+  align-items: center;
+
+}
+.links a{
+  padding: 15px;
+  text-decoration: none!important;
+}
+.links a:hover{
+  color:rgb(250,250,250)!important;
+  font-weight: bold;
+}
+.links a:focus{
+  color:rgb(250, 250, 250)!important;
+
+}
+.userPic{
+  width: 5vh;
+
+}
+.rubros{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 2vh;
+  margin: 2vh auto;
+  width: 45%;
+  width: 65%;
+}
+.profession{
+  margin: 0 0 2vh 0;
+  margin: 0 1vh 2vh 0;
+  width: 20vw;
+  transition: all ease 0.3s;
+  text-decoration: none;
+  color: rgb(17, 1, 1);
+
+}
+
+.profession small{
+  width: 100%;
+  width: 70%;
+  font-size: 20px;
+  font-weight: 600;
+  min-height: 8vh;
+
+  color: rgb(61, 61, 61);
+}
+.professionLink{
+  display: flex;
+
+  color:rgb(216,0,27);
+  border: solid 5px rgb(216,0,27);
+  text-decoration: none;
+
+}
+
+.profession:hover{
+  transform: scale(1.05);
+  text-decoration: none!important;
+
+  font-weight: 600;
+}
+.profession small:hover{
+  color: rgb(216,0,27)!important;
+}
+.toolIcon{
+  font-size: 3rem;
+
+}
+.cardBottom{
+  background-color: white;
+  height: 45%;
+  height: 47%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 0 0 6px 6px;
+}
+.cardBottom h4{
+  font-size: 1.1rem;
+  height: 10vh;
+}
+.cardBottom p{
+  height: 10vh;
+}
+.cardContainer{
+  width: 80%;
+  margin: 2vh auto;
+  min-height: 89vh;
+  justify-content: center;
+  background-image: url('./assets/pattern2.svg');
+
+}
+
+.formulario {
+  display: flex;
+  width: 40%;
+  width: 100%;
+  position: relative;
+}
+.inputDiv select{
+  margin-bottom: 3vh;
+}
+.formulario input,select{
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  margin-bottom: 3vh;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.356);
+  color: rgb(56, 56, 56)!important
+
+}
+.icono{
+  margin-right: 1vh;
+}
+
+.back{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 2vh 0;
+}
+.eye{
+  position: absolute;
+  top: 16%;
+  right: 2%;
+  color:  rgb(56, 56, 56);
+  font-size: 1.4rem;
+  
+}
+
+.profesionales{
+  width: 70vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('./assets/pattern2.svg');
+  padding-bottom: 2vh;
+
+}
+.profesional{
+  margin-top: 5vh;
+  background: rgba(255, 248, 248, 0.649);
+  border-radius: 10px;
+  margin-bottom: 10vh;
+  padding-right: 2vh;
+  width: 70vw;
+  background: rgba(255, 248, 248, 0.678);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  transition: all ease 0.3s;
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.582);
+  box-shadow: 0 5px 5px rgb(114, 113, 113)
+}
+
+.starIcons{
+  display: flex;
+  color: #ffc107;
+}
+.profesional h2,h3 {
+  font-size: 1.8rem;
+  color:  rgb(56, 56, 56)!important;
 }
 .nameProffesional{
   margin: 2vh 0 0 2vw;
@@ -665,6 +929,65 @@ body{
 .success{
   color: rgb(0, 83, 0);
 }
+<<<<<<< HEAD
+=======
+.commentDiv{
+  width: 100%;
+  position: relative;
+  margin: 1vh auto;
+}
+.detailsProf{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35vw;
+  margin-top: -3vh;  
+}
+
+.commentDiv input{
+  width: 80%;
+  padding: 1vh;
+  border-radius: 12px;
+  outline: none;
+}
+.commentDiv button{
+  width: 3vh;
+  height: 3vh;
+  border-radius: 100%;
+  background-color: rgb(216,0,27);
+  color: white;
+}
+.sendCommentBtn{
+  
+  position: absolute;
+  right: 21%;
+  top: 17%;
+  
+}
+.comment{
+  background-color: rgba(208, 208, 219, 0.842);
+  border-radius: 4px 22px 22px 22px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.356);
+  padding: 1vh;
+  width: 60%;
+  margin: 2vh;
+}
+.comments{
+  background-color: aliceblue;
+  padding: 2vh;
+  width: 80%;
+  min-height: 30vh;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.404);
+  border-radius: 8px;
+  margin: 0 auto;
+}
+.comments h4{
+  margin-bottom: 2vh;
+}
+.comment h6{
+  margin-left: 1.4vw
+}
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 
 /* ################################################################## RESPONSIVE ################################################## */
 
@@ -682,8 +1005,14 @@ body{
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 2vh;
+<<<<<<< HEAD
     margin: 2vh auto;
     width: 70%;
+=======
+    margin: 1vh auto;
+    width: 70%;
+
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
   }
   .profession small{
     width: 20vh;
@@ -696,7 +1025,11 @@ body{
     width: 95%;
     margin-bottom: 2vh;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
   .stepContainer p{
     font-size: 1.4rem;
     width: 70%;
@@ -765,7 +1098,11 @@ body{
     padding: 0;
     flex-direction: column;
     align-items: center;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
   }
   .proffesionalImg{
     width: 80vw;
@@ -788,5 +1125,9 @@ body{
   }
   .nameProffesional div p{
     margin-top: 2vh;
+<<<<<<< HEAD
   }
 }
+=======
+  }}
+>>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
