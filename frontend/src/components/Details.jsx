@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import workActions from "../Redux/actions/workActions"
 import { BsFillStarFill } from 'react-icons/bs'
+import {GiCheckMark} from 'react-icons/gi'
 import { connect } from 'react-redux'
 import Comment from './Comment'
+import {Link} from 'react-router-dom'
 const Details = (props) => {
     console.log(props)
     const id = props.match.params.id
@@ -76,30 +78,32 @@ const Details = (props) => {
                                         type="radio"
                                         name="rating"
                                         value={ratingValue}
-                                        onClick={() => { props.consumer !== null ? setRating(ratingValue) : setErrores("No puedes valorar sin iniciar sesion.") }}
+                                        onClick={() => { props.loggedUser !== null ? setRating(ratingValue) : setErrores("No puedes valorar sin iniciar sesion.") }}
                                     />
                                     <BsFillStarFill className="star" color={(ratingValue <= rating) ? '#ffc107' : '#8C8C8C'} />
                                 </label>
+                                
                             )
                         })}</div>
-                    </div>
-
-                    <div>
-                        <h2>Sellos del Profesional</h2>
-                        <div className="containerSeals">
-                            <div className="seals sealsGarantia"></div>
-                            <div className="seals sealsNoVerif"></div>
+                        <div>
+                            <h5>Sellos del Profesional</h5>
+                            <div className="containerSeals">
+                                <div className="seals sealsGarantia"></div>
+                                <div className="seals sealsNoVerif"></div>
+                            </div>
                         </div>
                     </div>
                     <div className="nameProffesional">
                         <h2>{providers.idUserBase.firstName} {providers.idUserBase.lastName}</h2>
-                        <h3>{providers.idProfession.type}</h3>
-                        {providers.idProfession.descriptions.map(description => {
-                            return (
-                                <p key={description._id}>{description}</p>
+                        <div>
+                            <h4>{providers.idProfession.type}</h4>
+                            {providers.idProfession.descriptions.map(description => {
+                                return (
+                                    <p key={description._id}><GiCheckMark className="icono"/>{description}</p>
 
-                            )
-                        })}
+                                )
+                            })}
+                        </div>
                     </div>
                     {/* ESTO TIENE QUE SER CONDICIONAL */}
                     {visible &&
@@ -130,6 +134,9 @@ const Details = (props) => {
                     </div>
                 }
             </div>
+            <div className="back">
+                <Link to="/"><button className="contract">Volver</button></Link>
+            </div>            
         </>
     )
 }
@@ -139,7 +146,6 @@ const mapStateToProps = state => {
         loggedUser: state.userR.loggedUser,
         works: state.workR.works,
         workId: state.workR.workId,
-
     }
 }
 const mapDispatchToProps = {

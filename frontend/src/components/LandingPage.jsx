@@ -10,6 +10,7 @@ import professionActions from '../Redux/actions/professionActions'
 const LandingPage = (props) => {
 
   useEffect(() => {
+    window.scroll(0,0)
     props.getProfessions()
     props.getProviders()
   }, [])
