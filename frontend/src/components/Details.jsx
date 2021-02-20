@@ -18,13 +18,13 @@ const Details = (props) => {
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState({})
     const [reload, setReload] = useState(false)
-
+    var workExists = false
 
     useEffect(() => {
         if (props.loggedUser) {
-            getWorks()
+            props.getProviders()
+            props.getConsumerWorks(props.loggedUser.idUser)
         }
-
     }, [reload])
 
     useEffect(() => {
@@ -43,10 +43,6 @@ const Details = (props) => {
             }
         }
     }, [reload, providers])
-
-    const getWorks = async () => {
-        await props.getConsumerWorks(props.loggedUser.idUser)
-    }
 
     const btnContract = async () => {
         if (props.loggedUser) {
@@ -74,17 +70,18 @@ const Details = (props) => {
     }
 
     const rankProvider = (e) => {
-        if (!props.consumer && props.userWork.state === 3) {
+        console.log(props.userWork[0])
+        if (props.userWork[0].state === 3) {
             setRating(e.target.value)
             props.rate(e.target.value, id)
-            props.getProviders(props.userWork._id)
-            Alert.success('Calificaste a tu proveedor con ' + e.target.value + ' estrellas!', 3500)
-            props.changeState(props.userWork._id)
-            props.deleteWorkbyId(props.userWork._id)
+            props.getProviders()
+            Alert.success('Calificaste a tu proveedor con ' + e.target.value + ' estrellas!', 4000)
+            props.changeState(props.userWork[0]._id)
+            props.deleteWorkbyId(props.userWork[0]._id)
 
-        } else if (!props.consumer && props.userWork.state !== 3) {
+        } else if (props.userWork && props.userWork[0].state !== 3) {
             Alert.error('No podés calificar a un profesional hasta que finalice su trabajo :)')
-        } else if (!props.userWork._id) {
+        } else if (!props.userWork[0]._id) {
             Alert.error('No podés calificar a un profesional que no has contratado!')
         } else {
             setErrores("No puedes valorar sin iniciar sesion.")
@@ -95,8 +92,7 @@ const Details = (props) => {
         if (e.key === 'Enter')
             sendComment()
     }
-    console.log(props)
-
+    console.log(props.providers.respuesta)
 
     return (
         <>
@@ -141,20 +137,28 @@ const Details = (props) => {
                             })}
                         </div>
                         {/* ESTO TIENE QUE SER CONDICIONAL */}
-                        {(props.loggedUser && props.loggedUser.rol === 'consumer') && (!props.userWork._id) &&
-                            <div className="containerContract">
-                                <button className="contract" onClick={btnContract}>Contratar</button>
-                            </div>
+                        {(props.loggedUser && (props.loggedUser.rol === 'consumer')) && props.userWork.map(work => {
+                            if (work.idUserConsumer._id === props.loggedUser.idUser) {
+                                workExists = true
+                            }
+                        })
+
+                            && (!workExists && (
+                                <div className="containerContract">
+                                    <button className="contract" onClick={btnContract}>Contratar</button>
+                                </div>
+                            ))
                         }
+
                     </div>
                 </div>
                 <div className="areaWork">
                     <div className="comments">
                         <h4>Lee que opinan otros clientes</h4>
                         {
-                            props.works && props.works.filter(Ourworks => id === Ourworks.idUserProvider._id).map(work => {
+                            props.providers.respuesta && props.providers.respuesta.filter(Ourworks => id === Ourworks._id).map(work => {
                                 return (
-                                    work.idUserProvider.review.map(comment => {
+                                    work.review.map(comment => {
                                         return (
                                             <Comment comment={comment} id={id} reload={reload} setReload={setReload} />
                                         )
@@ -162,11 +166,17 @@ const Details = (props) => {
                                 )
                             })
                         }
-                        {(props.loggedUser && props.loggedUser.rol === 'consumer') && (props.userWorkstate === 1 || props.userWorkstate === 2 || props.userWork.state === 3) &&
-                            <div className="commentDiv">
-                                <input onKeyDown={pressEnter} type="text" name="commentConsumer" placeholder="Deje su comentario" onChange={readInput} />
-                                <Icon icon='send-o' className="sendCommentBtn" onClick={sendComment} />
-                            </div>
+                        {(props.loggedUser && props.loggedUser.rol === 'consumer') && props.userWork.length !== 0 && props.userWork.map(work => {
+                            if (work.idUserConsumer._id === props.loggedUser.idUser && work.state === 3) {
+                                return (
+                                    <div className="commentDiv">
+                                        <input onKeyDown={pressEnter} type="text" name="commentConsumer" placeholder="Deje su comentario" onChange={readInput} />
+                                        <Icon icon='send-o' className="sendCommentBtn" onClick={sendComment} />
+                                    </div>
+
+                                )
+                            }
+                        })
                         }
                     </div>
                 </div>
@@ -181,22 +191,18 @@ const mapStateToProps = state => {
     return {
         providers: state.professionR.providers,
         loggedUser: state.userR.loggedUser,
-        works: state.workR.works,
-        workId: state.workR.workId,
         userWork: state.workR.userWork,
 
     }
 }
 const mapDispatchToProps = {
     addWork: workActions.addWork,
-    getConsumerWorks: workActions.getConsumerWorks,
     sendMail: workActions.sendMail,
-    getWorks: workActions.getWorks,
     sendComment: workActions.sendComment,
     rate: workActions.rankProvider,
     getProviders: professionActions.getProviders,
     changeState: workActions.changeState,
-    deleteWorkbyId: workActions.deleteWorkbyId
-
+    deleteWorkbyId: workActions.deleteWorkbyId,
+    getConsumerWorks: workActions.getConsumerWorks
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Details)

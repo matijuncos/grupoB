@@ -100,9 +100,8 @@ const WorkController = {
         model:'userBase'
       }
     })
-    console.log(userConsult)
     if (userConsult.length === 0) {
-      userConsult=await Work.findOne({'idUserProvider': urlId})
+      userConsult=await Work.find({'idUserProvider': urlId})
       .populate('idUserConsumer')
       .populate('idUserProvider')
       .populate({

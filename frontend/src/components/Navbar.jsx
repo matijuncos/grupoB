@@ -69,7 +69,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   signOut: userActions.signOut,
-  // getWorks: workActions.getWorks
+  getWorks: workActions.getWorks
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
 

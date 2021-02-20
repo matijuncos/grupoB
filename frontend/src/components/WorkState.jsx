@@ -16,8 +16,14 @@ const WorkState = ({ works, userWork, loggedUser, getConsumerWorks }) => {
          {works.length === 0 ? (
             <p>Aun no tienes trabajos!</p>
          ) : works.map(work => {
-            return <Work reload={reload} setReload={setReload} work={work} key={work._id} />
-         })}
+            if (work.idUserProvider._id === loggedUser.idUser) {
+               return <Work reload={reload} setReload={setReload} work={work} key={work._id} />
+            } else if (work.idUserConsumer._id === loggedUser.idUser) {
+               return <Work reload={reload} setReload={setReload} work={work} key={work._id} />
+            }
+         }
+
+         )}
       </>
    )
 

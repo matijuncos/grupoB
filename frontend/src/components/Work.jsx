@@ -5,30 +5,33 @@ import workActions from '../Redux/actions/workActions'
 import { Timeline, Icon } from 'rsuite'
 
 const Work = (props) => {
-   const { work, changeState, reload, setReload, loggedUser, deleteWorkbyId, sendMail } = props
+   const { work, getWorks, changeState, reload, setReload, loggedUser, deleteWorkbyId, sendMail } = props
    const { idUserConsumer, idUserProvider, state, _id } = work
 
    const [visible, setVisible] = useState(true)
    const [currentState, setCurrentState] = useState('')
 
    async function acceptProposal() {
-
       await changeState(_id)
       await sendMail(_id)
       setReload(!reload)
       setVisible(!visible)
+      getWorks()
    }
 
    const finishWork = async () => {
       await changeState(_id)
       await sendMail(_id)
       setReload(!reload)
+      getWorks()
 
    }
    const declineProposal = async () => {
       alert('oferta rechazada')
       await deleteWorkbyId(_id)
       setReload(!reload)
+      getWorks()
+
    }
    useEffect(() => {
       if (state === 1) {
@@ -118,7 +121,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
    changeState: workActions.changeState,
    deleteWorkbyId: workActions.deleteWorkbyId,
-   sendMail: workActions.sendMail
+   sendMail: workActions.sendMail,
+   getWorks: workActions.getWorks
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Work)
