@@ -83,7 +83,7 @@ const userController = {
       }      
    },
    addUserCustomer: async (req, res) =>{
-      const {firstName, lastName, urlPic, email, phone, password, country, rol} = req.body
+      const {firstName, lastName, urlPic, email, phone, password, country, rol, google, googlePic} = req.body
       const emailExists = await UserBase.findOne({email: email})
       if (emailExists){ return res.json({success: false, message: "Este correo ya esta siendo usado."})}
       else{
@@ -91,64 +91,69 @@ const userController = {
             const userBase = new UserBase ({
             firstName, lastName, urlPic, email, phone, password:hashedPassword, country, rol
             })
+
             //File urlPic
-            const {fileUrlPic}=req.files
-            if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
-               return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
-            }
-            const extPic=fileUrlPic.name.split('.',2)[1]
-            fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`,error =>{
+            if(google !== 'true'){
+               const {fileUrlPic}=req.files
+               if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
+                  return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
+               }
+               const extPic=fileUrlPic.name.split('.',2)[1]
+               fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`,error =>{
                   if(error){
                      return res.json({success:false,respuesta:"Intente nuevamente..."})
                   }
-            })
-            userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPic}`
-               // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
-            try{
-               const newUserBase = await userBase.save()
-               const idUserBase = newUserBase._id
-               const userConsumer = new UserConsumer({
-                  //_id:idUserBase,
-                  idUserBase:idUserBase
                })
-               userConsumer.save()
-               .then(async newUserConsumer =>{
-                  // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
-                  const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
-                  var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
-                  return res.json({
-                     success:true, 
-                     response:{
-                        token,
-                        firstName: userBase.firstName,
-                        urlPic: userBase.urlPic,
-                        email: userBase.email,
-                        idUser: userConsumer._id,
-                        _id: newUserBase._id,
-                        rol: userBase.rol
-                     }})
-               })
-               .catch(error => {
-                  return res.json({success:false, error})})
+               userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPic}`
+            }else{
+               userBase.urlPic=googlePic
             }
-            catch{
-               return res.json({success:false})
-            }}
-   },
-   signIn: async (req,res) => {
-      // desestructuro del front la req 
-      const {email, password} = req.body
-      const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
-      if (!userExist) {
-          return res.json ({success: false, message: "El usuario y/o la contraseña no existe/n"})
-      }
-      const matcheoPass = bcryptjs.compareSync(password, userExist.password) // verifica si el usuario registrado coincide con el password
-      //veo si la password conincide, aplico método compareSync a bcryptjs,  dos param para comparar (el pass legible que envía el user y el pass hasheado)
-      if(!matcheoPass){
-          return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
-      }
-      var userConsult=await UserConsumer.findOne({idUserBase:userExist._id})
-      if (!userConsult) {
+               // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
+               try{
+                  const newUserBase = await userBase.save()
+                  const idUserBase = newUserBase._id
+                  const userConsumer = new UserConsumer({
+                     //_id:idUserBase,
+                     idUserBase:idUserBase
+                  })
+                  userConsumer.save()
+                  .then(async newUserConsumer =>{
+                     // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
+                     const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
+                     var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
+                     return res.json({
+                        success:true, 
+                        response:{
+                           token,
+                           firstName: userBase.firstName,
+                           urlPic: userBase.urlPic,
+                           email: userBase.email,
+                           idUser: userConsumer._id,
+                           _id: newUserBase._id,
+                           rol: userBase.rol
+                        }})
+                     })
+                     .catch(error => {
+                        return res.json({success:false, error})})
+                     }
+                     catch{
+                        return res.json({success:false})
+                     }}
+                  },
+                  signIn: async (req,res) => {
+                     // desestructuro del front la req 
+                     const {email, password} = req.body
+                     const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
+                     if (!userExist) {
+                        return res.json ({success: false, message: "El usuario y/o la contraseña no existe/n"})
+                     }
+                     const matcheoPass = bcryptjs.compareSync(password, userExist.password) // verifica si el usuario registrado coincide con el password
+                     //veo si la password conincide, aplico método compareSync a bcryptjs,  dos param para comparar (el pass legible que envía el user y el pass hasheado)
+                     if(!matcheoPass){
+                        return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
+                     }
+                     var userConsult=await UserConsumer.findOne({idUserBase:userExist._id})
+                     if (!userConsult) {
          userConsult=await UserProvider.findOne({idUserBase:userExist._id})
       }
       console.log(userConsult)
