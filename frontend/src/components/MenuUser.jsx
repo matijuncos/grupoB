@@ -34,7 +34,7 @@ class MenuUser extends React.Component {
           onHide={this.close}
         >
           <Drawer.Header>
-            <Drawer.Title>Drawer Title</Drawer.Title>
+            <Drawer.Title>Lista de trabajos :)👻</Drawer.Title>
           </Drawer.Header>
           <Drawer.Body>
             <WorkState />

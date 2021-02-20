@@ -33,10 +33,30 @@ const WorkController = {
               model:'userBase'
             }
           })
+          .populate({
+            path:'idUserProvider',
+            populate:{
+              path:'review.idUser',
+              model:'userConsumer'
+            }
+          }).populate({
+            path:'idUserProvider',
+            model:'userProvider',
+            populate:[{
+              path:'review.idUser',
+              model:'userConsumer',
+              populate:{
+                path:'idUserBase',
+                model:'userBase'
+              }
+            }]
+          })
       .then(work => {return res.json({success:true, response:work})})
       .catch(error => {return res.json({success:false, error})})
    },
    delWork:async(req,res) =>{
+     console.log(req.body)
+     console.log('estoy borrando un trabajo')
      const idForDelete=req.params.id
      try {
       const data = await Work.findOneAndRemove({_id:idForDelete})
@@ -47,6 +67,7 @@ const WorkController = {
    },
    changeState:async(req,res)=>{
      console.log("change")
+     console.log(req.body)
      const idWork=req.body.idWork
      try {
       const work= await Work.find({'_id':idWork})
@@ -79,11 +100,12 @@ const WorkController = {
         model:'userBase'
       }
     })
-     if (userConsult.length === 0) {
-       userConsult=await Work.find({'idUserProvider': urlId})
-       .populate('idUserConsumer')
-       .populate('idUserProvider')
-       .populate({
+    console.log(userConsult)
+    if (userConsult.length === 0) {
+      userConsult=await Work.findOne({'idUserProvider': urlId})
+      .populate('idUserConsumer')
+      .populate('idUserProvider')
+      .populate({
         path:'idUserConsumer',
         populate:{
           path:'idUserBase',
@@ -97,13 +119,14 @@ const WorkController = {
           model:'userBase'
         }
       })
-       if(userConsult.length === 0){
-         return res.json({
-           success: false,
-           response: []
-         })
-       }
+      console.log(userConsult)
+      if(userConsult.length === 0){
+        return res.json({
+          success: false,
+          response: []
+        })
       }
+    }
       return res.json({
         success: true,
         response: userConsult

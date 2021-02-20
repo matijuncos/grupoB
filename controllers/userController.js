@@ -347,9 +347,48 @@ const userController = {
       const {idProvider,idUser,comment}=req.body
       await UserProvider.findOneAndUpdate(
          {_id:idProvider},
-         { $push: {'review': {idUser:idUser,comment:comment}} })
-         .then(()=>res.json({success:true}))
-         .catch(e=>res.json({success:false, error:"Error while modifying in database."}))
+         { $push: {'review': {idUser:idUser,comment:comment}}},{new: true})
+         .then(async comment=>res.json({success:true, respuesta: comment}))
+         .catch(e=>res.json({success:false, error:"Error en la DB"}))
+   },
+   delComment:async(req,res)=>{
+      console.log('llegué a borrar commentarios controller')
+      console.log(req.body)
+      const {idUser,commentId}=req.body
+      await UserProvider.findOneAndUpdate(
+         {_id:idUser},
+         { $pull: {'review': {_id: commentId}} })
+         .then(async comment=>res.json({success:true, respuesta: comment}))
+         .catch(e=>res.json({success:false, error:"Error en la DB"}))
+   },
+   editComment:async(req,res)=>{
+      console.log('controlador de update comment')
+       console.log(req.body)
+      const {commentId, comment}=req.body
+      await UserProvider.findOneAndUpdate(
+         {'review._id':commentId},
+         { '$set': {'review.$.comment': comment}},
+         {new: true}
+         )
+         .then(async comment=>res.json({success:true, respuesta: comment}))
+         .catch(e=>res.json({success:false, error:"Error en la DB"}))
+   },
+   rank: async (req, res) =>{
+      const providerId = req.body.id
+      const value = parseInt(req.body.value)
+      await UserProvider.findOneAndUpdate(
+         {_id: providerId},
+         {$push: {'arrayValoration': value}},
+         {new: true}
+      )
+      .then(async rankedWork => res.json({
+         success: true,
+         respuesta: rankedWork
+      }))
+      .catch(error => res.json({
+         success: false,
+         error: "Error while modifying in database."
+      }))
    }
 }
 module.exports = userController

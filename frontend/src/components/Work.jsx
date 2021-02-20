@@ -26,7 +26,7 @@ const Work = (props) => {
 
    }
    const declineProposal = async () => {
-      alert('oferta rechgazada')
+      alert('oferta rechazada')
       await deleteWorkbyId(_id)
       setReload(!reload)
    }
