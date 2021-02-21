@@ -1,18 +1,19 @@
 import axios from 'axios'
 import {Alert} from 'rsuite'
-
+import Api from '../../components/Api'
 
 const userActions = {
    signUp: (fdNewUser) =>{
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.post('http://localhost:4000/api/user/customer', fdNewUser,{
+        const response = await axios.post(Api+'/user/customer', fdNewUser,{
           headers:{
             'Content-Type':'multipart/form-data'
           }
         })
+        console.log(response)
         if(response.data.success===false){
-          console.log(response.data.errores)
+          
           var errors=[]
           response.data.errores && response.data.errores.details.map(error=>{
             switch (error.path[0]) {
@@ -42,9 +43,10 @@ const userActions = {
         }
         dispatch({
           type: "USER_LOG",
-          payload: response.data
+          payload: response.data.response
         })
-        return ({success:true,response:["Tu cuenta fue creada con éxito!"]})
+        Alert.success('Tu cuenta fue creada con éxito')
+        return ({success: true})
       }catch(err){
         return({success: false, response: errors})
       }
@@ -53,7 +55,7 @@ const userActions = {
   googleSignUp: (newUser) =>{
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.post('http://localhost:4000/api/user/customer', newUser)
+        const response = await axios.post(Api+'/user/customer', newUser)
         if(response.data.success===false){
           var errors=[]
           response.data.errores && response.data.errores.details.map(error=>{
@@ -84,7 +86,7 @@ const userActions = {
         }
         dispatch({
           type: "USER_LOG",
-          payload: response.data
+          payload: response.data.response
         })
         return ({success:true,response:["Tu cuenta fue creada con éxito!"]})
       }catch(err){
@@ -95,7 +97,7 @@ const userActions = {
   signProviderUp: (fdNewUser) =>{
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.post('http://localhost:4000/api/user/provider', fdNewUser,{
+        const response = await axios.post(Api+'/user/provider', fdNewUser,{
           headers:{
             'Content-Type':'multipart/form-data'
           }
@@ -105,7 +107,7 @@ const userActions = {
         }
         dispatch({
           type: "USER_LOG",
-          payload: response.data
+          payload: response.data.response
         })
         Alert.success("Tu cuenta fue creada con éxito!")
       }catch(err){
@@ -126,16 +128,16 @@ const userActions = {
     const idUser=localStorage.getItem('idUser')
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.post('http://localhost:4000/api/user/storage', {token,idUser}, {
+        const response = await axios.post(Api+'/user/storage', {token,idUser}, {
           headers:{
             Authorization:`Bearer ${token}`
           }
         })
          dispatch({
            type: "USER_LOG",
-           payload: {response: {...response.data.response}}
+           payload: response.data.response
          })
-        
+        console.log(response)
       }
       catch(error){
         console.log(error)
@@ -148,18 +150,18 @@ const userActions = {
   },
   signIn: (user) => {
       return async (dispatch, getState) => {
-          const respuesta = await axios.post('http://localhost:4000/api/user/signIn', user)
+          const respuesta = await axios.post(Api+'/user/signIn', user)
           if (!respuesta.data.success) {
             
               return respuesta.data
           }
           Alert.success("Hola " + respuesta.data.response.firstName + '!')
-          dispatch({type:'USER_LOG', payload: respuesta.data})
+          dispatch({type:'USER_LOG', payload: respuesta.data.response})
       }
   },
   requestResetPass:(userMail) => {
     return async (dispatch, getState) => {
-      const respuesta = await axios.post('http://localhost:4000/api/user/requestresetpass', userMail)
+      const respuesta = await axios.post(Api+'/user/requestresetpass', userMail)
       if (!respuesta.data.success) {
           Alert.error(`${respuesta.data.response}`,5000)
       }else{
@@ -170,7 +172,7 @@ const userActions = {
   },
   validateResetPassword:(newPasswordData) => {
     return async (dispatch, getState) => {
-      const respuesta = await axios.post('http://localhost:4000/api/user/resetpassword', newPasswordData)
+      const respuesta = await axios.post(Api+'/user/resetpassword', newPasswordData)
       if (!respuesta.data.success) {
         Alert.error(`${respuesta.data.response}`,5000)
       }else{
@@ -182,7 +184,7 @@ const userActions = {
   },
   validateResetUser:(token) => {
     return async (dispatch, getState) => {
-      const respuesta = await axios.post('http://localhost:4000/api/user/requestresetuser', {token})
+      const respuesta = await axios.post(Api+'/user/requestresetuser', {token})
       
       if (respuesta.data.success===false){
         return respuesta.data

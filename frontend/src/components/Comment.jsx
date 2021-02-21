@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import workActions from '../Redux/actions/workActions'
-
+import { MdCancel, MdDelete, MdEdit, MdSend } from "react-icons/md";
 const Comment = (props) => {
 
   const { comment, reload, setReload } = props
   const [visible, setVisible] = useState(false)
   const [input, setInput] = useState(comment.comment)
-  console.log(comment)
-
-
 
   const delComment = async () => {
     await props.deleteComment(props.id, comment._id)
@@ -18,7 +15,7 @@ const Comment = (props) => {
   const editComment = async () => {
     await props.updateComment(props.id, comment._id, input)
     setVisible(!visible)
-    console.log(comment)
+
     setReload(!reload)
   }
 
@@ -29,15 +26,15 @@ const Comment = (props) => {
   const readInput = (e) => {
     setInput(e.target.value)
   }
-  console.log(props.loggedUser)
+
   return (
     <div className="comment">
       <h5>{comment.idUser.idUserBase.firstName} {comment.idUser.idUserBase.lastName}</h5>
       {visible ? (
         <>
-          <div className="divInput">
-            <input type="text" value={input} onChange={readInput} /> <button onClick={editComment}>Enviar</button>
-            <button onClick={displayInput}>Cancelar</button>
+          <div className="commentDiv">
+            <MdCancel onClick={displayInput} className='commentIcons' />
+            <input type="text" value={input} onChange={readInput} /> <MdSend onClick={editComment} className='sendEditBtn' />
           </div>
         </>
       ) : (
@@ -45,8 +42,8 @@ const Comment = (props) => {
             <h6>{comment.comment}</h6>
             {props.loggedUser.idUser === comment.idUser._id && (
               <div className="commentBtns">
-                <p onClick={delComment}>Borrar</p>
-                <p onClick={displayInput}>Editar</p>
+                < MdDelete onClick={delComment} className='commentIcons' />
+                <MdEdit onClick={displayInput} className='commentIcons' />
               </div>
             )}
           </>

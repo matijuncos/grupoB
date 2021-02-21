@@ -10,7 +10,6 @@ import MenuUser from './MenuUser'
 
 const Navbar = ({ loggedUser, signOut, getWorks }) => {
   const [nav, setNav] = useState(true)
-  loggedUser && console.log(loggedUser)
 
   const openNav = () => {
     setNav(!nav)
@@ -21,7 +20,7 @@ const Navbar = ({ loggedUser, signOut, getWorks }) => {
     signOut()
     localStorage.clear()
   }
-
+  console.log(loggedUser)
   return (
     <nav>
       <FiMenu className="burger" onClick={openNav} />

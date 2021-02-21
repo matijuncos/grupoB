@@ -946,10 +946,10 @@ body{
   color: white;
 }
 .sendCommentBtn{
-  
+  font-size: 2rem;
   position: absolute;
-  right: 21%;
-  top: 17%;
+  right: 20.5%;
+  top: 14%;
   
 }
 .comment{
@@ -988,13 +988,21 @@ body{
 
 
 }
-.commentBtns p{
+.commentIcons {
   cursor: pointer;
   margin: 8px 5px;
-  color: black;
-  text-decoration: underline;
+  font-size: 1.4rem;
+  
 }
-
+.sendEditBtn{
+  position: absolute;
+  top: 33%;
+  right: 17%;
+  font-size: 1.6rem;
+}
+.commentIcons:hover{
+  color: rgb(145, 97, 9);
+}
 .workPicContainer{
   display: flex;
   justify-content: center;

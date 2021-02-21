@@ -6,7 +6,7 @@ import { BsFillStarFill } from 'react-icons/bs'
 import { connect } from 'react-redux'
 import Comment from './Comment'
 import professionActions from '../Redux/actions/professionActions'
-import { Icon } from 'rsuite';
+import { MdSend } from "react-icons/md";
 import { GiCheckMark } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 
@@ -45,8 +45,7 @@ const Details = (props) => {
 
     const btnContract = async () => {
         if (props.loggedUser) {
-            alert(providers._id)
-            alert(props.loggedUser.idUser)
+
             props.addWork({ "idUserConsumer": props.loggedUser.idUser, "idUserProvider": providers._id })
             await props.getConsumerWorks(props.loggedUser.idUser)
         }
@@ -66,6 +65,7 @@ const Details = (props) => {
         await props.sendComment(comment)
         Alert.success('Gracias por tu comentario!', 3500)
         setReload(!reload)
+        document.getElementById('input').value = ''
     }
 
     const rankProvider = (e) => {
@@ -113,15 +113,15 @@ const Details = (props) => {
                                     </label>
                                 )
                             })}</div>
-                        </div>
-
-                        <div>
-                            <h5>Sellos del Profesional</h5>
-                            <div className="containerSeals">
-                                <div className="seals sealsGarantia"></div>
-                                <div className="seals sealsNoVerif"></div>
+                            <div>
+                                <h5>Sellos del Profesional</h5>
+                                <div className="containerSeals">
+                                    <div className="seals sealsGarantia"></div>
+                                    <div className="seals sealsNoVerif"></div>
+                                </div>
                             </div>
                         </div>
+
                         <div className="nameProffesional">
                             <h2>{providers && providers.idUserBase.firstName} {providers && providers.idUserBase.lastName}</h2>
                             <h4>{providers && providers.idProfession.type}</h4>
@@ -135,7 +135,7 @@ const Details = (props) => {
                         {/* ESTO TIENE QUE SER CONDICIONAL */}
                         {(props.loggedUser && (props.loggedUser.rol === 'consumer')) && props.userWork.lenght !== 0 && props.userWork.map(work => {
                             if (work.idUserConsumer._id === props.loggedUser.idUser) {
-                                console.log('lo que quieras')
+
                                 workExists = true
                             }
                         })
@@ -186,19 +186,19 @@ const Details = (props) => {
                                     )
                                 })
                             }
-                            {(props.loggedUser && props.loggedUser.rol === 'consumer') && props.userWork.length !== 0 && props.userWork.map(work => {
-                                if (work.idUserConsumer._id === props.loggedUser.idUser && work.state === 3) {
-                                    return (
-                                        <div className="commentDiv">
-                                            <input onKeyDown={pressEnter} type="text" name="commentConsumer" placeholder="Deje su comentario" onChange={readInput} />
-                                            <Icon icon='send-o' className="sendCommentBtn" onClick={sendComment} />
-                                        </div>
-
-                                    )
-                                }
-                            })
-                            }
                         </div>
+                        {(props.loggedUser && props.loggedUser.rol === 'consumer') && props.userWork.length !== 0 && props.userWork.map(work => {
+                            if (work.idUserConsumer._id === props.loggedUser.idUser && work.state === 3) {
+                                return (
+                                    <div className="commentDiv">
+                                        <input onKeyDown={pressEnter} type="text" name="commentConsumer" placeholder="Deje su comentario" onChange={readInput} id="input" />
+                                        <MdSend icon='send-o' className="sendCommentBtn" onClick={sendComment} />
+                                    </div>
+
+                                )
+                            }
+                        })
+                        }
                     </div>
                 </div>
             </div>

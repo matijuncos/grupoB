@@ -7,14 +7,13 @@ const initState = {
 const userReducer = (state = initState, action) =>{
     switch(action.type){
       case "USER_LOG":
-        console.log("reducer")
+        localStorage.setItem('token', action.payload.token)
+        localStorage.setItem('firstName', action.payload.firstName)
+        localStorage.setItem('urlPic', action.payload.urlPic)
+        localStorage.setItem('idUser', action.payload.idUser)
+        localStorage.setItem('_id', action.payload._id)
+        localStorage.setItem('rol', action.payload.rol)
         console.log(action.payload)
-        localStorage.setItem('token', action.payload.response.token)
-        localStorage.setItem('firstName', action.payload.response.firstName)
-        localStorage.setItem('urlPic', action.payload.response.urlPic)
-        localStorage.setItem('idUser', action.payload.response.idUser)
-        localStorage.setItem('_id', action.payload.response._id)
-        localStorage.setItem('rol', action.payload.response.rol)
         return{
           ...state,
           loggedUser: action.payload

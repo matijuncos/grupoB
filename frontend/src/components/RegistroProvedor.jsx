@@ -3,6 +3,7 @@ import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 import { FaEye } from "react-icons/fa";
+import Api from './Api'
 
 function RegistroProvedor(props) {
     const [hidden, setHidden] = useState(true)
@@ -11,7 +12,7 @@ function RegistroProvedor(props) {
     const countries = require('../data/dataContryNames.json')
     // Funcion para ler input
     useEffect(() => {
-        fetch('http://localhost:4000/api/professions/')
+        fetch(Api + '/professions/')
             .then(response => response.json())
             .then(data => setProfessions(data.response))
     }, [])

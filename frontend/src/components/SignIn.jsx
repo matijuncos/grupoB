@@ -4,7 +4,8 @@ import GoogleLogin from 'react-google-login'
 import userActions from '../Redux/actions/userActions'
 import { FaEye } from "react-icons/fa";
 import { Link } from 'react-router-dom'
-import { Alert } from 'rsuite';
+import { Alert, Message } from 'rsuite';
+
 
 const SignIn = (props) => {
 
@@ -67,7 +68,7 @@ const SignIn = (props) => {
         <div className="registro">
             <div className="formulario">
                 <h2>Iniciar Sesión</h2>
-                <p>{errores}</p>
+                {errores !== '' && <Message type='info' description={errores} style={{ marginBottom: '2vh' }} />}
                 <div className="inputDiv">
                     <input onKeyPress={enterKeyboard} type="text" autoComplete="nope" name="email" placeholder="Ingrese su dirección de correo electrónico" onChange={readInput} />
                 </div>

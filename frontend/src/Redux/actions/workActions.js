@@ -1,11 +1,12 @@
 import axios from 'axios'
 import {Alert} from 'rsuite'
+import Api from '../../components/Api'
 
 const workActions = {
   getWorks: () =>{
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.get('http://localhost:4000/api/work')
+        const response = await axios.get(Api+'/work')
         dispatch({type:'GET_WORKS', payload:response.data.response})
       }
       catch(error){
@@ -18,9 +19,9 @@ const workActions = {
     return async (dispatch,getState) =>{
       try {
         
-        const response = await axios.post('http://localhost:4000/api/work',workData)
+        const response = await axios.post(Api+'/work',workData)
         if(response){
-          const resp = await axios.post('http://localhost:4000/api/mail/sendMail', {idWork: response.data.response.work._id})
+          const resp = await axios.post(Api+'/mail/sendMail', {idWork: response.data.response.work._id})
         }
         Alert.success('Enviaste una solicitud al profesional')
         // dispatch({
@@ -33,7 +34,7 @@ const workActions = {
   },
   changeState:(idWork)=>{
     return async (dispatch,getState) =>{
-      const response = await axios.put('http://localhost:4000/api/work',{idWork})
+      const response = await axios.put(Api+'/work',{idWork})
       if(response.data.success){
       //  Alert.success("La propuesta fue aceptada",3500)
       }else{
@@ -48,8 +49,8 @@ const workActions = {
   deleteWorkbyId: (id) =>{
     return async (dispatch, getState) =>{
       try{
-        const res = await axios.post('http://localhost:4000/api/mail/sendMail', {action: 'Delete', idWork: id})
-        const response = await axios.delete('http://localhost:4000/api/work/'+id)
+        const res = await axios.post(Api+'/mail/sendMail', {action: 'Delete', idWork: id})
+        const response = await axios.delete(Api+'/work/'+id)
         dispatch({type:'DEL_WORK', payload:response.data})
       }
       catch(error){
@@ -62,18 +63,18 @@ const workActions = {
     return async (dispatch, getState) =>{
       try{
         
-        const response = await axios.get('http://localhost:4000/api/userWork/'+ id)
+        const response = await axios.get(Api+'/userWork/'+ id)
         dispatch({type:'GET_WORK', payload:response.data.response})
       }
       catch(error){
-        console.log(error)
+       
       }
     }
   },
   sendMail: (idWork) =>{
     return async (dispatch, getState) =>{
       try {
-        const response = await axios.post('http://localhost:4000/api/mail/sendMail', {idWork})
+        const response = await axios.post(Api+'/mail/sendMail', {idWork})
         dispatch({
           type: 'SEND_MAIL',
           
@@ -86,7 +87,7 @@ const workActions = {
   },
   sendComment: (comment) =>{
     return async (dispatch, getState) =>{
-      const respuesta = await axios.post('http://localhost:4000/api/comment', comment)
+      const respuesta = await axios.post(Api+'/comment', comment)
       dispatch({
         type: 'COMMENT',
         payload: respuesta.data
@@ -95,7 +96,7 @@ const workActions = {
   },
   deleteComment: (idUser, commentId) =>{
     return async (dispatch, getState) =>{
-      const respuesta = await axios.put('http://localhost:4000/api/delcomment', {idUser, commentId})
+      const respuesta = await axios.put(Api+'/delcomment', {idUser, commentId})
       dispatch({
         type: 'COMMENT',
         payload: respuesta.data
@@ -105,7 +106,7 @@ const workActions = {
   },
   updateComment: (idUser, commentId, comment) =>{
    return async (dispatch, getState) =>{
-      const respuesta = await axios.post('http://localhost:4000/api/updatecomment', {idUser, commentId, comment})
+      const respuesta = await axios.post(Api+'/updatecomment', {idUser, commentId, comment})
       dispatch({
         type: 'COMMENT',
         payload: respuesta.data
@@ -115,9 +116,8 @@ const workActions = {
   },
   rankProvider : (value, id) =>{
     return async (dispatch, getState) =>{
-      const respuesta = await axios.post('http://localhost:4000/api/rank', {value, id})
-     //console.log(getState().professionR.providers.respuesta)
-     // getState().professionR.providers.respuesta=getState().professionR.providers.respuesta.filter(provider => provider._id === respuesta.data._id ? respuesta.data : provider)
+      const respuesta = await axios.post(Api+'/rank', {value, id})
+
       dispatch({
         type: "RANK",
         payload: respuesta.data

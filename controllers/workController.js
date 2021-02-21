@@ -55,8 +55,6 @@ const WorkController = {
       .catch(error => {return res.json({success:false, error})})
    },
    delWork:async(req,res) =>{
-     console.log(req.body)
-     console.log('estoy borrando un trabajo')
      const idForDelete=req.params.id
      try {
       const data = await Work.findOneAndRemove({_id:idForDelete})
@@ -66,8 +64,7 @@ const WorkController = {
     }
    },
    changeState:async(req,res)=>{
-     console.log("change")
-     console.log(req.body)
+
      const idWork=req.body.idWork
      try {
       const work= await Work.find({'_id':idWork})
@@ -118,7 +115,7 @@ const WorkController = {
           model:'userBase'
         }
       })
-      console.log(userConsult)
+      
       if(userConsult.length === 0){
         return res.json({
           success: false,

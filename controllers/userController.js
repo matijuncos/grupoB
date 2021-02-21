@@ -83,6 +83,7 @@ const userController = {
       }      
    },
    addUserCustomer: async (req, res) =>{
+      console.log('entrée')
       const {firstName, lastName, urlPic, email, phone, password, country, rol, google, googlePic} = req.body
       const emailExists = await UserBase.findOne({email: email})
       if (emailExists){ return res.json({success: false, message: "Este correo ya esta siendo usado."})}
@@ -91,7 +92,6 @@ const userController = {
             const userBase = new UserBase ({
             firstName, lastName, urlPic, email, phone, password:hashedPassword, country, rol
             })
-            console.log(userBase)
             //File urlPic
             if(google !== 'true'){
                const {fileUrlPic}=req.files
@@ -116,7 +116,7 @@ const userController = {
                      //_id:idUserBase,
                      idUserBase:idUserBase
                   })
-                  console.log(userConsumer)
+                  
                   userConsumer.save()
                   .then(async newUserConsumer =>{
                      // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
@@ -218,7 +218,7 @@ signIn: async (req,res) => {
        }
    },
    sendMail:async(req,res)=>{
-      console.log(req.body.idWork)
+      
       var message=""
       const idWork=req.body.idWork
       const action = req.body.action
@@ -333,8 +333,8 @@ signIn: async (req,res) => {
          port: 587,
          secure: false,
          auth: {
-           user:'Instantsolutionproyect@gmail.com', 
-           pass:'Instant2021', 
+           user:process.env.MAILUSER, 
+           pass:process.env.MAILPASSWORD, 
          },
        });
        await transporter.sendMail({
@@ -351,8 +351,8 @@ signIn: async (req,res) => {
       })
    },
    sendComment:async(req,res)=>{
-      console.log('llegué a mandar commentarios controller')
-      console.log(req.body)
+      
+      
       const {idProvider,idUser,comment}=req.body
       await UserProvider.findOneAndUpdate(
          {_id:idProvider},
@@ -361,8 +361,7 @@ signIn: async (req,res) => {
          .catch(e=>res.json({success:false, error:"Error en la DB"}))
    },
    delComment:async(req,res)=>{
-      console.log('llegué a borrar commentarios controller')
-      console.log(req.body)
+     
       const {idUser,commentId}=req.body
       await UserProvider.findOneAndUpdate(
          {_id:idUser},
@@ -371,8 +370,7 @@ signIn: async (req,res) => {
          .catch(e=>res.json({success:false, error:"Error en la DB"}))
    },
    editComment:async(req,res)=>{
-      console.log('controlador de update comment')
-       console.log(req.body)
+      
       const {commentId, comment}=req.body
       await UserProvider.findOneAndUpdate(
          {'review._id':commentId},
@@ -497,8 +495,8 @@ signIn: async (req,res) => {
          port: 587,
          secure: false,
          auth: {
-           user:'Instantsolutionproyect@gmail.com', 
-           pass:'Instant2021', 
+            user:process.env.MAILUSER, 
+            pass:process.env.MAILPASSWORD, 
          },
        });
        await transporter.sendMail({

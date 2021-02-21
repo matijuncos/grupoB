@@ -60,12 +60,11 @@ function RegistroUsuario({ signUp, googleSignUp }) {
         fdNewUser.append('rol', 'consumer')
 
         const res = await signUp(fdNewUser)
-        if (res && !res.success) {
-            setErrores(res.response)
-        }
+        console.log(res)
         //mostrar al usuario sí el objeto con la propiedad success es true o false
         //el objeto respuesta va a llegar como un array de strings
         if (res && !res.success) {
+            setErrores(res.response)
             res.response.map(error => {
                 failedInputs[error.label] = error.message
                 return false
@@ -77,7 +76,7 @@ function RegistroUsuario({ signUp, googleSignUp }) {
     //Respuesta de Google
     const responseGoogle = async (response) => {
         if (response.error) {
-            alert("Algo pasó...")
+            Alert.error('Intente nuevamente', 4000)
         } else {
             const respuesta = await googleSignUp({
                 firstName: response.profileObj.givenName,
@@ -93,8 +92,6 @@ function RegistroUsuario({ signUp, googleSignUp }) {
             })
             if (respuesta && !respuesta.success) {
                 setErrores(respuesta.errores)
-            } else {
-                alert("Usuario nuevo grabado")
             }
         }
     }

@@ -1,11 +1,11 @@
 import axios from 'axios'
-
+import Api from '../../components/Api'
 
 const professionActions = {
   getProfessions: () =>{
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.get('http://localhost:4000/api/professions/')
+        const response = await axios.get(Api+'/professions/')
         dispatch({
           type: "GET_PROFESSIONS",
           payload: response.data
@@ -18,12 +18,13 @@ const professionActions = {
   getProviders: () =>{
     return async (dispatch, getState) =>{
       try{
-        const response = await axios.get('http://localhost:4000/api/user/providers/')
+        const response = await axios.get(Api+'/user/providers/')
         dispatch({
           type: "GET_PROVIDERS",
           payload: response.data
         })
       }catch(error){
+        console.log(error)
       }
     }
   }

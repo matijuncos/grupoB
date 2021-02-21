@@ -13,7 +13,7 @@ const validator = {
             rol: Joi.string(),
             googlePic: Joi.string(),
             google: Joi.string(),
-            fileUrlPic: Joi.required()
+            //fileUrlPic: Joi.required()
           
         })
 

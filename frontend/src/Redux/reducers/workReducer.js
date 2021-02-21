@@ -30,8 +30,6 @@ const initState = {
               currentWorks:state.currentWorks+1
             }
           case 'DEL_WORK':
-            alert('borro laburo')
-            console.log(action.payload)
             return{
               ...state
             }
@@ -46,7 +44,7 @@ const initState = {
               }
             
             case 'RANK':
-              console.log(action.payload)
+              
             return{
               ...state,
               works: state.works.filter( work => work._id === action.payload.respuesta._id ? action.payload.respuesta : work)
