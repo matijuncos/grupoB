@@ -449,7 +449,7 @@ body{
 .profesional{
   margin-top: 5vh;
   padding-right: 2vh;
-  width: 70vw;
+  width: 60vw;
   background: rgba(255, 248, 248, 0.678);
   border-radius: 5px;
   display: flex;
@@ -567,7 +567,7 @@ body{
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
   border: solid 1px rgb(250, 250, 250);
-  margin-top: 2vh;
+  margin-top: 4vh;
 }
 .back{
   display: flex;
@@ -666,11 +666,10 @@ body{
 .success{
   color: rgb(0, 83, 0);
 }
-
 /* ################################################################## RESPONSIVE ################################################## */
 
 
-@media(max-width: 600px){
+@media(max-width: 430px){
   .navUserName{ 
     display: flex;
     width: 25vw;
@@ -746,8 +745,9 @@ body{
     width: 10vh;
     height: 10vh;
   }
-  .starIcons svg{
-    width: 0.6em; 
+  .star{
+    width: 1em; 
+    
   }
   .info div{
     width: 50vw;

@@ -14,13 +14,19 @@ const Professional = ({ professionals }) => {
         <div className="user">
           <div className="fotoUser" style={{ backgroundImage: `url(.${idUserBase.urlPic})` }}></div>
           <div><h2>{idUserBase.firstName} {idUserBase.lastName}</h2></div>
-          <div className="starIcons">{[...Array(stars)].map((m, i) => {
-                  return (
-                    <div key={i}>
-                      <BsFillStarFill className="star"/>
-                    </div>                      
-              )
-          })}</div>
+          <div>{[...Array(5)].map((m, i) => {
+            const ratingValue = i + 1
+            return (
+              <label key={i}>
+                <input
+                  className="starInput"
+                  type="radio"
+                  name="rating"
+                />
+                <BsFillStarFill className="star" color={(ratingValue <= stars) ? '#ffc107' : '#8C8C8C'} />
+              </label>
+            )
+        })}</div>
         </div>
         <div>
         <div className="detailsProf">
