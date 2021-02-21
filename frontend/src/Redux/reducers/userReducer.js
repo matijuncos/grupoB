@@ -38,7 +38,6 @@ const userReducer = (state = initState, action) =>{
         ...state
       }
       case 'UPDATE_COMMENT':
-        
         return{
           ...state
         }

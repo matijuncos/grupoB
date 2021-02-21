@@ -9,7 +9,9 @@ const userBaseSchema = new mongoose.Schema({
     phone: {type:String,required:false},
     password: {type:String,required:true},
     country: {type:String,required:false},
-    rol: {type:String,required:true}
+    rol: {type:String,required:true},
+    tokenResetPassword:{type:String,required:false,default:''},
+    requestResetPassword:{type:Number,required:false,default:0}
 }) 
 
 const userBase = mongoose.model("userBase", userBaseSchema) 

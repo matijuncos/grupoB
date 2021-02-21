@@ -9,20 +9,17 @@ const WorkState = ({ works, userWork, loggedUser, getConsumerWorks }) => {
       getConsumerWorks(loggedUser.idUser)
    }, [reload])
    // Array estático de estados de trabajo
-   console.log(userWork)
    return (
       <>
-
          {userWork.length === 0 ? (
             <p>Aun no tienes trabajos!</p>
-         ) : userWork.map(work => {
+         ) :userWork.map(work => {
             if (work.idUserProvider._id === loggedUser.idUser) {
                return <Work reload={reload} setReload={setReload} work={work} key={work._id} />
             } else if (work.idUserConsumer._id === loggedUser.idUser) {
                return <Work reload={reload} setReload={setReload} work={work} key={work._id} />
             }
          }
-
          )}
       </>
    )

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {Alert} from 'rsuite'
 
 
 const userActions = {
@@ -155,7 +156,40 @@ const userActions = {
           dispatch({type:'USER_LOG', payload: respuesta.data})
       }
   },
-
+  requestResetPass:(userMail) => {
+    return async (dispatch, getState) => {
+      const respuesta = await axios.post('http://localhost:4000/api/user/requestresetpass', userMail)
+      if (!respuesta.data.success) {
+          Alert.error(`${respuesta.data.response}`,5000)
+      }else{
+        Alert.success(`${respuesta.data.response}`,5000)
+        return true
+      }
+    }
+  },
+  validateResetPassword:(newPasswordData) => {
+    return async (dispatch, getState) => {
+      const respuesta = await axios.post('http://localhost:4000/api/user/resetpassword', newPasswordData)
+      if (!respuesta.data.success) {
+        Alert.error(`${respuesta.data.response}`,5000)
+      }else{
+        Alert.success(`${respuesta.data.response}`,5000)
+        return true
+      }
+      console.log(respuesta)
+    }
+  },
+  validateResetUser:(token) => {
+    return async (dispatch, getState) => {
+      const respuesta = await axios.post('http://localhost:4000/api/user/requestresetuser', {token})
+      console.log(respuesta)
+      if (respuesta.data.success===false){
+        return respuesta.data
+      }else{
+        return respuesta.data
+      }      
+    }
+  },
   
 }
 

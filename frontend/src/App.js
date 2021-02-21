@@ -12,6 +12,8 @@ import signIn from './components/SignIn'
 import userActions from './Redux/actions/userActions';
 import Profesional from './components/Details';
 import Details from './components/Details'
+import ResetPassword from './components/ResetPassword'
+import ForgotPassword from './components/ForgotPassword'
 
 const App = (props) => {
 if(props.loggedUser){
@@ -36,8 +38,10 @@ props.preserveLog(localStorage.getItem('token'))
         <Route path='/registerUser' component={RegistroUsuario}/>
         <Route path='/signIn'component={signIn}/>
         <Route exact path='/details/:id' component = {Details} />
+        <Route exact path='/forgotpassword' component={ForgotPassword}/>
+        <Route exact path='/resetpassword/:token' component={ResetPassword}/>
         <Redirect to ="/"/>
-  
+
       </Switch>
   </>
 }
