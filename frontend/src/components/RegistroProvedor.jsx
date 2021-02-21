@@ -40,6 +40,7 @@ function RegistroProvedor(props) {
         fdNewUser.append('password', newProfessional.password)
         fdNewUser.append('country', newProfessional.country)
         fdNewUser.append('idProfession', newProfessional.idProfession)
+        fdNewUser.append('rol', 'provider')
         const res = await props.signProviderUp(fdNewUser)
     }
     //Respuesta de Google

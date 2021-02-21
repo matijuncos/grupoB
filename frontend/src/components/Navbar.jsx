@@ -51,7 +51,7 @@ const Navbar = ({ loggedUser, signOut, getWorks }) => {
                 <Link to='/' className="navBarLinks" onClick={logOut} >Sign Out</Link>
                 <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>
                 {/* TESTEANDO CESAR */}
-                <MenuUser getWorks={getWorks} />
+                <MenuUser />
               </>
             )}
         </div>

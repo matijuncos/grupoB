@@ -37,12 +37,25 @@ router.route('/work')
 .put(workController.changeState)
 
 router.route('/work/:id')
-.get(workController.getWork)
 .delete(workController.delWork)
 
+router.route('/userWork/:id')
+.get(workController.findWorkById)
 //mails
 router.route('/mail/sendMail')
 .post(userController.sendMail)
+
+router.route('/comment')
+.post(userController.sendComment)
+
+router.route('/delcomment')
+.put(userController.delComment)
+
+router.route('/rank')
+.post(userController.rank)
+
+router.route('/updatecomment')
+.post(userController.editComment)
 
 router.route('/user/storage')
 .post(passport.authenticate('jwt', {session:false}), userController.preserveLog)

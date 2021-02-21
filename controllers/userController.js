@@ -10,7 +10,7 @@ const userController = {
    addUserProvider: async (req, res) =>{
       // Desestructuro la req del front-end
       var {firstName, lastName, email, phone, password, country, 
-         arrayValoration, review, idProfession} = req.body
+         arrayValoration, review, idProfession, rol} = req.body
       var arrayWorks=[]
 
       if(req.body.idUserBase !== undefined){
@@ -24,7 +24,7 @@ const userController = {
       }
       const hashedPassword =  bcryptjs.hashSync(password, 10)
       const userBase = new UserBase ({
-         firstName, lastName, email, phone, password: hashedPassword, country
+         firstName, lastName, email, phone, password: hashedPassword, country, rol
       })
       // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos      
       try{
@@ -72,7 +72,8 @@ const userController = {
                 urlPic: userBase.urlPic,
                 email: userBase.email,
                 idUser: userProvider._id,
-               _id: idUserBase._id
+               _id: idUserBase._id,
+               rol: userBase.rol
                }})
          })
          .catch(error => {return res.json({success:false, error})})
@@ -82,80 +83,96 @@ const userController = {
       }      
    },
    addUserCustomer: async (req, res) =>{
-      const {firstName, lastName, urlPic, email, phone, password, country} = req.body
+      const {firstName, lastName, urlPic, email, phone, password, country, rol, google, googlePic} = req.body
       const emailExists = await UserBase.findOne({email: email})
       if (emailExists){ return res.json({success: false, message: "Este correo ya esta siendo usado."})}
       else{
             const hashedPassword =  bcryptjs.hashSync(password, 10)
             const userBase = new UserBase ({
-            firstName, lastName, urlPic, email, phone, password:hashedPassword, country
+            firstName, lastName, urlPic, email, phone, password:hashedPassword, country, rol
             })
+            console.log(userBase)
             //File urlPic
-            const {fileUrlPic}=req.files
-            if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
-               return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
-            }
-            const extPic=fileUrlPic.name.split('.',2)[1]
-            fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`,error =>{
+            if(google !== 'true'){
+               const {fileUrlPic}=req.files
+               if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
+                  return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
+               }
+               const extPic=fileUrlPic.name.split('.',2)[1]
+               fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`,error =>{
                   if(error){
                      return res.json({success:false,respuesta:"Intente nuevamente..."})
                   }
-            })
-            userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPic}`
-               // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
-            try{
-               const newUserBase = await userBase.save()
-               const idUserBase = newUserBase._id
-               const userConsumer = new UserConsumer({
-                  //_id:idUserBase,
-                  idUserBase:idUserBase
                })
-               userConsumer.save()
-               .then(async newUserConsumer =>{
-                  // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
-                  const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
-                  var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
-                  return res.json({
-                     success:true, 
-                     response:{
-                        token,
-                        firstName: userBase.firstName,
-                        urlPic: userBase.urlPic,
-                        email: userBase.email,
-                        idUser: userConsumer._id,
-                        _id: newUserBase._id
-                     }})
-               })
-               .catch(error => {
-                  return res.json({success:false, error})})
+               userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPic}`
+            }else{
+               userBase.urlPic=googlePic
             }
-            catch{
-               return res.json({success:false})
-            }}
-   },
-   signIn: async (req,res) => {
-      // desestructuro del front la req 
-      const {email, password} = req.body
-      const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
-      if (!userExist) {
-          return res.json ({success: false, message: "El usuario y/o la contraseña no existe/n"})
-      }
-      const matcheoPass = bcryptjs.compareSync(password, userExist.password) // verifica si el usuario registrado coincide con el password
-      //veo si la password conincide, aplico método compareSync a bcryptjs,  dos param para comparar (el pass legible que envía el user y el pass hasheado)
-      if(!matcheoPass){
-          return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
-      }
-      var userConsult=await UserConsumer.findOne({idUserBase:userExist._id})
-      if (!userConsult) {
+               // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
+               try{
+                  const newUserBase = await userBase.save()
+                  const idUserBase = newUserBase._id
+                  const userConsumer = new UserConsumer({
+                     //_id:idUserBase,
+                     idUserBase:idUserBase
+                  })
+                  console.log(userConsumer)
+                  userConsumer.save()
+                  .then(async newUserConsumer =>{
+                     // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
+                     const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
+                     var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
+                     return res.json({
+                        success:true, 
+                        response:{
+                           token,
+                           firstName: userBase.firstName,
+                           urlPic: userBase.urlPic,
+                           email: userBase.email,
+                           idUser: userConsumer._id,
+                           _id: newUserBase._id,
+                           rol: userBase.rol
+                        }})
+                     })
+                     .catch(error => {
+                        return res.json({success:false, error})})
+                     }
+                     catch{
+                        return res.json({success:false})
+                     }}
+                  },
+                  signIn: async (req,res) => {
+                     // desestructuro del front la req 
+                     const {email, password} = req.body
+                     const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
+                     if (!userExist) {
+                        return res.json ({success: false, message: "El usuario y/o la contraseña no existe/n"})
+                     }
+                     const matcheoPass = bcryptjs.compareSync(password, userExist.password) // verifica si el usuario registrado coincide con el password
+                     //veo si la password conincide, aplico método compareSync a bcryptjs,  dos param para comparar (el pass legible que envía el user y el pass hasheado)
+                     if(!matcheoPass){
+                        return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
+                     }
+                     var userConsult=await UserConsumer.findOne({idUserBase:userExist._id})
+                     if (!userConsult) {
          userConsult=await UserProvider.findOne({idUserBase:userExist._id})
       }
       console.log(userConsult)
       var token = jwtoken.sign({...userExist},process.env.SECRET_KEY,{})
-      return res.json({success: true, response:{token,firstName:userExist.firstName, urlPic:userExist.urlPic, email:userExist.email,idUser:userConsult._id,_id:userExist._id}})
+      return res.json({success: true, 
+         response:{
+            token,
+            firstName:userExist.firstName, 
+            urlPic:userExist.urlPic, 
+            email:userExist.email,
+            idUser:userConsult._id,
+            _id:userExist._id,
+            rol: userExist.rol
+         }})
       // respondo al frontEnd con un objeto que tiene el token, nombre de usuario y foto
    },
    preserveLog:  (req, res) =>{
-      const {firstName,urlPic,_id} = req.user
+      const {firstName,urlPic,_id, rol} = req.user
       return res.json({
          success: true, 
          response: {
@@ -163,7 +180,8 @@ const userController = {
             firstName,
             urlPic,
             idUser:req.body.idUser,
-            _id
+            _id,
+            rol
          }})
       },
    //gets user metodos
@@ -200,33 +218,47 @@ const userController = {
        }
    },
    sendMail:async(req,res)=>{
+      
+      console.log(req.body.idWork)
       var message=""
-      const idWork=req.body.id
+      const idWork=req.body.idWork
+      const action = req.body.action
+      
       const work=await Work.findOne({'_id':idWork}).populate('idUserConsumer').populate('idUserProvider').populate({path:'idUserConsumer',populate:{path:'idUserBase',model:'userBase'}}).populate({path:'idUserProvider',populate:{path:'idUserBase',model:'userBase'}})
       userConsumer=work.idUserConsumer.idUserBase
       userProvider=work.idUserProvider.idUserBase
       var to=`${userConsumer.email},${userProvider.email}`
       const orden=`${work._id.toString().slice(2,7)}${userConsumer.lastName.toString().slice(0,3)}`
-      const subject= work.state===1 ? "Se ha abierto con exito la solicitud." : work.state===2  ? "La propuesta de trabajo ha sido aceptado." :work.state===3 && "El trabajo se ha terminado."
-      switch (work.state) {
-         case 1:
-            message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible.</p>
-            <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
-            `
-            break;
-         case 2:
-            message=`<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha aceptado la solicitud de trabajo <span>Nº-${orden}</span>, pronto nuestro profesional te dara soporte.</p>
-            <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
-            `
-            to=userConsumer.email
-            break;
-         case 3:
-            message=`<p>La orden de trabajo Nº-${orden} ha sido finalizada con exito.</p>
-            <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
-            `
-            break;
-         default:
-            break;
+      var subject= work.state===1 ? "Se ha abierto con exito la solicitud." : work.state===2  ? "La propuesta de trabajo ha sido aceptado." :work.state===3 && "El trabajo se ha terminado."
+      if (action === 'Delete'){
+         subject= 'El profesional rechazó su solicitud'
+         message= `<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha rechazado su solicitud. Intente con otro profesional.</p>
+         <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+         ` 
+         to=userConsumer.email
+      }else{
+         switch (work.state) {
+            case 1:
+               message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible haciendo click en el siguiente link.</p>
+               <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+               <a href='${userProvider._id}'>Ir al sitio</a>
+               `
+               break;
+            case 2:
+               message=`<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha aceptado la solicitud de trabajo <span>Nº-${orden}</span>, pronto nuestro profesional te dara soporte.</p>
+               <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+               `
+               to=userConsumer.email
+               break;
+            case 3:
+               message=`<p>La orden de trabajo Nº-${orden} ha sido finalizada con exito. Dejale un comentario y regalale unas estrellitas de acuerdo a la calidad de su servicio, haciendo click en el siguiente link!</p>
+               <a href='${userProvider._id}'>Ir al sitio</a>
+               <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+               `
+               break;
+            default:
+               break;
+         }
       }
       const html=`
          <html lang="es">
@@ -269,7 +301,7 @@ const userController = {
                border-radius:2vw
             }
             .logo{
-               background-image:url("https://lh6.googleusercontent.com/g35_8SERvnINhfsJSvezrQwIy-y29g1nqOG7b8130EqGjM50fwaBorjHW5dsYAkbMXptMBJJa1Q8-AnVFUGJ=w1868-h942-rw");
+               background-image:url("https://i.ibb.co/jfkwPhg/logo3-min-min-optimized.png");
                background-repeat:no-repeat;
                background-position:center;
                background-size:cover;
@@ -318,6 +350,55 @@ const userController = {
             return res.json({success:true, respuesta: 'Se ha enviado el correo electrónico correctamente.'})
          }
       })
+   },
+   sendComment:async(req,res)=>{
+      console.log('llegué a mandar commentarios controller')
+      console.log(req.body)
+      const {idProvider,idUser,comment}=req.body
+      await UserProvider.findOneAndUpdate(
+         {_id:idProvider},
+         { $push: {'review': {idUser:idUser,comment:comment}}},{new: true})
+         .then(async comment=>res.json({success:true, respuesta: comment}))
+         .catch(e=>res.json({success:false, error:"Error en la DB"}))
+   },
+   delComment:async(req,res)=>{
+      console.log('llegué a borrar commentarios controller')
+      console.log(req.body)
+      const {idUser,commentId}=req.body
+      await UserProvider.findOneAndUpdate(
+         {_id:idUser},
+         { $pull: {'review': {_id: commentId}} })
+         .then(async comment=>res.json({success:true, respuesta: comment}))
+         .catch(e=>res.json({success:false, error:"Error en la DB"}))
+   },
+   editComment:async(req,res)=>{
+      console.log('controlador de update comment')
+       console.log(req.body)
+      const {commentId, comment}=req.body
+      await UserProvider.findOneAndUpdate(
+         {'review._id':commentId},
+         { '$set': {'review.$.comment': comment}},
+         {new: true}
+         )
+         .then(async comment=>res.json({success:true, respuesta: comment}))
+         .catch(e=>res.json({success:false, error:"Error en la DB"}))
+   },
+   rank: async (req, res) =>{
+      const providerId = req.body.id
+      const value = parseInt(req.body.value)
+      await UserProvider.findOneAndUpdate(
+         {_id: providerId},
+         {$push: {'arrayValoration': value}},
+         {new: true}
+      )
+      .then(async rankedWork => res.json({
+         success: true,
+         respuesta: rankedWork
+      }))
+      .catch(error => res.json({
+         success: false,
+         error: "Error while modifying in database."
+      }))
    }
 }
 module.exports = userController

@@ -10,7 +10,6 @@ const userProviderSchema = new mongoose.Schema({
     idUserBase: {type: mongoose.Schema.ObjectId, ref: "userBase"},
     arrayValoration:{type:Array,default:3},
     review: [reviewSchema],
-    rol: {type:String,default:"provider"},
     arrayWorks:[String],
     idProfession: {type: mongoose.Schema.ObjectId, ref: "profession"}, // popula model profession
 }) 

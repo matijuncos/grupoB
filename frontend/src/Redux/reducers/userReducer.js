@@ -1,5 +1,7 @@
 const initState = {
-  loggedUser: null
+  loggedUser: null,
+  comments: []
+
 }
 
 const userReducer = (state = initState, action) =>{
@@ -12,6 +14,7 @@ const userReducer = (state = initState, action) =>{
         localStorage.setItem('urlPic', action.payload.response.urlPic)
         localStorage.setItem('idUser', action.payload.response.idUser)
         localStorage.setItem('_id', action.payload.response._id)
+        localStorage.setItem('rol', action.payload.response.rol)
         return{
           ...state,
           loggedUser: action.payload.response
@@ -20,6 +23,24 @@ const userReducer = (state = initState, action) =>{
         return{
           ...state,
           loggedUser: null
+        }
+      case 'SEND_COMMENT':
+        return{
+          ...state,
+          comments: action.payload.respuesta.review
+        }
+      case 'DEL_COMMENT':
+      return{
+        ...state
+      }
+      case 'RANK':
+      return{
+        ...state
+      }
+      case 'UPDATE_COMMENT':
+        
+        return{
+          ...state
         }
       default :
           return state

@@ -2,6 +2,9 @@ import React from 'react'
 import { Drawer, ButtonToolbar, Button, Placeholder } from 'rsuite'
 import '../../node_modules/rsuite/dist/styles/rsuite-default.css'
 import WorkState from './WorkState'
+import { RiMenuFoldFill } from "react-icons/ri"
+import { connect } from 'react-redux'
+import workActions from '../Redux/actions/workActions'
 
 class MenuUser extends React.Component {
   constructor(props) {
@@ -18,35 +21,37 @@ class MenuUser extends React.Component {
     });
   }
   toggleDrawer() {
-    this.setState({ show: true });
-  }
-  componentDidMount() {
     this.props.getWorks()
+    this.setState({ show: true });
+    this.props.getConsumerWorks()
   }
+
   render() {
 
     return (
       <div>
         <ButtonToolbar>
-          <Button onClick={this.toggleDrawer}>Open</Button>
+          <RiMenuFoldFill onClick={this.toggleDrawer} className="openBtn" />
         </ButtonToolbar>
         <Drawer
           show={this.state.show}
           onHide={this.close}
         >
           <Drawer.Header>
-            <Drawer.Title>Drawer Title</Drawer.Title>
+            <Drawer.Title>Lista de trabajos :)👻</Drawer.Title>
           </Drawer.Header>
           <Drawer.Body>
             <WorkState />
           </Drawer.Body>
-          <Drawer.Footer>
-            <Button onClick={this.close} appearance="primary">Confirm</Button>
-            <Button onClick={this.close} appearance="subtle">Cancel</Button>
-          </Drawer.Footer>
         </Drawer>
       </div>
     );
   }
 }
-export default MenuUser
+
+const mapDispatchToProps = {
+  getWorks: workActions.getWorks,
+  getConsumerWorks: workActions.getConsumerWorks
+
+}
+export default connect(null, mapDispatchToProps)(MenuUser)

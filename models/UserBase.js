@@ -8,7 +8,8 @@ const userBaseSchema = new mongoose.Schema({
     email: {type:String,required:true},
     phone: {type:String,required:false},
     password: {type:String,required:true},
-    country: {type:String,required:false}
+    country: {type:String,required:false},
+    rol: {type:String,required:true}
 }) 
 
 const userBase = mongoose.model("userBase", userBaseSchema) 

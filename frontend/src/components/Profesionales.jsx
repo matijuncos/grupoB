@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect, Provider } from 'react-redux'
+import { Link } from 'react-router-dom'
 // import { connect } from 'react-redux'
 // import professionActions from '../Redux/actions/professionActions'
 import Professional from './Professional'
@@ -27,9 +28,12 @@ const Profesionales = (props) => {
                 <h2>Elegí tu profesional favorito</h2>
                 {providers && providers.map(professionals => {
                     return (
-                        <Professional professionals={professionals} />
+                        <Professional professionals={professionals} key={professionals._id} />
                     )
                 })}
+                <div className="back">
+                    <Link to="/"><button className="contract">Volver</button></Link>
+                </div>
             </div>
         </>
     )
