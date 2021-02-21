@@ -22,7 +22,7 @@ const ResetPassword = ({ match, validateResetPassword, validateResetUser, histor
     if (resetPass.password === resetPass.confirmPassword) {
       const changePassword = await validateResetPassword(resetPass)
       if (changePassword) {
-        history.push('/')
+        history.push('/signup')
       }
     } else {
       Alert.warning("Las contraseñas deben coincidir.")
