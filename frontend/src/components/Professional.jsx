@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { BsFillStarFill } from 'react-icons/bs'
@@ -10,37 +11,35 @@ const Professional = ({ professionals }) => {
       <Link to={'/details/' + professionals._id} className="profesional">
         <div className="user">
           <div className="fotoUser" style={{ backgroundImage: `url(.${idUserBase.urlPic})` }}></div>
-          <h2>{idUserBase.firstName} {idUserBase.lastName}</h2>
+          <div><h2>{idUserBase.firstName} {idUserBase.lastName}</h2></div>
+          <div>{[...Array(5)].map((m, i) => {
+            const ratingValue = i + 1
+            return (
+              <label key={i}>
+                <input
+                  className="starInput"
+                  type="radio"
+                  name="rating"
+                />
+                <BsFillStarFill className="star" color={(ratingValue <= stars) ? '#ffc107' : '#8C8C8C'} />
+              </label>
+            )
+          })}</div>
         </div>
-        <div>{[...Array(5)].map((m, i) => {
-          const ratingValue = i + 1
-          return (
-            <label key={i}>
-              <input
-                className="starInput"
-                type="radio"
-                name="rating"
-              />
-              <BsFillStarFill className="star" color={(ratingValue <= stars) ? '#ffc107' : '#8C8C8C'} />
-            </label>
-          )
-        })}</div>
-
         <div>
-          <h2>Datos:</h2>
-          <div className="info">
-            <h3>{idUserBase.email}</h3>
-            <h3>{idUserBase.phone}</h3>
-            <h3>{idProfession.type}</h3>
-            <div>
-              {professionals.idProfession.descriptions.map(description => {
-                return <p><GiCheckMark className="icono" />{description}</p>
-              })}
+          <div className="detailsProf">
+            <div className="info">
+              <h3>{idProfession.type}</h3>
+              <div>
+                {professionals.idProfession.descriptions.map(description => {
+                  return <p><GiCheckMark className="icono" />{description}</p>
+                })}
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <button className="contract">Ver perfil</button>
+          <div>
+            <button className="contract">Ver perfil</button>
+          </div>
         </div>
       </Link>
     </div>

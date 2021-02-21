@@ -17,7 +17,7 @@ const userReducer = (state = initState, action) =>{
         localStorage.setItem('rol', action.payload.response.rol)
         return{
           ...state,
-          loggedUser: action.payload.response
+          loggedUser: action.payload
         }
       case "SIGN_OUT":
         return{
