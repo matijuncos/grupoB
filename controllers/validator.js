@@ -13,7 +13,6 @@ const validator = {
             rol: Joi.string(),
             googlePic: Joi.string(),
             google: Joi.string()
-          
         })
 
         const validation = schema.validate(req.body, {abortEarly:false}) 

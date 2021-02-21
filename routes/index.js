@@ -20,7 +20,15 @@ router.route('/user/customer')
 
 router.route('/user/providers')
 .get(userController.getProviders)
+//reset password
+router.route('/user/requestresetpass')
+.post(userController.requestResetPass)
 
+router.route('/user/requestresetuser')
+.post(userController.validateResetUser)
+
+router.route('/user/resetpassword')
+.post(userController.validateResetPassword)
 // Ruta para cargar y obtener artículos
 router.route('/article')
 .get(articleController.getArticles)

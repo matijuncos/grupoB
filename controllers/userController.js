@@ -218,7 +218,6 @@ const userController = {
        }
    },
    sendMail:async(req,res)=>{
-      
       console.log(req.body.idWork)
       var message=""
       const idWork=req.body.idWork
@@ -399,6 +398,145 @@ const userController = {
          success: false,
          error: "Error while modifying in database."
       }))
+   },
+   requestResetPass: async (req,res) =>{
+      function random() {
+         return Math.random().toString(36).substr(2);
+     };
+     function token() {
+      return random() + random(); 
+     };
+      const {email}=req.body
+      const userExist= await UserBase.findOne({'email':email})
+      if(!userExist){
+         res.json({success:false, response:"Este correo no pertenece a un usuario registrado"})
+      }else{
+         var tokenResetPassword = token()
+         const act=await UserBase.findOneAndUpdate(
+            {_id:userExist._id},
+            {'$set':{'tokenResetPassword':tokenResetPassword,'requestResetPassword':1}},{new: true}
+         )
+      //Envio de mensaje
+      var to=`${userExist.email}`
+      var subject= "Restablecimiento de contraseña"
+      var message= `<p>Para Restablecer la <span>contraseña</span>, ingresa al siguiente link.</p>
+      <a href='http://localhost:3000/resetpassword/${tokenResetPassword}'>Restablecer la contraseña</a>
+      <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+      ` 
+      const html=`
+         <html lang="es">
+         <head>
+            <style>
+            .contenedor,.cabecera,.footer{
+               width: 100%;
+            }
+            .cabecera,.footer{
+               background-color: rgb(216,0,27);
+               font-weight: bold;
+            }
+            .cuerpo{
+               background-color: rgb(250, 250, 250);
+               padding: 2vw;
+            } 
+            .cuerpo span{
+               font-weight:bold;
+            }
+            .cuerpo p{
+               font-size:2vw
+            }
+            .cabecera h1,.footer h2{
+               color:rgb(250, 250, 250);
+               text-align:center;
+               padding: 1.5vh 0
+            }
+            .cabecera h1{
+               font-size:2.5vw
+            }
+            .cabecera{
+               display:flex;
+               justify-content:space-around;
+               align-items:center
+            }
+            .cajaLogo{
+               min-width:8vw;
+               min-height:8vw;
+               padding:1vw;
+               border-radius:2vw
+            }
+            .logo{
+               background-image:url("https://i.ibb.co/jfkwPhg/logo3-min-min-optimized.png");
+               background-repeat:no-repeat;
+               background-position:center;
+               background-size:cover;
+               min-width:100%;
+               min-height:100%
+            }
+            .footer h2{
+               font-size:1.5vw
+            }
+            .firma{
+               text-align:right
+            }
+            </style>
+         </head>
+         <body>
+         <section class="contenedor">
+            <div class="cabecera">
+               <div class="cajaLogo"><div class="logo"></div></div>
+               <div><h1>Instant Solution</h1></div>
+            </div>
+         <div class="cuerpo">${message}</div>
+         <div class="footer">
+            <h2>¡Estamos para ayudarte!</h2>
+         </div>
+      </section>
+      </body>
+      </html>`
+      let transporter = nodemailer.createTransport({
+         host: "smtp.gmail.com", 
+         port: 587,
+         secure: false,
+         auth: {
+           user:'Instantsolutionproyect@gmail.com', 
+           pass:'Instant2021', 
+         },
+       });
+       await transporter.sendMail({
+         from: '"Instant Solution" <Instantsolutionproyect@gmail.com>',
+         to:to,
+         subject:subject, 
+         html:html, 
+       },(error, info) => {
+         if (error) {
+            return res.json({success:false, response: 'Ha ocurrido un error en el envio del mensaje.'})
+         }else{
+            return res.json({success:true, response: 'Revise su casilla de correo para restablecer la contraseña.'})
+         }
+       })
+      }
+   },
+   validateResetPassword:async(req,res)=>{
+      const {tokenResetPassword,password}=req.body
+      const userExist=await UserBase.findOne({'tokenResetPassword':tokenResetPassword,'requestResetPassword':1})
+      if(!userExist){
+         res.json({success:false, response:"Este usuario no pidio un cambio de contraseña."})
+      }else{
+         const hashedPassword = bcryptjs.hashSync(password, 10)
+         await UserBase.findOneAndUpdate(
+            {_id:userExist._id},
+            {'$set':{'password':hashedPassword,'tokenResetPassword':'','requestResetPassword':0}}
+         )
+         res.json({success:true,response:"Se ha cambiado la contraseña correctamente."})
+      }
+   },
+   validateResetUser:async(req,res)=>{
+      const {token}=req.body
+      const userExist= await UserBase.findOne({'tokenResetPassword':token,'requestResetPassword':1})
+      if(!userExist){
+         res.json({success:false})
+      }else{
+         res.json({success:true})
+      }
    }
 }
 module.exports = userController

@@ -3,7 +3,7 @@ const initState = {
    addWorks: [],
    currentWorks:0,
    oneWork: {} ,
-   userWork: {}
+   userWork: []
    }
  
  const workReducer = (state = initState, action) =>{
