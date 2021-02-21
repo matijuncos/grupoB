@@ -4,6 +4,8 @@ import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 import { Alert } from 'rsuite';
+import { FaEye } from "react-icons/fa";
+
 
 function RegistroUsuario({ signUp, googleSignUp }) {
     const [newUser, setNewUser] = useState({
@@ -16,6 +18,7 @@ function RegistroUsuario({ signUp, googleSignUp }) {
     })
     const [errores, setErrores] = useState([])
     const [errorObj, setErrorObj] = useState({})
+    const [hidden, setHidden] = useState(true)
 
     const failedInputs = {
         firstName: null,
@@ -30,7 +33,6 @@ function RegistroUsuario({ signUp, googleSignUp }) {
     const countries = require('../data/dataContryNames.json')
     // Funcion para ler input
     const leerInput = e => {
-        console.log(newUser)
         const property = e.target.name
         var value = e.target.value
         if (property === 'fileUrlPic') value = e.target.files[0]
@@ -64,22 +66,16 @@ function RegistroUsuario({ signUp, googleSignUp }) {
         //mostrar al usuario sí el objeto con la propiedad success es true o false
         //el objeto respuesta va a llegar como un array de strings
         if (res && !res.success) {
-            console.log(res.response)
             res.response.map(error => {
-                console.log(error)
                 failedInputs[error.label] = error.message
                 return false
-
             })
             setErrorObj(failedInputs)
         }
 
-        console.log(errorObj)
     }
     //Respuesta de Google
     const responseGoogle = async (response) => {
-        console.log(response)
-
         if (response.error) {
             alert("Algo pasó...")
         } else {
@@ -97,10 +93,15 @@ function RegistroUsuario({ signUp, googleSignUp }) {
             })
             if (respuesta && !respuesta.success) {
                 setErrores(respuesta.errores)
-                console.log(errores)
             } else {
                 alert("Usuario nuevo grabado")
             }
+        }
+    }
+
+    const pressEnter = (e) => {
+        if (e.key === 'Enter') {
+            validarUsuario()
         }
     }
     return (
@@ -112,24 +113,24 @@ function RegistroUsuario({ signUp, googleSignUp }) {
                 <div className="formulario">
                     <h2>¡Ingresá tus datos!</h2>
                     <div className="inputDiv">
-                        <input name='firstName' type='text' placeholder='Nombre' onChange={leerInput} />
+                        <input name='firstName' type='text' placeholder='Ingrese su nombre' onChange={leerInput} />
                         <small>{errorObj.firstName}</small>
                     </div>
                     <div className="inputDiv">
-                        <input name='lastName' type='' placeholder='Apellido' onChange={leerInput} />
+                        <input name='lastName' type='' placeholder='Ingrese su Apellido' onChange={leerInput} />
                         <small>{errorObj.lastName}</small>
                     </div>
                     <div className="inputDiv">
                         <small>{errorObj.email}</small>
-                        <input name='email' type='text' placeholder='Email' onChange={leerInput} />
+                        <input name='email' type='text' placeholder='Ingrese su dirección de correo electrónico' onChange={leerInput} />
                     </div>
                     <div className="inputDiv">
                         <small>{errorObj.phone}</small>
-                        <input name='phone' type='text' placeholder='Telefono' onChange={leerInput} />
+                        <input name='phone' type='text' placeholder='Ingrese su número de teléfono' onChange={leerInput} />
                     </div>
                     <div className="inputDiv">
                         <small>{errorObj.country}</small>
-                        <select name="country" type='text' placeholder='País' onChange={leerInput} >
+                        <select name="country" type='text' placeholder='Seleccione su país' onChange={leerInput} >
                             <option value=''>Selecciona un país</option>
                             {countries.map((country, i) => {
                                 return <option key={"selectCountry" + i} value={country.value}>{country.label}</option>
@@ -137,14 +138,15 @@ function RegistroUsuario({ signUp, googleSignUp }) {
                         </select>
                     </div>
                     <div className="inputDiv">
-                        <label>Subi tu foto de perfil
+                        <label>Elija su foto de perfil
                         <small>{errorObj.userPicture}</small>
                             <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={leerInput} />
                         </label>
                     </div>
                     <div className="inputDiv">
                         <small>{errorObj.password}</small>
-                        <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />
+                        <input name='password' type={hidden ? 'password' : 'text'} placeholder='Elija su contraseña' onChange={leerInput} onKeyDown={pressEnter} />
+                        < FaEye className="eye" onClick={() => setHidden(!hidden)} />
                     </div>
                     <div className="">
                         <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>

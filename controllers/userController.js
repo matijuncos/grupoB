@@ -141,25 +141,25 @@ const userController = {
                         return res.json({success:false})
                      }}
                   },
-                  signIn: async (req,res) => {
-                     // desestructuro del front la req 
-                     const {email, password} = req.body
-                     const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
-                     if (!userExist) {
-                        return res.json ({success: false, message: "El usuario y/o la contraseña no existe/n"})
-                     }
-                     const matcheoPass = bcryptjs.compareSync(password, userExist.password) // verifica si el usuario registrado coincide con el password
-                     //veo si la password conincide, aplico método compareSync a bcryptjs,  dos param para comparar (el pass legible que envía el user y el pass hasheado)
-                     if(!matcheoPass){
-                        return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
-                     }
-                     var userConsult=await UserConsumer.findOne({idUserBase:userExist._id})
-                     if (!userConsult) {
+signIn: async (req,res) => {
+                   // desestructuro del front la req 
+   const {email, password} = req.body
+   const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
+   if (!userExist) {
+      return res.json ({success: false, message: "El usuario y/o la contraseña no existe/n"})
+     }
+   const matcheoPass = bcryptjs.compareSync(password, userExist.password) // verifica si el usuario registrado coincide con el password
+                   //veo si la password conincide, aplico método compareSync a bcryptjs,  dos param para comparar (el pass legible que envía el user y el pass hasheado)
+   if(!matcheoPass){
+      return res.json({success:false, message: "El usuario y/o la contraseña no existe/n"})
+      }
+   var userConsult=await UserConsumer.findOne({idUserBase:userExist._id})
+   if (!userConsult) {
          userConsult=await UserProvider.findOne({idUserBase:userExist._id})
       }
-      console.log(userConsult)
-      var token = jwtoken.sign({...userExist},process.env.SECRET_KEY,{})
-      return res.json({success: true, 
+ 
+   var token = jwtoken.sign({...userExist},process.env.SECRET_KEY,{})
+   return res.json({success: true, 
          response:{
             token,
             firstName:userExist.firstName, 

@@ -1,24 +1,18 @@
 import React from 'react'
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
+import Logo from '../assets/logo3.png'
+
 const Footer = () => {
   return (
     <div className="footer">
-      <div className="footerCol">
-        <p>Servicios</p>
-        <p>Servicios</p>
-        <p>Servicios</p>
-        <p>Servicios</p>
+      <div>
+        <div className="logoDiv" >
+          <img src={Logo} alt="" />
+        </div>
       </div>
       <div className="footerCol">
-        <p>Servicios</p>
-        <p>Servicios</p>
-        <p>Servicios</p>
-        <p>Servicios</p>      </div>
-      <div className="footerCol">
-        <p>Servicios</p>
-        <p>Servicios</p>
-        <p>Servicios</p>
-        <p>Servicios</p>
+        <h2>Instant Solution</h2>
+        <h6>Todos los derechos reservados</h6>
       </div>
       <div className="footerCol footerIcons">
         <FaInstagram className="footerIcon" />

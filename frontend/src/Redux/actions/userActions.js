@@ -88,7 +88,7 @@ const userActions = {
         })
         return ({success:true,response:["Tu cuenta fue creada con éxito!"]})
       }catch(err){
-        alert('Uy! Algo salió mal!')
+        Alert.error('Uy! Algo salió mal!')
       }
     }
   },    
@@ -107,10 +107,10 @@ const userActions = {
           type: "USER_LOG",
           payload: response.data
         })
-        alert("Tu cuenta fue creada con éxito!")
+        Alert.success("Tu cuenta fue creada con éxito!")
       }catch(err){
         console.log(err)
-        alert('Uy! Algo salió mal!')
+        Alert.error('Uy! Algo salió mal!')
       }
     }
   },
@@ -119,7 +119,7 @@ const userActions = {
       dispatch({
         type: "SIGN_OUT",
       })
-      alert('cerraste sesión')
+      Alert.success('Nos vemos pronto!')
     }
   },
   preserveLog: (token) =>{
@@ -150,9 +150,10 @@ const userActions = {
       return async (dispatch, getState) => {
           const respuesta = await axios.post('http://localhost:4000/api/user/signIn', user)
           if (!respuesta.data.success) {
+            
               return respuesta.data
           }
-          console.log(respuesta)
+          Alert.success("Hola " + respuesta.data.response.firstName + '!')
           dispatch({type:'USER_LOG', payload: respuesta.data})
       }
   },
@@ -176,13 +177,13 @@ const userActions = {
         Alert.success(`${respuesta.data.response}`,5000)
         return true
       }
-      console.log(respuesta)
+      
     }
   },
   validateResetUser:(token) => {
     return async (dispatch, getState) => {
       const respuesta = await axios.post('http://localhost:4000/api/user/requestresetuser', {token})
-      console.log(respuesta)
+      
       if (respuesta.data.success===false){
         return respuesta.data
       }else{

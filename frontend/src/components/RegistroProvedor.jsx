@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
-
+import { FaEye } from "react-icons/fa";
 
 function RegistroProvedor(props) {
+    const [hidden, setHidden] = useState(true)
     const [newProfessional, setNewProfessional] = useState({})
     const [professions, setProfessions] = useState([])
     const countries = require('../data/dataContryNames.json')
@@ -43,43 +44,48 @@ function RegistroProvedor(props) {
         fdNewUser.append('rol', 'provider')
         const res = await props.signProviderUp(fdNewUser)
     }
+    const pressEnter = (e) => {
+        if (e.key === 'Enter') {
+            validarUsuario()
+        }
+    }
 
     return (
         <div className="registro">
             <div className="formulario">
                 <h2>Registro Proveedor</h2>
                 <div className="inputDiv">
-                    <input name='firstName' type='text' placeholder='Nombre' onChange={readInput} />
+                    <input name='firstName' type='text' placeholder='Ingrese su nombre' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='lastName' type='' placeholder='Apellido' onChange={readInput} />
+                    <input name='lastName' type='' placeholder='Ingrese su apellido' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='email' type='text' placeholder='Email' onChange={readInput} />
+                    <input name='email' type='text' placeholder='Ingrese su email' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input name='phone' type='text' placeholder='Telefono' onChange={readInput} />
+                    <input name='phone' type='text' placeholder='Ingrese su número de teléfono' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <select name="country" type='text' placeholder='País' onChange={readInput} >
+                    <select name="country" type='text' placeholder='Elija su país' onChange={readInput} >
                         <option value=''>Selecciona un país</option>
                         {countries.map((country, i) => {
                             return <option key={"selectCountry" + i} value={country.value}>{country.label}</option>
                         })}
                     </select>
                 </div>
-                <div className="inputDiv">Subi tu foto de Perfil
+                <div className="inputDiv">Elija su foto de Perfil
                     <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={readInput} />
                 </div>
-                <div className="inputDiv">Foto de trabajo realizado
+                <div className="inputDiv">Elija una foto de trabajo realizado por usted
                     <input name='fileWorkPic' type='file' placeholder='Foto de trabajo realizado' onChange={readInput} />
                 </div>
-                <div className="inputDiv">Segunda foto de trabajo realizado
+                <div className="inputDiv">Elija otra foto de trabajo realizado por usted
                     <input name='fileWorkPic2' type='file' placeholder='Segunda foto de un trabajo realizado' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
                     <select name='idProfession' onChange={readInput}>
-                        <option value=''>Seleccione su Rubro</option>
+                        <option value=''>Seleccione el rubro de su oficio</option>
                         {professions.map(profession => {
                             return (
                                 <>
@@ -90,7 +96,9 @@ function RegistroProvedor(props) {
                     </select>
                 </div>
                 <div className="inputDiv">
-                    <input name='password' type='password' placeholder='Contraseña' onChange={readInput} />
+                    <input name='password' type={hidden ? 'password' : 'text'} placeholder='Contraseña' onChange={readInput} onKeyDown={pressEnter} />
+                    < FaEye className="eye" onClick={() => setHidden(!hidden)} />
+
                 </div>
                 <div className="">
                     <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>

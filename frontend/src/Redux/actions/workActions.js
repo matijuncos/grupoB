@@ -22,6 +22,7 @@ const workActions = {
         if(response){
           const resp = await axios.post('http://localhost:4000/api/mail/sendMail', {idWork: response.data.response.work._id})
         }
+        Alert.success('Enviaste una solicitud al profesional')
         // dispatch({
         //   type:"ADD_WORK"
         // })
@@ -38,16 +39,13 @@ const workActions = {
       }else{
         Alert.error("Error",3500)
       }
-      console.log(response)
       dispatch({
         type:"CHANGE_STATE"
       })
-      console.log(response)
+
     }
   },
   deleteWorkbyId: (id) =>{
-    console.log(id)
-    
     return async (dispatch, getState) =>{
       try{
         const res = await axios.post('http://localhost:4000/api/mail/sendMail', {action: 'Delete', idWork: id})
@@ -66,7 +64,6 @@ const workActions = {
         
         const response = await axios.get('http://localhost:4000/api/userWork/'+ id)
         dispatch({type:'GET_WORK', payload:response.data.response})
-        console.log(response)
       }
       catch(error){
         console.log(error)
@@ -74,7 +71,6 @@ const workActions = {
     }
   },
   sendMail: (idWork) =>{
-    alert('action de mail')
     return async (dispatch, getState) =>{
       try {
         const response = await axios.post('http://localhost:4000/api/mail/sendMail', {idWork})
@@ -82,7 +78,7 @@ const workActions = {
           type: 'SEND_MAIL',
           
         })
-        console.log(response)
+        Alert.success('Se ha enviado un mail!')
       } catch (error) {
         console.log(error)
       }
@@ -104,6 +100,7 @@ const workActions = {
         type: 'COMMENT',
         payload: respuesta.data
       })
+      Alert.success('Eliminaste el comentario')
     }
   },
   updateComment: (idUser, commentId, comment) =>{
@@ -113,6 +110,7 @@ const workActions = {
         type: 'COMMENT',
         payload: respuesta.data
       })
+      Alert.success('Comentario actualizado')
     }
   },
   rankProvider : (value, id) =>{

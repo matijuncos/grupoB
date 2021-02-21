@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import GoogleLogin from 'react-google-login'
 import userActions from '../Redux/actions/userActions'
 import { FaEye } from "react-icons/fa";
+import { Link } from 'react-router-dom'
+import { Alert } from 'rsuite';
 
 const SignIn = (props) => {
 
@@ -38,6 +40,9 @@ const SignIn = (props) => {
             setErrores('Todos los campos son requeridos')
         } else {
             const response = await signIn(user)
+            if (response && !response.success) {
+                setErrores(response.message)
+            }
             if (loggedUser !== null)
                 setTimeout(() => {
                     props.history.push('/')
@@ -54,11 +59,7 @@ const SignIn = (props) => {
             }
             )
             if (res && !res.success) {
-                console.log(errores)
-            } else {
-                alert(
-                    "bienvenido"
-                )
+                Alert.error('Intente nuevamente')
             }
         }
     }
@@ -66,15 +67,18 @@ const SignIn = (props) => {
         <div className="registro">
             <div className="formulario">
                 <h2>Iniciar Sesión</h2>
-                <h4>{errores}</h4>
+                <p>{errores}</p>
                 <div className="inputDiv">
-                    <input onKeyPress={enterKeyboard} type="text" autoComplete="nope" name="email" placeholder="Email" onChange={readInput} />
+                    <input onKeyPress={enterKeyboard} type="text" autoComplete="nope" name="email" placeholder="Ingrese su dirección de correo electrónico" onChange={readInput} />
                 </div>
                 <div className="inputDiv">
-                    <input onKeyPress={enterKeyboard} type={hidden ? "password" : " text"} name="password" placeholder="Contraseña" onChange={readInput} />
+                    <input onKeyPress={enterKeyboard} type={hidden ? "password" : " text"} name="password" placeholder="Ingrese su contraseña" onChange={readInput} />
                     < FaEye className="eye" onClick={() => setHidden(!hidden)} />
                 </div>
                 <button className="enviar" onClick={Validate}>Ingresar</button>
+                <Link to='/forgotpassword' className='navBarLinks' style={{ margin: '2vh' }}>
+                    <h6>¿Olvidaste tu contraseña?</h6>
+                </Link>
                 <GoogleLogin
                     clientId="1033031988698-pivaiq2e71rsq2njp75tfdd952jgl950.apps.googleusercontent.com"
                     buttonText="Iniciar con Google"

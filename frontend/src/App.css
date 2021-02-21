@@ -55,6 +55,9 @@ body{
   padding: 0 2vh;
   font-weight: 400;
 }
+.navBarLinks:hover{
+  color: rgb(223, 223, 223)!important;
+}
 .links{
   display: flex;
   align-items: center;
