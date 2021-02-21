@@ -1,5 +1,7 @@
 const initState = {
-  loggedUser: null
+  loggedUser: null,
+  comments: []
+
 }
 
 const userReducer = (state = initState, action) =>{
@@ -21,6 +23,24 @@ const userReducer = (state = initState, action) =>{
         return{
           ...state,
           loggedUser: null
+        }
+      case 'SEND_COMMENT':
+        return{
+          ...state,
+          comments: action.payload.respuesta.review
+        }
+      case 'DEL_COMMENT':
+      return{
+        ...state
+      }
+      case 'RANK':
+      return{
+        ...state
+      }
+      case 'UPDATE_COMMENT':
+        
+        return{
+          ...state
         }
       default :
           return state

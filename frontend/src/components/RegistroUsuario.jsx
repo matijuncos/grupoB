@@ -4,7 +4,7 @@ import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 
-function RegistroUsuario({ signUp, loggedUser }) {
+function RegistroUsuario({ signUp, googleSignUp }) {
     const [newUser, setNewUser] = useState({})
     const [errores, setErrores] = useState([])
     const countries = require('../data/dataContryNames.json')
@@ -46,13 +46,16 @@ function RegistroUsuario({ signUp, loggedUser }) {
         if (response.error) {
             alert("Algo pasó...")
         } else {
-            const respuesta = await signUp({
-                firstName: response.profileObj.familyName,
+            const respuesta = await googleSignUp({
+                firstName: response.profileObj.givenName,
                 lastName: response.profileObj.familyName,
                 email: response.profileObj.email,
                 phone: "3513963871",
-                urlPic: response.profileObj.imageUrl,
+                googlePic: response.profileObj.imageUrl,
                 password: `Aa${response.profileObj.googleId}`,
+                country: 'Argentina',
+                rol: 'consumer',
+                google: 'true'
 
             })
             if (respuesta && !respuesta.success) {
@@ -115,6 +118,7 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = {
-    signUp: userActions.signUp
+    signUp: userActions.signUp,
+    googleSignUp: userActions.googleSignUp
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegistroUsuario)

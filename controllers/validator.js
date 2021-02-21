@@ -10,7 +10,10 @@ const validator = {
             phone:Joi.string().min(10).max(12).regex(/^[0-9]{10}$/).required(),
             password: Joi.string().trim().required().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,50}$/), // PASS: LMAYUSC, LMINUSC,N0-9,3,8CARAC
             country: Joi.string(),
-            rol: Joi.string()
+            rol: Joi.string(),
+            googlePic: Joi.string(),
+            google: Joi.string()
+          
         })
 
         const validation = schema.validate(req.body, {abortEarly:false}) 

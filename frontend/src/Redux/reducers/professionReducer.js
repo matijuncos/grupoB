@@ -15,6 +15,7 @@ const professionReducer = (state = initState, action) =>{
           ...state,
           providers: action.payload
         }
+
       default :
           return state
       }
