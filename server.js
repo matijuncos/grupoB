@@ -1,12 +1,12 @@
 const express = require('express')
 require('dotenv').config()
-const cors = require('cors')
 require('./config/database')
+const cors = require('cors')
+
 const router = require('./routes')
 const app = express()
 const fileUpload = require('express-fileupload')
 
-require('./config/database')
 
 app.use(express.json())
 app.use(cors())
