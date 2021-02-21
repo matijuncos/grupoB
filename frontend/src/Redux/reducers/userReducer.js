@@ -13,7 +13,7 @@ const userReducer = (state = initState, action) =>{
         localStorage.setItem('idUser', action.payload.idUser)
         localStorage.setItem('_id', action.payload._id)
         localStorage.setItem('rol', action.payload.rol)
-        console.log(action.payload)
+        
         return{
           ...state,
           loggedUser: action.payload

@@ -11,7 +11,7 @@ const userActions = {
             'Content-Type':'multipart/form-data'
           }
         })
-        console.log(response)
+        
         if(response.data.success===false){
           
           var errors=[]
@@ -137,7 +137,7 @@ const userActions = {
            type: "USER_LOG",
            payload: response.data.response
          })
-        console.log(response)
+        
       }
       catch(error){
         console.log(error)

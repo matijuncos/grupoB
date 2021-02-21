@@ -83,7 +83,7 @@ const userController = {
       }      
    },
    addUserCustomer: async (req, res) =>{
-      console.log('entrée')
+      
       const {firstName, lastName, urlPic, email, phone, password, country, rol, google, googlePic} = req.body
       const emailExists = await UserBase.findOne({email: email})
       if (emailExists){ return res.json({success: false, message: "Este correo ya esta siendo usado."})}
