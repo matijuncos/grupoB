@@ -23,6 +23,7 @@ class MenuUser extends React.Component {
   toggleDrawer() {
     this.props.getWorks()
     this.setState({ show: true });
+    this.props.getConsumerWorks()
   }
 
   render() {
@@ -49,6 +50,8 @@ class MenuUser extends React.Component {
 }
 
 const mapDispatchToProps = {
-  getWorks: workActions.getWorks
+  getWorks: workActions.getWorks,
+  getConsumerWorks: workActions.getConsumerWorks
+
 }
 export default connect(null, mapDispatchToProps)(MenuUser)

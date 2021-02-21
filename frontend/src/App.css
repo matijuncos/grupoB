@@ -925,6 +925,25 @@ body{
   text-decoration: underline;
 }
 
+.workPicContainer{
+  display: flex;
+  justify-content: center;
+  padding: 2vh;
+  margin: 4vh;
+  background-color: aliceblue ;
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.705);
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.445);
+}
+
+.workPic{
+  background-position: center;
+  background-size: cover;
+  width: 30vh;
+  height: 20vh;
+  margin: 2vw ;
+  border-radius: 6px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.445);
+}
 /* ################################################################## RESPONSIVE ################################################## */
 
 

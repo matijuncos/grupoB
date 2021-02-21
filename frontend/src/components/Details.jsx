@@ -93,7 +93,6 @@ const Details = (props) => {
         if (e.key === 'Enter')
             sendComment()
     }
-    console.log(props.providers.respuesta)
 
     return (
         <>
@@ -152,6 +151,25 @@ const Details = (props) => {
                             ))
                         }
 
+                    </div>
+                    <div className='workPicContainer'>
+                        {
+                            props.providers.respuesta && props.providers.respuesta.map(provider => {
+                                if (id === provider._id) {
+                                    return (
+                                        provider.arrayWorks.map(foto => {
+
+                                            return (
+                                                <div className='workPic' style={{ backgroundImage: `url(.${foto})` }}>
+
+                                                </div>
+                                            )
+                                        })
+                                    )
+
+                                }
+                            })
+                        }
                     </div>
                 </div>
                 <div className="areaWork">
