@@ -33,6 +33,24 @@ const WorkController = {
               model:'userBase'
             }
           })
+          .populate({
+            path:'idUserProvider',
+            populate:{
+              path:'review.idUser',
+              model:'userConsumer'
+            }
+          }).populate({
+            path:'idUserProvider',
+            model:'userProvider',
+            populate:[{
+              path:'review.idUser',
+              model:'userConsumer',
+              populate:{
+                path:'idUserBase',
+                model:'userBase'
+              }
+            }]
+          })
       .then(work => {return res.json({success:true, response:work})})
       .catch(error => {return res.json({success:false, error})})
    },
