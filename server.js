@@ -14,7 +14,7 @@ app.use(fileUpload())
 
 app.use('/api', router)
 
-const port = process.env.PORT
+const port = process.env.PORT || 4000
 const host = process.env.HOST || '0.0.0.0'
 
 app.listen(port, host, ()=> console.log('app listening'))
