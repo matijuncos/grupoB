@@ -290,10 +290,6 @@ body{
 }
 .profession{
   margin: 0 1vh 2vh 0;
-<<<<<<< HEAD
-  width: 20vw;
-=======
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
   transition: all ease 0.3s;
   text-decoration: none!important;
   color: rgb(17, 1, 1);
@@ -304,22 +300,13 @@ body{
 
 .profession small{
   width: 70%;
-<<<<<<< HEAD
   font-size: 20px;
   font-weight: 600;
   min-height: 8vh;
-  color: rgb(61, 61, 61);
-=======
-  min-height: 8vh;
-  font-size: 20px;
-  font-weight: 600;
-  color: rgb(61,61,61);
   
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 }
 .professionLink{
   display: flex;
-  flex-direction: column;
   margin:  0  .5vh ;
   width: 20vh;
   height: 20vh;
@@ -338,18 +325,10 @@ body{
 .profession:hover{
   transform: scale(1.05);
   text-decoration: none!important;
-<<<<<<< HEAD
-  
-  font-weight: 600;
-}
-.profession small:hover{
-  color: rgb(216,0,27)!important;
-=======
   font-weight: 600;
 }
 .profession small:hover{
   color: rgb(216,0,27) !important;
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 }
 .toolIcon{
   font-size: 3rem;
@@ -389,10 +368,6 @@ body{
   padding: 10px;
   border-radius: 0 0 6px 6px;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 .cardBottom h4{
   font-size: 1.1rem;
   height: 10vh;
@@ -487,10 +462,6 @@ body{
   align-items: center;
   background-image: url('./assets/pattern2.svg');
   padding-bottom: 2vh;
-<<<<<<< HEAD
-  
-=======
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 }
 .profesional{
   margin-top: 5vh;
@@ -507,17 +478,6 @@ body{
   justify-content: space-evenly;
   transition: all ease 0.3s;
   box-shadow: 0 5px 5px rgb(114, 113, 113)
-<<<<<<< HEAD
-}
-.starIcons{
-  display: flex;
-  color: #ffc107;
-}
-.profesional h2,h3 {
-  font-size: 1.8rem;
-  color:  rgb(56, 56, 56)!important;
-=======
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 }
 
 .user{
@@ -929,8 +889,6 @@ body{
 .success{
   color: rgb(0, 83, 0);
 }
-<<<<<<< HEAD
-=======
 .commentDiv{
   width: 100%;
   position: relative;
@@ -987,7 +945,6 @@ body{
 .comment h6{
   margin-left: 1.4vw
 }
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 
 /* ################################################################## RESPONSIVE ################################################## */
 
@@ -1005,14 +962,9 @@ body{
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 2vh;
-<<<<<<< HEAD
-    margin: 2vh auto;
-    width: 70%;
-=======
     margin: 1vh auto;
     width: 70%;
 
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
   }
   .profession small{
     width: 20vh;
@@ -1025,11 +977,6 @@ body{
     width: 95%;
     margin-bottom: 2vh;
   }
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
   .stepContainer p{
     font-size: 1.4rem;
     width: 70%;
@@ -1098,11 +1045,6 @@ body{
     padding: 0;
     flex-direction: column;
     align-items: center;
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
   }
   .proffesionalImg{
     width: 80vw;
@@ -1125,9 +1067,4 @@ body{
   }
   .nameProffesional div p{
     margin-top: 2vh;
-<<<<<<< HEAD
-  }
-}
-=======
   }}
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f

@@ -6,19 +6,12 @@ import { BsFillStarFill } from 'react-icons/bs'
 import {GiCheckMark} from 'react-icons/gi'
 import { connect } from 'react-redux'
 import Comment from './Comment'
-<<<<<<< HEAD
-import {Link} from 'react-router-dom'
-const Details = (props) => {
-    console.log(props)
-=======
 import professionActions from '../Redux/actions/professionActions'
 import { Icon } from 'rsuite';
-import { GiCheckMark } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 
 const Details = (props) => {
 
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
     const id = props.match.params.id
     const [providers, setProviders] = useState({})
     const [errores, setErrores] = useState("")
@@ -103,53 +96,6 @@ const Details = (props) => {
 
     return (
         <>
-<<<<<<< HEAD
-            <div className="professionalInfo">
-                <div className="bgPorfessional"></div>
-                <div className="containerProffesional">
-                    <div className="proffesionalImg">
-                        <div className="fotoUser" style={{ backgroundImage: `url(.${providers.idUserBase.urlPic})` }}></div>
-                        <div>{[...Array(5)].map((m, i) => {
-                            const ratingValue = i + 1
-                            return (
-                                <label key={i}>
-                                    <input
-                                        className="starInput"
-                                        type="radio"
-                                        name="rating"
-                                        value={ratingValue}
-                                        onClick={() => { props.loggedUser !== null ? setRating(ratingValue) : setErrores("No puedes valorar sin iniciar sesion.") }}
-                                    />
-                                    <BsFillStarFill className="star" color={(ratingValue <= rating) ? '#ffc107' : '#8C8C8C'} />
-                                </label>
-                                
-                            )
-                        })}</div>
-                        <div>
-                            <h5>Sellos del Profesional</h5>
-                            <div className="containerSeals">
-                                <div className="seals sealsGarantia"></div>
-                                <div className="seals sealsNoVerif"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="nameProffesional">
-                        <h2>{providers.idUserBase.firstName} {providers.idUserBase.lastName}</h2>
-                        <div>
-                            <h4>{providers.idProfession.type}</h4>
-                            {providers.idProfession.descriptions.map(description => {
-                                return (
-                                    <p key={description._id}><GiCheckMark className="icono"/>{description}</p>
-
-                                )
-                            })}
-                        </div>
-                    </div>
-                    {/* ESTO TIENE QUE SER CONDICIONAL */}
-                    {visible &&
-                        <div className="containerContract">
-                            <button className="contract" onClick={btnContract}>Contratar</button>
-=======
             <div className="container">
                 <div className="professionalInfo">
                     <div className="bgPorfessional"></div>
@@ -179,7 +125,6 @@ const Details = (props) => {
                                 <div className="seals sealsGarantia"></div>
                                 <div className="seals sealsNoVerif"></div>
                             </div>
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
                         </div>
                         <div className="nameProffesional">
                             <h2>{providers && providers.idUserBase.firstName} {providers && providers.idUserBase.lastName}</h2>
@@ -192,7 +137,7 @@ const Details = (props) => {
                             })}
                         </div>
                         {/* ESTO TIENE QUE SER CONDICIONAL */}
-                        {(props.loggedUser && (props.loggedUser.rol === 'consumer')) && props.userWork.map(work => {
+                        {(props.loggedUser && (props.loggedUser.rol === 'consumer')) &&(props.userWork.length !== 0) && props.userWork.map(work => {
                             if (work.idUserConsumer._id === props.loggedUser.idUser) {
                                 workExists = true
                             }
@@ -249,13 +194,8 @@ const mapStateToProps = state => {
     return {
         providers: state.professionR.providers,
         loggedUser: state.userR.loggedUser,
-<<<<<<< HEAD
-        works: state.workR.works,
-        workId: state.workR.workId,
-=======
         userWork: state.workR.userWork,
 
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
     }
 }
 const mapDispatchToProps = {

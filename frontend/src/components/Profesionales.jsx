@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect, Provider } from 'react-redux'
-<<<<<<< HEAD
-import {Link} from 'react-router-dom'
-=======
 import { Link } from 'react-router-dom'
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
 // import { connect } from 'react-redux'
 // import professionActions from '../Redux/actions/professionActions'
 import Professional from './Professional'
@@ -36,14 +32,10 @@ const Profesionales = (props) => {
                     )
                 })}
                 <div className="back">
-<<<<<<< HEAD
-                <Link to="/"><button className="contract">Volver</button></Link>
-=======
                     <Link to="/"><button className="contract">Volver</button></Link>
                 </div>
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
             </div>
-            </div> 
+            
         </>
     )
 }

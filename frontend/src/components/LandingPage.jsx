@@ -11,11 +11,7 @@ import workActions from '../Redux/actions/workActions'
 const LandingPage = (props) => {
 
   useEffect(() => {
-<<<<<<< HEAD
-    window.scroll(0,0)
-=======
     window.scroll(0, 0)
->>>>>>> f3eab31cae1edac5d02807cf3bb3eed07c7b725f
     props.getProfessions()
     props.getProviders()
     props.getWorks()
