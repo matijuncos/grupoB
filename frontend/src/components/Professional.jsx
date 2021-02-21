@@ -25,20 +25,6 @@ const Professional = ({ professionals }) => {
             )
         })}</div>
         </div>
-        <div>{[...Array(5)].map((m, i) => {
-          const ratingValue = i + 1
-          return (
-            <label key={i}>
-              <input
-                className="starInput"
-                type="radio"
-                name="rating"
-              />
-              <BsFillStarFill className="star" color={(ratingValue <= stars) ? '#ffc107' : '#8C8C8C'} />
-            </label>
-          )
-        })}</div>
-
         <div>
         <div className="detailsProf">
           <div className="info">

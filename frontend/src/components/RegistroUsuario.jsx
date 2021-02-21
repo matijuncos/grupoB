@@ -91,7 +91,9 @@ function RegistroUsuario({ signUp, googleSignUp }) {
                     </select>
                 </div>
                 <div className="inputDiv">
+                    <label>Subi tu foto de perfil
                     <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={leerInput} />
+                    </label>
                 </div>
                 <div className="inputDiv">
                     <input name='password' type='password' placeholder='Contraseña' onChange={leerInput} />

@@ -71,13 +71,13 @@ function RegistroProvedor(props) {
                         })}
                     </select>
                 </div>
-                <div className="inputDiv">
+                <div className="inputDiv">Subi tu foto de Perfil
                     <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={readInput} />
                 </div>
-                <div className="inputDiv">
+                <div className="inputDiv">Foto de trabajo realizado
                     <input name='fileWorkPic' type='file' placeholder='Foto de trabajo realizado' onChange={readInput} />
                 </div>
-                <div className="inputDiv">
+                <div className="inputDiv">Segunda foto de trabajo realizado
                     <input name='fileWorkPic2' type='file' placeholder='Segunda foto de un trabajo realizado' onChange={readInput} />
                 </div>
                 <div className="inputDiv">

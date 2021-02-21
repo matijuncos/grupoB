@@ -117,13 +117,12 @@ const Details = (props) => {
                                     </label>
                                 )
                             })}</div>
-                        </div>
-
-                        <div>
+                            <div>
                             <h5>Sellos del Profesional</h5>
                             <div className="containerSeals">
                                 <div className="seals sealsGarantia"></div>
                                 <div className="seals sealsNoVerif"></div>
+                            </div>
                             </div>
                         </div>
                         <div className="nameProffesional">
@@ -152,29 +151,33 @@ const Details = (props) => {
                         }
 
                     </div>
-                    <div className='workPicContainer'>
-                        {
-                            props.providers.respuesta && props.providers.respuesta.map(provider => {
-                                if (id === provider._id) {
-                                    return (
-                                        provider.arrayWorks.map(foto => {
+                    <div className="fotosTrabajos">
+                        <h3>Imagenes de trabajos realizados</h3>
+                        <div className='workPicContainer'>
+                            {
+                                props.providers.respuesta && props.providers.respuesta.map(provider => {
+                                    if (id === provider._id) {
+                                        return (
+                                            provider.arrayWorks.map(foto => {
 
-                                            return (
-                                                <div className='workPic' style={{ backgroundImage: `url(.${foto})` }}>
+                                                return (
+                                                    <div className='workPic' style={{ backgroundImage: `url(.${foto})` }}>
 
-                                                </div>
-                                            )
-                                        })
-                                    )
+                                                    </div>
+                                                )
+                                            })
+                                        )
 
-                                }
-                            })
-                        }
+                                    }
+                                })
+                            }
+                            </div>
                     </div>
                 </div>
                 <div className="areaWork">
-                    <div className="comments">
+                    <div className="commentContainer">
                         <h4>Lee que opinan otros clientes</h4>
+                        <div className="comments">
                         {
                             props.providers.respuesta && props.providers.respuesta.filter(Ourworks => id === Ourworks._id).map(work => {
                                 return (
@@ -199,14 +202,12 @@ const Details = (props) => {
                         })
                         }
                     </div>
+                    </div>
                 </div>
             </div>
             <div className="back">
-                <Link to="/"><button className="contract">Volver</button></Link>
-            </div>
-            <div className="back">
-                <Link to="/"><button className="contract">Volver</button></Link>
-            </div>            
+                <Link to="/"><button className="contract contractBack">Volver</button></Link>
+            </div>          
         </>
     )
 }
