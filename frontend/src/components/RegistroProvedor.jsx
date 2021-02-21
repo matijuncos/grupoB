@@ -43,10 +43,7 @@ function RegistroProvedor(props) {
         fdNewUser.append('rol', 'provider')
         const res = await props.signProviderUp(fdNewUser)
     }
-    //Respuesta de Google
-    // const responseGoogle = async (response) => {
-    //     console.log(response)
-    // }
+
     return (
         <div className="registro">
             <div className="formulario">
@@ -71,13 +68,13 @@ function RegistroProvedor(props) {
                         })}
                     </select>
                 </div>
-                <div className="inputDiv">
+                <div className="inputDiv">Subi tu foto de Perfil
                     <input name='fileUrlPic' type='file' placeholder='Url de foto de perfil' onChange={readInput} />
                 </div>
-                <div className="inputDiv">
+                <div className="inputDiv">Foto de trabajo realizado
                     <input name='fileWorkPic' type='file' placeholder='Foto de trabajo realizado' onChange={readInput} />
                 </div>
-                <div className="inputDiv">
+                <div className="inputDiv">Segunda foto de trabajo realizado
                     <input name='fileWorkPic2' type='file' placeholder='Segunda foto de un trabajo realizado' onChange={readInput} />
                 </div>
                 <div className="inputDiv">
@@ -98,15 +95,7 @@ function RegistroProvedor(props) {
                 <div className="">
                     <button className="enviar" onClick={validarUsuario}>Enviar Registro</button>
                 </div>
-                <div>
-                    {/* <GoogleLogin className="google"
-                        clientId="84161810761-i373rjs0mohqvvd6etl56hr39pdtbbms.apps.googleusercontent.com"
-                        buttonText="Crear cuenta con Google"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                    /> */}
-                </div >
+
             </div>
         </div>
     )

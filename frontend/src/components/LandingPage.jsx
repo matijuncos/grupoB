@@ -7,7 +7,6 @@ import Slider from './Slider'
 import { connect } from 'react-redux'
 import professionActions from '../Redux/actions/professionActions'
 import workActions from '../Redux/actions/workActions'
-
 const LandingPage = (props) => {
 
   useEffect(() => {
@@ -44,9 +43,9 @@ const LandingPage = (props) => {
         </Link>
       </div>
       <div className="howItWorks">
-        <h2>Tenemos muchos prestadores. Descubrilos! Hacé click!:)</h2>
+        <h2>Tenemos muchos prestadores. Descubrilos! Hacé click!</h2>
         <div className="rubros">
-          {props.professions.response && props.professions.response.map(profession => <Rubro profession={profession} key={profession._id} />)}
+          {props.professions.response && props.professions.response.map(profession => <Rubro profession={profession} key={profession._id} loggedUser={props.loggedUser} />)}
         </div>
       </div>
       <Articles />
@@ -59,7 +58,7 @@ const mapStateToProps = state => {
     professions: state.professionR.professions,
     providers: state.professionR.providers,
     works: state.workR.works,
-
+    loggedUser: state.userR.loggedUser
 
   }
 }

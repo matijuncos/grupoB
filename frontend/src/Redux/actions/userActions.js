@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 const userActions = {
    signUp: (fdNewUser) =>{
     return async (dispatch, getState) =>{
@@ -10,10 +11,11 @@ const userActions = {
           }
         })
         if(response.data.success===false){
+          console.log(response.data.errores)
           var errors=[]
           response.data.errores && response.data.errores.details.map(error=>{
             switch (error.path[0]) {
-              case 'firtsName':
+              case 'firstName':
                 errors.push({label:error.context.label,message:"El nombre debe tener minimo 2 caracteres."})
                 break;
               case 'lastName':
@@ -43,7 +45,7 @@ const userActions = {
         })
         return ({success:true,response:["Tu cuenta fue creada con éxito!"]})
       }catch(err){
-        alert('Uy! Algo salió mal!')
+        return({success: false, response: errors})
       }
     }
   },  

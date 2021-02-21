@@ -36,8 +36,6 @@ const Details = (props) => {
                 return id === provider._id
             })
             setProviders(professionals[0])
-            console.log(professionals[0])
-            console.log(providers)
             if (providers._id) {
                 const stars = Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length)
                 setRating(stars)
@@ -71,7 +69,6 @@ const Details = (props) => {
     }
 
     const rankProvider = (e) => {
-        console.log(props.userWork[0])
         if (props.userWork[0].state === 3) {
             setRating(e.target.value)
             props.rate(e.target.value, id)
@@ -93,7 +90,6 @@ const Details = (props) => {
         if (e.key === 'Enter')
             sendComment()
     }
-
     return (
         <>
             <div className="container">
@@ -152,57 +148,62 @@ const Details = (props) => {
                         }
 
                     </div>
-                    <div className='workPicContainer'>
-                        {
-                            props.providers.respuesta && props.providers.respuesta.map(provider => {
-                                if (id === provider._id) {
-                                    return (
-                                        provider.arrayWorks.map(foto => {
+                    <div className="fotosTrabajos">
+                        <h3>Imagenes de trabajos realizados</h3>
+                        <div className='workPicContainer'>
+                            {
+                                props.providers.respuesta && props.providers.respuesta.map(provider => {
+                                    if (id === provider._id) {
+                                        return (
+                                            provider.arrayWorks.map(foto => {
 
-                                            return (
-                                                <div className='workPic' style={{ backgroundImage: `url(.${foto})` }}>
+                                                return (
+                                                    <div className='workPic' style={{ backgroundImage: `url(.${foto})` }}>
 
-                                                </div>
-                                            )
-                                        })
-                                    )
+                                                    </div>
+                                                )
+                                            })
+                                        )
 
-                                }
-                            })
-                        }
+                                    }
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className="areaWork">
-                    <div className="comments">
+                    <div className="commentContainer">
                         <h4>Lee que opinan otros clientes</h4>
-                        {
-                            props.providers.respuesta && props.providers.respuesta.filter(Ourworks => id === Ourworks._id).map(work => {
-                                return (
-                                    work.review.map(comment => {
-                                        return (
-                                            <Comment comment={comment} id={id} reload={reload} setReload={setReload} />
-                                        )
-                                    })
-                                )
-                            })
-                        }
-                        {(props.loggedUser && props.loggedUser.rol === 'consumer') && props.userWork.length !== 0 && props.userWork.map(work => {
-                            if (work.idUserConsumer._id === props.loggedUser.idUser && work.state === 3) {
-                                return (
-                                    <div className="commentDiv">
-                                        <input onKeyDown={pressEnter} type="text" name="commentConsumer" placeholder="Deje su comentario" onChange={readInput} />
-                                        <Icon icon='send-o' className="sendCommentBtn" onClick={sendComment} />
-                                    </div>
-
-                                )
+                        <div className="comments">
+                            {
+                                props.providers.respuesta && props.providers.respuesta.filter(Ourworks => id === Ourworks._id).map(work => {
+                                    return (
+                                        work.review.map(comment => {
+                                            return (
+                                                <Comment comment={comment} id={id} reload={reload} setReload={setReload} />
+                                            )
+                                        })
+                                    )
+                                })
                             }
-                        })
-                        }
+                            {(props.loggedUser && props.loggedUser.rol === 'consumer') && props.userWork.length !== 0 && props.userWork.map(work => {
+                                if (work.idUserConsumer._id === props.loggedUser.idUser && work.state === 3) {
+                                    return (
+                                        <div className="commentDiv">
+                                            <input onKeyDown={pressEnter} type="text" name="commentConsumer" placeholder="Deje su comentario" onChange={readInput} />
+                                            <Icon icon='send-o' className="sendCommentBtn" onClick={sendComment} />
+                                        </div>
+
+                                    )
+                                }
+                            })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
             <div className="back">
-                <Link to="/"><button className="contract">Volver</button></Link>
+                <Link to="/"><button className="contract contractBack">Volver</button></Link>
             </div>
         </>
     )

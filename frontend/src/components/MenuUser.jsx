@@ -34,6 +34,7 @@ class MenuUser extends React.Component {
           <RiMenuFoldFill onClick={this.toggleDrawer} className="openBtn" />
         </ButtonToolbar>
         <Drawer
+          className="drawer"
           show={this.state.show}
           onHide={this.close}
         >
