@@ -567,6 +567,7 @@ body{
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
   border: solid 1px rgb(250, 250, 250);
+  margin-top: 2vh;
 }
 .back{
   display: flex;
@@ -669,7 +670,7 @@ body{
 /* ################################################################## RESPONSIVE ################################################## */
 
 
-@media(max-width: 420px){
+@media(max-width: 600px){
   .navUserName{ 
     display: flex;
     width: 25vw;
