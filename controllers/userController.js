@@ -91,7 +91,7 @@ const userController = {
             const userBase = new UserBase ({
             firstName, lastName, urlPic, email, phone, password:hashedPassword, country, rol
             })
-
+            console.log(userBase)
             //File urlPic
             if(google !== 'true'){
                const {fileUrlPic}=req.files
@@ -116,6 +116,7 @@ const userController = {
                      //_id:idUserBase,
                      idUserBase:idUserBase
                   })
+                  console.log(userConsumer)
                   userConsumer.save()
                   .then(async newUserConsumer =>{
                      // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
@@ -231,13 +232,16 @@ const userController = {
       var subject= work.state===1 ? "Se ha abierto con exito la solicitud." : work.state===2  ? "La propuesta de trabajo ha sido aceptado." :work.state===3 && "El trabajo se ha terminado."
       if (action === 'Delete'){
          subject= 'El profesional rechazó su solicitud'
-         message= `<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha rechazado su solicitud. Intente con otro profesional.` 
+         message= `<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha rechazado su solicitud. Intente con otro profesional.</p>
+         <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+         ` 
          to=userConsumer.email
       }else{
          switch (work.state) {
             case 1:
-               message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible.</p>
+               message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible haciendo click en el siguiente link.</p>
                <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
+               <a href='${userProvider._id}'>Ir al sitio</a>
                `
                break;
             case 2:
@@ -247,7 +251,8 @@ const userController = {
                to=userConsumer.email
                break;
             case 3:
-               message=`<p>La orden de trabajo Nº-${orden} ha sido finalizada con exito.</p>
+               message=`<p>La orden de trabajo Nº-${orden} ha sido finalizada con exito. Dejale un comentario y regalale unas estrellitas de acuerdo a la calidad de su servicio, haciendo click en el siguiente link!</p>
+               <a href='${userProvider._id}'>Ir al sitio</a>
                <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
                `
                break;
@@ -296,7 +301,7 @@ const userController = {
                border-radius:2vw
             }
             .logo{
-               background-image:url("https://lh6.googleusercontent.com/g35_8SERvnINhfsJSvezrQwIy-y29g1nqOG7b8130EqGjM50fwaBorjHW5dsYAkbMXptMBJJa1Q8-AnVFUGJ=w1868-h942-rw");
+               background-image:url("https://i.ibb.co/jfkwPhg/logo3-min-min-optimized.png");
                background-repeat:no-repeat;
                background-position:center;
                background-size:cover;

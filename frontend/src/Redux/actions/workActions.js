@@ -47,7 +47,7 @@ const workActions = {
   },
   deleteWorkbyId: (id) =>{
     console.log(id)
-    alert('entrea la action delete')
+    
     return async (dispatch, getState) =>{
       try{
         const res = await axios.post('http://localhost:4000/api/mail/sendMail', {action: 'Delete', idWork: id})
@@ -66,6 +66,7 @@ const workActions = {
         
         const response = await axios.get('http://localhost:4000/api/userWork/'+ id)
         dispatch({type:'GET_WORK', payload:response.data.response})
+        console.log(response)
       }
       catch(error){
         console.log(error)

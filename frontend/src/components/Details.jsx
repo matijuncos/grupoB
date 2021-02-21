@@ -37,6 +37,7 @@ const Details = (props) => {
             })
             setProviders(professionals[0])
             console.log(professionals[0])
+            console.log(providers)
             if (providers._id) {
                 const stars = Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length)
                 setRating(stars)
@@ -137,8 +138,9 @@ const Details = (props) => {
                             })}
                         </div>
                         {/* ESTO TIENE QUE SER CONDICIONAL */}
-                        {(props.loggedUser && (props.loggedUser.rol === 'consumer')) && props.userWork.map(work => {
+                        {(props.loggedUser && (props.loggedUser.rol === 'consumer')) && props.userWork.lenght !== 0 && props.userWork.map(work => {
                             if (work.idUserConsumer._id === props.loggedUser.idUser) {
+                                console.log('lo que quieras')
                                 workExists = true
                             }
                         })

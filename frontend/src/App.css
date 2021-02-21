@@ -903,9 +903,26 @@ body{
 }
 .comments h4{
   margin-bottom: 2vh;
+  
 }
 .comment h6{
   margin-left: 1.4vw
+}
+.comment h5{
+  color: black;
+}
+.commentBtns{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+
+}
+.commentBtns p{
+  cursor: pointer;
+  margin: 8px 5px;
+  color: black;
+  text-decoration: underline;
 }
 
 /* ################################################################## RESPONSIVE ################################################## */
