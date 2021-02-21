@@ -16,21 +16,20 @@ const Work = (props) => {
       await sendMail(_id)
       setReload(!reload)
       setVisible(!visible)
-      getWorks()
+
    }
 
    const finishWork = async () => {
       await changeState(_id)
       await sendMail(_id)
       setReload(!reload)
-      getWorks()
 
    }
    const declineProposal = async () => {
       alert('oferta rechazada')
       await deleteWorkbyId(_id)
       setReload(!reload)
-      getWorks()
+
 
    }
    useEffect(() => {

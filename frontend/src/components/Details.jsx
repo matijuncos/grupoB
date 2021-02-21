@@ -7,7 +7,7 @@ import {GiCheckMark} from 'react-icons/gi'
 import { connect } from 'react-redux'
 import Comment from './Comment'
 import professionActions from '../Redux/actions/professionActions'
-import { Icon } from 'rsuite';
+import { Icon } from 'rsuite'
 import { Link } from 'react-router-dom'
 
 const Details = (props) => {
@@ -37,6 +37,7 @@ const Details = (props) => {
             })
             setProviders(professionals[0])
             console.log(professionals[0])
+            console.log(providers)
             if (providers._id) {
                 const stars = Math.round(providers.arrayValoration.reduce((a, b) => (a + b)) / providers.arrayValoration.length)
                 setRating(stars)
@@ -92,7 +93,6 @@ const Details = (props) => {
         if (e.key === 'Enter')
             sendComment()
     }
-    console.log(props.providers.respuesta)
 
     return (
         <>
@@ -137,8 +137,9 @@ const Details = (props) => {
                             })}
                         </div>
                         {/* ESTO TIENE QUE SER CONDICIONAL */}
-                        {(props.loggedUser && (props.loggedUser.rol === 'consumer')) &&(props.userWork.length !== 0) && props.userWork.map(work => {
+                        {(props.loggedUser && (props.loggedUser.rol === 'consumer')) && props.userWork.lenght !== 0 && props.userWork.map(work => {
                             if (work.idUserConsumer._id === props.loggedUser.idUser) {
+                                console.log('lo que quieras')
                                 workExists = true
                             }
                         })
@@ -150,6 +151,25 @@ const Details = (props) => {
                             ))
                         }
 
+                    </div>
+                    <div className='workPicContainer'>
+                        {
+                            props.providers.respuesta && props.providers.respuesta.map(provider => {
+                                if (id === provider._id) {
+                                    return (
+                                        provider.arrayWorks.map(foto => {
+
+                                            return (
+                                                <div className='workPic' style={{ backgroundImage: `url(.${foto})` }}>
+
+                                                </div>
+                                            )
+                                        })
+                                    )
+
+                                }
+                            })
+                        }
                     </div>
                 </div>
                 <div className="areaWork">

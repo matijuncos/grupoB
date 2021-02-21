@@ -44,7 +44,7 @@ const LandingPage = (props) => {
         </Link>
       </div>
       <div className="howItWorks">
-        <h2>Tenemos muchos prestadores. Descubrilos! Hacé click!:)</h2>
+        <h2>Tenemos muchos prestadores. Descubrilos! Hacé click!</h2>
         <div className="rubros">
           {props.professions.response && props.professions.response.map(profession => <Rubro profession={profession} key={profession._id} />)}
         </div>

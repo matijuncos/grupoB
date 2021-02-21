@@ -1,22 +1,32 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
+import { FiMenu } from 'react-icons/fi';
 import Logo from '../assets/logo3.png'
 import userPic from '../assets/user.svg'
 import userActions from '../Redux/actions/userActions'
 import workActions from '../Redux/actions/workActions'
 import MenuUser from './MenuUser'
 
+
 const Navbar = ({ loggedUser, signOut, getWorks }) => {
+  const [nav, setNav] = useState(true)
   loggedUser && console.log(loggedUser)
+
+  const openNav = ()=>{
+    setNav(!nav)
+  }
+
   const logOut = () => {
+    openNav()
     signOut()
     localStorage.clear()
   }
 
   return (
     <nav>
-      <div className="navBar">
+      <FiMenu className="burger" onClick={openNav} />
+      <div className={nav ? "navBar" : "navBar activeNav"}>
         <div className="logoName">
           <div className="logoDiv" >
             <img src={Logo} alt="" />
@@ -29,18 +39,18 @@ const Navbar = ({ loggedUser, signOut, getWorks }) => {
         <div className="links">
           {!loggedUser && (
             <NavLink to="/registerService" className="navBarLinks">
-              <button className="registerBtn">Registrate como Prestador</button>
+              <button className="registerBtn" onClick={openNav}>Registrate como Prestador</button>
             </NavLink>
           )}
-          <NavLink exact to="/" className="navBarLinks">
+          <NavLink exact to="/" className="navBarLinks" onClick={openNav}>
             Inicio
         </NavLink>
           {!loggedUser ? (
             <>
-              <NavLink to="/registerUser" className="navBarLinks">
+              <NavLink to="/registerUser" className="navBarLinks" onClick={openNav}>
                 Registrate
             </NavLink>
-              <NavLink to="/signIn" className="navBarLinks">
+              <NavLink to="/signIn" className="navBarLinks" onClick={openNav}>
                 Iniciar sesión
             </NavLink>
               <div className="userPic" style={{ backgroundImage: `url(${loggedUser ? loggedUser.urlPic : userPic})` }}></div>

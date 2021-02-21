@@ -29,7 +29,7 @@ const Comment = (props) => {
   const readInput = (e) => {
     setInput(e.target.value)
   }
-
+  console.log(props.loggedUser)
   return (
     <div className="comment">
       <h5>{comment.idUser.idUserBase.firstName} {comment.idUser.idUserBase.lastName}</h5>
@@ -43,8 +43,12 @@ const Comment = (props) => {
       ) : (
           <>
             <h6>{comment.comment}</h6>
-            <p onClick={delComment}>Borrar</p>
-            <p onClick={displayInput}>Editar</p>
+            {props.loggedUser.idUser === comment.idUser._id && (
+              <div className="commentBtns">
+                <p onClick={delComment}>Borrar</p>
+                <p onClick={displayInput}>Editar</p>
+              </div>
+            )}
           </>
         )}
     </div>
