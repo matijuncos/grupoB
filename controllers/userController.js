@@ -34,30 +34,30 @@ const userController = {
           return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG, JPEG, BMP ó PNG."})
        }
        const extPicUrl=fileUrlPic.name.split('.',2)[1]
-       fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPicUrl}`,error =>{
+       fileUrlPic.mv(`${__dirname}/client/build/${userBase._id}.${extPicUrl}`,error =>{
              if(error){
                 return res.json({success:false,respuesta:"Intente nuevamente..."})
              }
        })
-       userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPicUrl}`
+       userBase.urlPic=`./usersPics/${userBase._id}.${extPicUrl}`
        //WorkPic1
        const extPicWork=fileWorkPic.name.split('.',2)[1]
-       fileWorkPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}1.${extPicWork}`,error =>{
+       fileWorkPic.mv(`${__dirname}/client/build/${userBase._id}1.${extPicWork}`,error =>{
              if(error){
                 return res.json({success:false,respuesta:"Intente nuevamente..."})
              }
        })
       //WorkPic2
        const extPicWork2=fileWorkPic2.name.split('.',2)[1]
-       fileWorkPic2.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}2.${extPicWork2}`,error =>{
+       fileWorkPic2.mv(`${__dirname}/client/build/${userBase._id}2.${extPicWork2}`,error =>{
              if(error){
                 return res.json({success:false,respuesta:"Intente nuevamente..."})
              }
        })
          const newUserBase = await userBase.save()
          const idUserBase = newUserBase
-         arrayWorks.push(`./assets/usersPics/${userBase._id}1.${extPicWork}`)
-         arrayWorks.push(`./assets/usersPics/${userBase._id}2.${extPicWork2}`)
+         arrayWorks.push(`./usersPics/${userBase._id}1.${extPicWork}`)
+         arrayWorks.push(`./usersPics/${userBase._id}2.${extPicWork2}`)
          const userProvider = new UserProvider({
             idUserBase: idUserBase._id, arrayValoration, review, idProfession, arrayWorks
          })
@@ -99,12 +99,12 @@ const userController = {
                   return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."})
                }
                const extPic=fileUrlPic.name.split('.',2)[1]
-               fileUrlPic.mv(`${__dirname}/../frontend/public/assets/usersPics/${userBase._id}.${extPic}`,error =>{
+               fileUrlPic.mv(`${__dirname}/client/build/${userBase._id}.${extPic}`,error =>{
                   if(error){
                      return res.json({success:false,respuesta:"Intente nuevamente..."})
                   }
                })
-               userBase.urlPic=`./assets/usersPics/${userBase._id}.${extPic}`
+               userBase.urlPic=`./usersPics/${userBase._id}.${extPic}`
             }else{
                userBase.urlPic=googlePic
             }

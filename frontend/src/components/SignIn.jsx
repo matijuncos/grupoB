@@ -81,7 +81,7 @@ const SignIn = (props) => {
                     <h6>¿Olvidaste tu contraseña?</h6>
                 </Link>
                 <GoogleLogin
-                    clientId="1033031988698-pivaiq2e71rsq2njp75tfdd952jgl950.apps.googleusercontent.com"
+                    clientId="844411322334-bc3sorc4j8lcrmosuddqcab17jf1fs41.apps.googleusercontent.com"
                     buttonText="Iniciar con Google"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}

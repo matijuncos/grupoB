@@ -150,7 +150,7 @@ function RegistroUsuario({ signUp, googleSignUp }) {
                     </div>
                     <div>
                         <GoogleLogin className="google"
-                            clientId="84161810761-i373rjs0mohqvvd6etl56hr39pdtbbms.apps.googleusercontent.com"
+                            clientId="844411322334-bc3sorc4j8lcrmosuddqcab17jf1fs41.apps.googleusercontent.com"
                             buttonText="Crear cuenta con Google"
                             onSuccess={responseGoogle}
                             onFailure={responseGoogle}

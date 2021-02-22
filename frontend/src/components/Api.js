@@ -1,2 +1,2 @@
-const Api = 'http://localhost:4000/api'
+const Api = 'https://instantsolutionproject.herokuapp.com/api'
 export default Api
