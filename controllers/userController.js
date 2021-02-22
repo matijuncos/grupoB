@@ -34,7 +34,7 @@ const userController = {
           return res.status(500).json({success:false,response:"El formato de la imagen tiene que ser JPG, JPEG, BMP ó PNG."})
        }
        const extPicUrl=fileUrlPic.name.split('.',2)[1]
-       fileUrlPic.mv(`${__dirname}/client/build/${userBase._id}.${extPicUrl}`,error =>{
+       fileUrlPic.mv(`${__dirname}/client/build/usersPics/${userBase._id}.${extPicUrl}`,error =>{
              if(error){
                 return res.status(500).json({success:false,response:"Intente nuevamente..."})
              }
@@ -43,14 +43,14 @@ const userController = {
        //WorkPic1
        console.log('sdfjigsdipfudfgkladñfjgadlfkjgadñlfkgjadñflkgjañdlf')
        const extPicWork=fileWorkPic.name.split('.',2)[1]
-       fileWorkPic.mv(`${__dirname}/client/build/${userBase._id}1.${extPicWork}`,error =>{
+       fileWorkPic.mv(`${__dirname}/client/build/usersPics/${userBase._id}1.${extPicWork}`,error =>{
              if(error){
                 return res.status(500).json({success:false,response:"Intente nuevamente..."})
              }
        })
       //WorkPic2
        const extPicWork2=fileWorkPic2.name.split('.',2)[1]
-       fileWorkPic2.mv(`${__dirname}/client/build/${userBase._id}2.${extPicWork2}`,error =>{
+       fileWorkPic2.mv(`${__dirname}/client/build/usersPics/${userBase._id}2.${extPicWork2}`,error =>{
              if(error){
                 return res.status(500).json({success:false,response:"Intente nuevamente..."})
              }
@@ -103,7 +103,7 @@ const userController = {
                   //return res.status(500).send({success:false,response:["El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."]})
                }else{
                const extPic=fileUrlPic.name.split('.',2)[1]
-               fileUrlPic.mv(`${__dirname}/client/build/${userBase._id}.${extPic}`,error =>{
+               fileUrlPic.mv(`${__dirname}/client/build/usersPics/${userBase._id}.${extPic}`,error =>{
                   if(error){
                      test = true
                      //return res.status(500).send({success:false,response:["Intente nuevamente..."]})
