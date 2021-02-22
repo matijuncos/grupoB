@@ -55,8 +55,8 @@ const SignIn = (props) => {
         } else {
             const res = await props.signIn({
                 email: response.profileObj.email,
-                password: `Aa${response.profileObj.googleId}`
-
+                password: `Aa${response.profileObj.googleId}`,
+                google: 'true'
             }
             )
             if (res && !res.success) {

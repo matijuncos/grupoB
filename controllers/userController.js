@@ -136,7 +136,8 @@ const userController = {
                              email: userBase.email,
                              idUser: userConsumer._id,
                              _id: newUserBase._id,
-                             rol: userBase.rol
+                             rol: userBase.rol,
+                             google
                           }})
                        })
                        .catch(error => {
@@ -149,7 +150,7 @@ const userController = {
                },
 signIn: async (req,res) => {
                    // desestructuro del front la req 
-   const {email, password} = req.body
+   const {email, password, google} = req.body
    const userExist = await UserBase.findOne({email:email}) // verifica que el usuario exista y lo guarda en variable, 
    if (!userExist) {
       return res.json ({success: false, message: "El usuario y/o la contraseña no existe/n"})
@@ -173,7 +174,8 @@ signIn: async (req,res) => {
             email:userExist.email,
             idUser:userConsult._id,
             _id:userExist._id,
-            rol: userExist.rol
+            rol: userExist.rol,
+            google
          }})
       // respondo al frontEnd con un objeto que tiene el token, nombre de usuario y foto
    },
@@ -187,7 +189,8 @@ signIn: async (req,res) => {
             urlPic,
             idUser:req.body.idUser,
             _id,
-            rol
+            rol,
+            google: req.body.google
          }})
       },
    //gets user metodos
