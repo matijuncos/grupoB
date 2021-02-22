@@ -134,8 +134,7 @@ const Details = (props) => {
                         </div>
                         {/* ESTO TIENE QUE SER CONDICIONAL */}
                         {(props.loggedUser && (props.loggedUser.rol === 'consumer')) && props.userWork.lenght !== 0 && props.userWork.map(work => {
-                            if (work.idUserConsumer._id === props.loggedUser.idUser) {
-
+                            if (work.idUserProvider._id === id) {
                                 workExists = true
                             }
                         })
