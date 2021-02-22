@@ -31,12 +31,12 @@ const userController = {
        //File urlPic
        const {fileUrlPic,fileWorkPic,fileWorkPic2}=req.files
        if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0&&fileWorkPic.mimetype.indexOf('image/jpeg')!==0&&fileWorkPic2.mimetype.indexOf('image/jpeg')!==0){
-          return res.json({success:false,respuesta:"El formato de la imagen tiene que ser JPG, JPEG, BMP ó PNG."})
+          return res.json({success:false,response:"El formato de la imagen tiene que ser JPG, JPEG, BMP ó PNG."})
        }
        const extPicUrl=fileUrlPic.name.split('.',2)[1]
        fileUrlPic.mv(`${__dirname}/client/build/${userBase._id}.${extPicUrl}`,error =>{
              if(error){
-                return res.json({success:false,respuesta:"Intente nuevamente..."})
+                return res.json({success:false,response:"Intente nuevamente..."})
              }
        })
        userBase.urlPic=`./usersPics/${userBase._id}.${extPicUrl}`
@@ -44,17 +44,18 @@ const userController = {
        const extPicWork=fileWorkPic.name.split('.',2)[1]
        fileWorkPic.mv(`${__dirname}/client/build/${userBase._id}1.${extPicWork}`,error =>{
              if(error){
-                return res.json({success:false,respuesta:"Intente nuevamente..."})
+                return res.json({success:false,response:"Intente nuevamente..."})
              }
        })
       //WorkPic2
        const extPicWork2=fileWorkPic2.name.split('.',2)[1]
        fileWorkPic2.mv(`${__dirname}/client/build/${userBase._id}2.${extPicWork2}`,error =>{
              if(error){
-                return res.json({success:false,respuesta:"Intente nuevamente..."})
+                return res.json({success:false,response:"Intente nuevamente..."})
              }
        })
          const newUserBase = await userBase.save()
+         console.log(newUserBase, 'aaaaaaaaaaaa')
          const idUserBase = newUserBase
          arrayWorks.push(`./usersPics/${userBase._id}1.${extPicWork}`)
          arrayWorks.push(`./usersPics/${userBase._id}2.${extPicWork2}`)
@@ -63,6 +64,7 @@ const userController = {
          })
          userProvider.save()
          .then(async newUserProvider =>{
+            console.log(newUserProvider, 'bbbbbbbbbbbbbbbb')
             // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
             const populateUserProvider = await newUserProvider.populate('idUserBase').execPopulate()
             var token = jwtoken.sign({...populateUserProvider}, process.env.SECRET_KEY, {})
