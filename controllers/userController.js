@@ -247,7 +247,7 @@ signIn: async (req,res) => {
             case 1:
                message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible haciendo click en el siguiente link.</p>
                <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
-               <a href='https://instantsolutionproject.herokuapp.com/profesionales/${userProvider._id}'>Ir al sitio</a>
+               <a href='https://instantsolutionproject.herokuapp.com/signin'>Ir al sitio</a>
                `
                break;
             case 2:
@@ -258,7 +258,7 @@ signIn: async (req,res) => {
                break;
             case 3:
                message=`<p>La orden de trabajo Nº-${orden} ha sido finalizada con exito. Dejale un comentario y regalale unas estrellitas de acuerdo a la calidad de su servicio, haciendo click en el siguiente link!</p>
-               <a href='https://instantsolutionproject.herokuapp.com/profesionales/${userProvider._id}'>Ir al sitio</a>
+               <a href='https://instantsolutionproject.herokuapp.com/signin'>Ir al sitio</a>
                <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
                `
                break;
