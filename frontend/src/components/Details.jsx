@@ -75,7 +75,7 @@ const Details = (props) => {
             props.getProviders()
             Alert.success('Calificaste a tu proveedor con ' + e.target.value + ' estrellas!', 4000)
             props.changeState(props.userWork[0]._id)
-            props.deleteWorkbyId(props.userWork[0]._id)
+            props.deleteWorkbyId({ idWork: props.userWork[0]._id, action: 'Delete', type: 'rank' })
 
         } else if (props.userWork && props.userWork[0].state !== 3) {
             Alert.error('No podés calificar a un profesional hasta que finalice su trabajo :)')

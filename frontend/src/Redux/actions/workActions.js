@@ -49,8 +49,8 @@ const workActions = {
   deleteWorkbyId: (id) =>{
     return async (dispatch, getState) =>{
       try{
-        const res = await axios.post(Api+'/mail/sendMail', {action: 'Delete', idWork: id})
-        const response = await axios.delete(Api+'/work/'+id)
+        const res = await axios.post(Api+'/mail/sendMail', id)
+        const response = await axios.delete(Api+'/work/'+id.idWork)
         dispatch({type:'DEL_WORK', payload:response.data})
       }
       catch(error){

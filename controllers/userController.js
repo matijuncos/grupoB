@@ -56,7 +56,6 @@ const userController = {
              }
        })
          const newUserBase = await userBase.save()
-         console.log(newUserBase, 'aaaaaaaaaaaa')
          const idUserBase = newUserBase
          arrayWorks.push(`./usersPics/${userBase._id}1.${extPicWork}`)
          arrayWorks.push(`./usersPics/${userBase._id}2.${extPicWork2}`)
@@ -229,6 +228,7 @@ signIn: async (req,res) => {
       var message=""
       const idWork=req.body.idWork
       const action = req.body.action
+      const type = req.body.type
       
       const work=await Work.findOne({'_id':idWork}).populate('idUserConsumer').populate('idUserProvider').populate({path:'idUserConsumer',populate:{path:'idUserBase',model:'userBase'}}).populate({path:'idUserProvider',populate:{path:'idUserBase',model:'userBase'}})
       userConsumer=work.idUserConsumer.idUserBase
@@ -236,7 +236,7 @@ signIn: async (req,res) => {
       var to=`${userConsumer.email},${userProvider.email}`
       const orden=`${work._id.toString().slice(2,7)}${userConsumer.lastName.toString().slice(0,3)}`
       var subject= work.state===1 ? "Se ha abierto con exito la solicitud." : work.state===2  ? "La propuesta de trabajo ha sido aceptado." :work.state===3 && "El trabajo se ha terminado."
-      if (action === 'Delete'){
+      if (action === 'Delete' && type !== 'rank'){
          subject= 'El profesional rechazó su solicitud'
          message= `<p>El proveedor <span>${userProvider.lastName} ${userProvider.firstName}</span>, ha rechazado su solicitud. Intente con otro profesional.</p>
          <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
@@ -247,7 +247,7 @@ signIn: async (req,res) => {
             case 1:
                message=`<p>El cliente <span>${userConsumer.lastName} ${userConsumer.firstName}</span>, te ha enviado una solicitud de trabajo <span>Nº-${orden}</span>, por favor revisala lo antes posible haciendo click en el siguiente link.</p>
                <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
-               <a href='${userProvider._id}'>Ir al sitio</a>
+               <a href='https://instantsolutionproject.herokuapp.com/profesionales/${userProvider._id}'>Ir al sitio</a>
                `
                break;
             case 2:
@@ -258,7 +258,7 @@ signIn: async (req,res) => {
                break;
             case 3:
                message=`<p>La orden de trabajo Nº-${orden} ha sido finalizada con exito. Dejale un comentario y regalale unas estrellitas de acuerdo a la calidad de su servicio, haciendo click en el siguiente link!</p>
-               <a href='${userProvider._id}'>Ir al sitio</a>
+               <a href='https://instantsolutionproject.herokuapp.com/profesionales/${userProvider._id}'>Ir al sitio</a>
                <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
                `
                break;
@@ -425,7 +425,7 @@ signIn: async (req,res) => {
       var to=`${userExist.email}`
       var subject= "Restablecimiento de contraseña"
       var message= `<p>Para Restablecer la <span>contraseña</span>, ingresa al siguiente link.</p>
-      <a href='http://localhost:3000/resetpassword/${tokenResetPassword}'>Restablecer la contraseña</a>
+      <a href='https://instantsolutionproject.herokuapp.com/resetpassword/${tokenResetPassword}'>Restablecer la contraseña</a>
       <p class="firma">¡Tu mejor elección!<br>Equipo de Instant Solution</p>
       ` 
       const html=`
