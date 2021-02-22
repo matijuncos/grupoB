@@ -123,6 +123,7 @@ const userController = {
                   .then(async newUserConsumer =>{
                      // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
                      const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
+                     console.log(populateUserConsumer)
                      var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
                      return res.status(200).send({
                         success:true, 
