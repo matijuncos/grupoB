@@ -89,7 +89,7 @@ const userController = {
       
       const {firstName, lastName, urlPic, email, phone, password, country, rol, google, googlePic} = req.body
       const emailExists = await UserBase.findOne({email: email})
-      if (emailExists){ return res.status(500).json({success: false, response: ["Este correo ya esta siendo usado."]})}
+      if (emailExists){ return res.status(500).send({success: false, response: ["Este correo ya esta siendo usado."]})}
       else{
             const hashedPassword =  bcryptjs.hashSync(password, 10)
             const userBase = new UserBase ({
@@ -99,12 +99,12 @@ const userController = {
             if(google !== 'true'){
                const {fileUrlPic}=req.files
                if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
-                  return res.status(500).json({success:false,response:["El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."]})
+                  return res.status(500).send({success:false,response:["El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."]})
                }
                const extPic=fileUrlPic.name.split('.',2)[1]
                fileUrlPic.mv(`${__dirname}/client/build/${userBase._id}.${extPic}`,error =>{
                   if(error){
-                     return res.status(500).json({success:false,response:["Intente nuevamente..."]})
+                     return res.status(500).send({success:false,response:["Intente nuevamente..."]})
                   }
                })
                userBase.urlPic=`./usersPics/${userBase._id}.${extPic}`
@@ -125,7 +125,7 @@ const userController = {
                      // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
                      const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
                      var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
-                     return res.status(200).json({
+                     return res.status(200).send({
                         success:true, 
                         response:{
                            token,
@@ -138,10 +138,10 @@ const userController = {
                         }})
                      })
                      .catch(error => {
-                        return res.status(500).json({success:false, response: []})})
+                        return res.status(500).send({success:false, response: []})})
                      }
                      catch{
-                        return res.status(500).json({success:false, response:[]})
+                        return res.status(500).send({success:false, response:[]})
                      }}
                   },
 signIn: async (req,res) => {
