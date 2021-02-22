@@ -12,7 +12,7 @@ function RegistroProvedor(props) {
     const countries = require('../data/dataContryNames.json')
     // Funcion para ler input
     useEffect(() => {
-        fetch('https://localhost:4000/api/professions/')
+        fetch(Api + '/professions/')
             .then(response => response.json())
             .then(data => setProfessions(data.response))
     }, [])
