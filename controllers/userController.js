@@ -41,6 +41,7 @@ const userController = {
        })
        userBase.urlPic=`./usersPics/${userBase._id}.${extPicUrl}`
        //WorkPic1
+       console.log('sdfjigsdipfudfgkladñfjgadlfkjgadñlfkgjadñflkgjañdlf')
        const extPicWork=fileWorkPic.name.split('.',2)[1]
        fileWorkPic.mv(`${__dirname}/client/build/${userBase._id}1.${extPicWork}`,error =>{
              if(error){
