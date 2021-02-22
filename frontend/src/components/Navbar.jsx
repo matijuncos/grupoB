@@ -20,7 +20,7 @@ const Navbar = ({ loggedUser, signOut, getWorks }) => {
     signOut()
     localStorage.clear()
   }
-  console.log(loggedUser)
+
   return (
     <nav>
       <FiMenu className="burger" onClick={openNav} />
