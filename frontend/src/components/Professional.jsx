@@ -12,6 +12,7 @@ const Professional = ({ professionals }) => {
         <div className="user">
           <div className="fotoUser" style={{ backgroundImage: `url(.${idUserBase.urlPic})` }}></div>
           <div><h2>{idUserBase.firstName} {idUserBase.lastName}</h2></div>
+          <p>{professionals.arrayValoration.lenght} Valoraciones</p>
           <div>{[...Array(5)].map((m, i) => {
             const ratingValue = i + 1
             return (

@@ -60,7 +60,7 @@ function RegistroUsuario({ signUp, googleSignUp }) {
         fdNewUser.append('rol', 'consumer')
 
         const res = await signUp(fdNewUser)
-        console.log(res)
+
         //mostrar al usuario sí el objeto con la propiedad success es true o false
         //el objeto respuesta va a llegar como un array de strings
         if (res && !res.success) {

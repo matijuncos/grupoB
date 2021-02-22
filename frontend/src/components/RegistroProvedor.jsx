@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import GoogleLogin from 'react-google-login'
+import { Alert } from 'rsuite'
 import { connect } from 'react-redux'
 import userActions from '../Redux/actions/userActions'
 import { FaEye } from "react-icons/fa";
@@ -12,7 +12,7 @@ function RegistroProvedor(props) {
     const countries = require('../data/dataContryNames.json')
     // Funcion para ler input
     useEffect(() => {
-        fetch(Api + '/professions/')
+        fetch('https://localhost:4000/api/professions/')
             .then(response => response.json())
             .then(data => setProfessions(data.response))
     }, [])
@@ -31,6 +31,10 @@ function RegistroProvedor(props) {
     }
     //Funcion para enviar formulario 
     const validarUsuario = async () => {
+        if (newProfessional.firstName === '' || newProfessional.lastName === '' || newProfessional.email === '' || newProfessional.phone === '' || newProfessional.password === '' || newProfessional.country === '' || newProfessional.idProfession === '') {
+            Alert.error('Todos los campos deben estar completos', 4000)
+            return false
+        }
         const fdNewUser = new FormData()
         fdNewUser.append('firstName', newProfessional.firstName)
         fdNewUser.append('lastName', newProfessional.lastName)
