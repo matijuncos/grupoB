@@ -86,7 +86,7 @@ const userController = {
       }      
    },
    addUserCustomer: async (req, res) =>{
-      
+      var test = false
       const {firstName, lastName, urlPic, email, phone, password, country, rol, google, googlePic} = req.body
       const emailExists = await UserBase.findOne({email: email})
       if (emailExists){ return res.status(500).send({success: false, response: ["Este correo ya esta siendo usado."]})
@@ -99,12 +99,14 @@ const userController = {
             if(google !== 'true'){
                const {fileUrlPic}=req.files
                if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
-                  return res.status(500).send({success:false,response:["El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."]})
+                  test = true
+                  //return res.status(500).send({success:false,response:["El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."]})
                }else{
                const extPic=fileUrlPic.name.split('.',2)[1]
                fileUrlPic.mv(`${__dirname}/client/build/${userBase._id}.${extPic}`,error =>{
                   if(error){
-                     return res.status(500).send({success:false,response:["Intente nuevamente..."]})
+                     test = true
+                     //return res.status(500).send({success:false,response:["Intente nuevamente..."]})
                   }
                })
                userBase.urlPic=`./usersPics/${userBase._id}.${extPic}`}
@@ -112,33 +114,37 @@ const userController = {
                userBase.urlPic=googlePic
             }
                // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
-                  const newUserBase = await userBase.save()
-                  const idUserBase = newUserBase._id
-                  const userConsumer = new UserConsumer({
-                     //_id:idUserBase,
-                     idUserBase:idUserBase
-                  })
-                  
-                  userConsumer.save()
-                  .then(async newUserConsumer =>{
-                     // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
-                     const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
-                     console.log(populateUserConsumer)
-                     var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
-                     return res.status(200).send({
-                        success:true, 
-                        response:{
-                           token,
-                           firstName: userBase.firstName,
-                           urlPic: userBase.urlPic,
-                           email: userBase.email,
-                           idUser: userConsumer._id,
-                           _id: newUserBase._id,
-                           rol: userBase.rol
-                        }})
-                     })
-                     .catch(error => {
-                        return res.status(500).send({success:false, response: []})})
+                 if(test === false){
+                    const newUserBase = await userBase.save()
+                    const idUserBase = newUserBase._id
+                    const userConsumer = new UserConsumer({
+                       //_id:idUserBase,
+                       idUserBase:idUserBase
+                    })
+                    
+                    userConsumer.save()
+                    .then(async newUserConsumer =>{
+                       // Populo el UserBase dentro del UserProvider para obtener el usuario mas sus datos
+                       const populateUserConsumer = await newUserConsumer.populate('idUserBase').execPopulate()
+                       console.log(populateUserConsumer)
+                       var token = jwtoken.sign({...populateUserConsumer}, process.env.SECRET_KEY, {})
+                       return res.status(200).send({
+                          success:true, 
+                          response:{
+                             token,
+                             firstName: userBase.firstName,
+                             urlPic: userBase.urlPic,
+                             email: userBase.email,
+                             idUser: userConsumer._id,
+                             _id: newUserBase._id,
+                             rol: userBase.rol
+                          }})
+                       })
+                       .catch(error => {
+                          return res.status(500).send({success:false, response: []})})
+                 }else{
+                    return res.status(500).send({success:false, response: []})
+                 }
                   
                   }
                },
