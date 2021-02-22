@@ -82,7 +82,7 @@ const SignIn = (props) => {
                 </Link>
                 <GoogleLogin
                     clientId="844411322334-bc3sorc4j8lcrmosuddqcab17jf1fs41.apps.googleusercontent.com"
-                    buttonText="Iniciar con Google"
+                    buttonText="Iniciar sesión con Google"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
