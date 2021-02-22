@@ -60,7 +60,7 @@ const Work = (props) => {
             ) :
 
             <div className="workDetails">
-               <div className='radius' style={{ width: '50px', height: '50px', backgroundImage: `url('${idUserProvider.idUserBase.urlPic.startsWith('.') ? (window.location.pathname !== '/' ? '.' : '') : ''}')`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}></div>
+               <div className='radius' style={{ width: '50px', height: '50px', backgroundImage: `url('${idUserConsumer.idUserBase.urlPic.startsWith('.') ? (window.location.pathname !== '/' ? '.' : '') : ''}${idUserConsumer && idUserConsumer.idUserBase.urlPic}')`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}></div>
                <h5>{idUserConsumer && idUserConsumer.idUserBase.firstName} {idUserConsumer && idUserConsumer.idUserBase.lastName}</h5>
                <small>{idUserConsumer && idUserConsumer.idUserBase.email}</small>
                <h5 className={state === 3 ? 'success' : ''}>{currentState}</h5>
