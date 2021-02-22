@@ -89,8 +89,8 @@ const userController = {
       
       const {firstName, lastName, urlPic, email, phone, password, country, rol, google, googlePic} = req.body
       const emailExists = await UserBase.findOne({email: email})
-      if (emailExists){ return res.status(500).send({success: false, response: ["Este correo ya esta siendo usado."]})}
-      else{
+      if (emailExists){ return res.status(500).send({success: false, response: ["Este correo ya esta siendo usado."]})
+   } else{
             const hashedPassword =  bcryptjs.hashSync(password, 10)
             const userBase = new UserBase ({
             firstName, lastName, urlPic, email, phone, password:hashedPassword, country, rol
@@ -100,19 +100,18 @@ const userController = {
                const {fileUrlPic}=req.files
                if(fileUrlPic.mimetype.indexOf('image/jpeg')!==0){
                   return res.status(500).send({success:false,response:["El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."]})
-               }
+               }else{
                const extPic=fileUrlPic.name.split('.',2)[1]
                fileUrlPic.mv(`${__dirname}/client/build/${userBase._id}.${extPic}`,error =>{
                   if(error){
                      return res.status(500).send({success:false,response:["Intente nuevamente..."]})
                   }
                })
-               userBase.urlPic=`./usersPics/${userBase._id}.${extPic}`
+               userBase.urlPic=`./usersPics/${userBase._id}.${extPic}`}
             }else{
                userBase.urlPic=googlePic
             }
                // Guardo en la base de datos el usuario base y luego lo voy a popular en el idUserBase para tener el resto de los datos         
-               try{
                   const newUserBase = await userBase.save()
                   const idUserBase = newUserBase._id
                   const userConsumer = new UserConsumer({
@@ -139,11 +138,9 @@ const userController = {
                      })
                      .catch(error => {
                         return res.status(500).send({success:false, response: []})})
-                     }
-                     catch{
-                        return res.status(500).send({success:false, response:[]})
-                     }}
-                  },
+                  
+                  }
+               },
 signIn: async (req,res) => {
                    // desestructuro del front la req 
    const {email, password} = req.body
