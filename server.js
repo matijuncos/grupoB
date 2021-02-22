@@ -1,12 +1,11 @@
 const express = require('express')
 const path = require('path')
+const cors = require('cors')
 require('dotenv').config()
 require('./config/database')
-const cors = require('cors')
-
 const router = require('./routes')
-const app = express()
 const fileUpload = require('express-fileupload')
+const app = express()
 
 
 app.use(express.json())
@@ -14,6 +13,7 @@ app.use(cors())
 app.use(fileUpload())
 
 app.use('/api', router)
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
   app.get('*', (req, res) => {
