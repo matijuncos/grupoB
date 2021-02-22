@@ -103,6 +103,7 @@ const userController = {
                   //return res.status(500).send({success:false,response:["El formato de la imagen tiene que ser JPG,JPEG,BMP ó PNG."]})
                }else{
                const extPic=fileUrlPic.name.split('.',2)[1]
+               console.log(`${__dirname}/client/build/usersPics/${userBase._id}.${extPic}`, 'aaaaaaaaaaaaaaaaaaaaaaaaaa')
                fileUrlPic.mv(`${__dirname}/client/build/usersPics/${userBase._id}.${extPic}`,error =>{
                   if(error){
                      test = true
